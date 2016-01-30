@@ -3,6 +3,7 @@ package main;
 import java.util.Scanner;
 
 import map.TileGrid;
+import map.TileType;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -21,13 +22,31 @@ public class Boot {
 	private static int noColumns;
 	public Boot()
 	{	
-		Scanner keyboard = new Scanner(System.in);		
-		System.out.println("Enter Number of Rows & Columns for MAP=");
-		noRows=keyboard.nextInt();
-		noColumns=keyboard.nextInt();
+		//Scanner keyboard = new Scanner(System.in);		
+		//System.out.println("Enter Number of Rows & Columns for MAP=");
+		//noRows=keyboard.nextInt();
+		//noColumns=keyboard.nextInt();
+		
+		noRows=10;
+		noColumns=10;
+		int[][]map={
+					{0,0,0,0,0,0,0,0,0,0},
+					{0,0,0,0,0,0,0,0,0,0},
+					{0,0,0,0,1,0,0,0,0,0},
+					{0,0,0,0,0,0,0,0,0,0},
+					{0,0,0,0,0,0,0,0,0,0},
+					{0,0,0,0,0,0,0,0,0,0},
+					{0,0,0,0,0,0,2,0,0,0},
+					{0,0,0,0,0,0,0,0,0,0},
+					{0,0,0,0,0,0,0,0,0,0},
+					{0,0,0,0,0,0,0,0,0,0}
+				};
 
 		beginSession();
-		TileGrid grid=new TileGrid(noRows, noColumns);
+		TileGrid grid=new TileGrid(map,noRows, noColumns);
+		grid.setTile(0, 0, TileType.Water);  // setting a particular tile
+		grid.setTile(0, 0, grid.getTile(1, 1).getType());// setting a tile correspond to given one 
+		
 		while(!Display.isCloseRequested()){
 
 			grid.draw();

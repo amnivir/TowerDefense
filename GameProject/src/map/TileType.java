@@ -1,7 +1,7 @@
 package map;
 
 public enum TileType {
-	Grass("grass",true),Dirt("dirt",false);
+	Grass("grass",true),Dirt("dirt",false),Water("water",false);
 
 	String textureName;
 	boolean buildable;

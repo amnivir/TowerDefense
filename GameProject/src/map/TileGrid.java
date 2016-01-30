@@ -19,6 +19,42 @@ public class TileGrid {
 		}
 	}
 	
+	public TileGrid(int[][] newMap, int rows, int columns){
+		
+		map=new Tile[columns][rows];
+		System.out.println(map.length);
+		System.out.println(map[0].length);
+		
+		// for loop to check the static array values and set the corresponding tiles.
+		for(int i=0; i<map.length; i++){
+			for(int j=0; j<map[i].length; j++){
+				
+				switch(newMap[j][i]){
+					case 0:
+						map[i][j]=new Tile(i*64, j*64, 64, 64, TileType.Grass);
+						break;
+					case 1:
+						map[i][j]=new Tile(i*64, j*64, 64, 64, TileType.Dirt);
+						break;
+					case 2:
+						map[i][j]=new Tile(i*64, j*64, 64, 64, TileType.Water);
+						break;	
+				}
+				
+			}
+		}
+	}
+	// method to set a tile at a particular position
+	public void setTile(int xCoord, int yCoord, TileType tile){
+		map[xCoord][yCoord]=new Tile(xCoord*64, yCoord*64, 64, 64, tile);
+		
+	}
+	//method to return a tile 
+	public Tile getTile(int xCoord, int yCoord)	{
+		
+		return map[xCoord][yCoord];
+	}
+	
 	public void draw(){
 		for(int i=0;i<map.length;i++){
 			for(int j=0;j<map[i].length;j++){
