@@ -47,9 +47,12 @@ public class Boot {
 		grid.setTile(0, 0, TileType.Water);  // setting a particular tile
 		grid.setTile(0, 0, grid.getTile(1, 1).getType());// setting a tile correspond to given one 
 		
+		Player player=new Player(grid);
+		
 		while(!Display.isCloseRequested()){
 
 			grid.draw();
+			player.setTile();
 			Display.update();
 			Display.sync(60);
 		}
