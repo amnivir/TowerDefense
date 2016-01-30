@@ -44,12 +44,24 @@ public class TileGrid {
 			}
 		}
 	}
-	// method to set a tile at a particular position
+	/**
+	 * This method to set a tile at a particular position 
+	 * <p>
+	 * @param  xCoord  X coordinate of the tile 
+	 * @param  yCoord  Y coordinate of the tile
+	 * @return void
+	 */
 	public void setTile(int xCoord, int yCoord, TileType tile){
 		map[xCoord][yCoord]=new Tile(xCoord*64, yCoord*64, 64, 64, tile);
 		
 	}
-	//method to return a tile 
+	/**
+	 * This method to set a tile at a particular position 
+	 * <p>
+	 * @param  xCoord  X coordinate of the tile 
+	 * @param  yCoord  Y coordinate of the tile
+	 * @return map object at (xCoord, yCoord) coordinate
+	 */
 	public Tile getTile(int xCoord, int yCoord)	{
 		
 		return map[xCoord][yCoord];

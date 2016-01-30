@@ -58,6 +58,12 @@ public class Boot {
 		}
 		Display.destroy();
 	}
+	public static int getNoRows() {
+		return noRows;
+	}
+	public static int getNoColumns() {
+		return noColumns;
+	}
 	public static void main(String args[])
 	{
 		new Boot();
