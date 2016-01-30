@@ -1,7 +1,8 @@
-package main;
+package map;
 
 import org.newdawn.slick.opengl.Texture;
-import static helpers.Designer.*;
+
+import static graphics.Designer.*;
 
 public class Tile {
 

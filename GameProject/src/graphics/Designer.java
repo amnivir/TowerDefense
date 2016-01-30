@@ -1,4 +1,4 @@
-package helpers;
+package graphics;
 
 import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
 import static org.lwjgl.opengl.GL11.GL_PROJECTION;
@@ -28,7 +28,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class Designer {
 
-	public static final int WIDTH=1280, HEIGHT=960;
+	public static final int WIDTH=1280, HEIGHT=640;
 	
 	public static void beginSession(){
 

@@ -1,4 +1,4 @@
-package main;
+package map;
 
 public enum TileType {
 	Grass("grass",true),Dirt("dirt",false);

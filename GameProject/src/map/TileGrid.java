@@ -1,11 +1,15 @@
-package main;
-import static helpers.Designer.*;
+package map;
+import static graphics.Designer.*;
+import main.Boot;
 
 public class TileGrid {
 
 	public Tile map[][];
-	public TileGrid(){
-		map=new Tile[20][15];
+	public TileGrid(int rows, int columns){
+		
+		map=new Tile[columns][rows];
+		System.out.println(map.length);
+		System.out.println(map[0].length);
 		
 		for(int i=0; i<map.length; i++){
 			for(int j=0; j<map[i].length; j++){
