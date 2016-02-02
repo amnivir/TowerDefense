@@ -24,14 +24,20 @@ public class Player {
 	 */
 	public void setTile(){
 		//TODO do not set tile multiple times i.e. set the tile only once and add toggle effect
-		
+		//TODO set only valid tile
 		if((Mouse.getX() / 64)<Boot.getNoRows())
 			//&& (HEIGHT-Mouse.getY()-1) <=Boot.getNoColumns())
-			grid.setTile((int)Math.floor(Mouse.getX() / 64),(int)Math.floor((HEIGHT-Mouse.getY()-1) / 64), 
-					TileType.Dirt);
-		else
+			if(Mouse.isButtonDown(0)) // if left mouse key is pressed
+				grid.setTile((int)Math.floor(Mouse.getX() / 64),(int)Math.floor((HEIGHT-Mouse.getY()-1) / 64),TileType.Dirt);
 			
-			System.out.println("Mouse="+(HEIGHT-Mouse.getY()-1) + "Columns=" + Boot.getNoColumns());
+		
+			if(Mouse.isButtonDown(1))// if right mouse key is pressed
+			{
+				grid.setTile((int)Math.floor(Mouse.getX() / 64),(int)Math.floor((HEIGHT-Mouse.getY()-1) / 64),TileType.Grass);
+			}
+//		else
 			
+		//	System.out.println("Mouse="+(HEIGHT-Mouse.getY()-1) + "Columns=" + Boot.getNoColumns());
+	
 	}
 }
