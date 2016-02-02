@@ -21,6 +21,8 @@ import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import java.io.IOException;
 import java.io.InputStream;
 
+import map.TileGrid;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -28,14 +30,13 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
-
-
 public class Designer {
 
-	public static final int WIDTH=1280, HEIGHT=640;
-	
-	public static void beginSession(){
-
+	public static int WIDTH=1280, HEIGHT=640;
+	static int  blockSize = 32;
+	public static void beginSession(int numRows,int numCols){
+		HEIGHT= numCols*blockSize;
+		WIDTH= numRows*blockSize+300;
 		try {
 			Display.setTitle("New Game");
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));

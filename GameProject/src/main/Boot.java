@@ -22,14 +22,14 @@ public class Boot {
 	private static int noColumns;
 	public Boot()
 	{	
-		//Scanner keyboard = new Scanner(System.in);		
-		//System.out.println("Enter Number of Rows & Columns for MAP=");
-		//noRows=keyboard.nextInt();
-		//noColumns=keyboard.nextInt();
+		Scanner keyboard = new Scanner(System.in);		
+		System.out.println("Enter Number of Rows & Columns for MAP=");
+		noRows=keyboard.nextInt();
+		noColumns=keyboard.nextInt();
 		
-		noRows=10;
-		noColumns=10;
-		int[][]map={
+		//noRows=10;
+		//noColumns=10;
+		/*int[][]map={
 					{0,0,0,0,0,0,0,0,0,0},
 					{0,0,0,0,0,0,0,0,0,0},
 					{0,0,0,0,1,0,0,0,0,0},
@@ -40,9 +40,11 @@ public class Boot {
 					{0,0,0,0,0,0,0,0,0,0},
 					{0,0,0,0,0,0,0,0,0,0},
 					{0,0,0,0,0,0,0,0,0,0}
-				};
-
-		beginSession();
+				};*/
+		//int initialmapvalue=0;
+		int[][] map  = new int[noRows][noColumns];
+		
+		beginSession(noRows,noColumns);
 		TileGrid grid=new TileGrid(map,noRows, noColumns);
 		grid.setTile(0, 0, TileType.Water);  // setting a particular tile
 		grid.setTile(0, 0, grid.getTile(1, 1).getType());// setting a tile correspond to given one 

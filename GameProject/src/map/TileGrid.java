@@ -3,7 +3,7 @@ import static graphics.Designer.*;
 import main.Boot;
 
 public class TileGrid {
-
+	int blockSize = 32;
 	public Tile map[][];
 	public TileGrid(int rows, int columns){
 		
@@ -13,7 +13,7 @@ public class TileGrid {
 		
 		for(int i=0; i<map.length; i++){
 			for(int j=0; j<map[i].length; j++){
-				map[i][j]=new Tile(i*64, j*64, 64, 64, TileType.Grass);
+				map[i][j]=new Tile(i*blockSize, j*blockSize, blockSize, blockSize, TileType.Grass);
 				
 			}
 		}
@@ -31,13 +31,13 @@ public class TileGrid {
 				
 				switch(newMap[j][i]){
 					case 0:
-						map[i][j]=new Tile(i*64, j*64, 64, 64, TileType.Grass);
+						map[i][j]=new Tile(i*blockSize, j*blockSize, blockSize, blockSize, TileType.Grass);
 						break;
 					case 1:
-						map[i][j]=new Tile(i*64, j*64, 64, 64, TileType.Dirt);
+						map[i][j]=new Tile(i*blockSize, j*blockSize, blockSize, blockSize, TileType.Dirt);
 						break;
 					case 2:
-						map[i][j]=new Tile(i*64, j*64, 64, 64, TileType.Water);
+						map[i][j]=new Tile(i*blockSize, j*blockSize, blockSize, blockSize, TileType.Water);
 						break;	
 				}
 				
@@ -52,7 +52,7 @@ public class TileGrid {
 	 * @return void
 	 */
 	public void setTile(int xCoord, int yCoord, TileType tile){
-		map[xCoord][yCoord]=new Tile(xCoord*64, yCoord*64, 64, 64, tile);
+		map[xCoord][yCoord]=new Tile(xCoord*blockSize, yCoord*blockSize, blockSize, blockSize, tile);
 		
 	}
 	/**
