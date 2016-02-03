@@ -1,5 +1,7 @@
 package main;
 
+import graphics.DesignerButtons;
+
 import java.util.Scanner;
 
 import map.TileGrid;
@@ -20,6 +22,7 @@ public class Boot {
 
 	private static int noRows;
 	private static int noColumns;
+	public static Player player=null;
 	public Boot()
 	{	
 		Scanner keyboard = new Scanner(System.in);		
@@ -46,14 +49,16 @@ public class Boot {
 		
 		beginSession(noRows,noColumns);
 		TileGrid grid=new TileGrid(map,noRows, noColumns);
-		grid.setTile(0, 0, TileType.Water);  // setting a particular tile
-		grid.setTile(0, 0, grid.getTile(1, 1).getType());// setting a tile correspond to given one 
+		//grid.setTile(0, 0, TileType.Water);  // setting a particular tile
+		//grid.setTile(0, 0, grid.getTile(1, 1).getType());// setting a tile correspond to given one 
 		
-		Player player=new Player(grid);
+		player=new Player(grid);
 		
+		DesignerButtons designerButtons = new DesignerButtons(WIDTH, HEIGHT);
 		while(!Display.isCloseRequested()){
-
+			
 			grid.draw();
+			designerButtons.draw();
 			player.setTile();
 			Display.update();
 			Display.sync(60);

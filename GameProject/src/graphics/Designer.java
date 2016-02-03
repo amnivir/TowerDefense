@@ -21,7 +21,10 @@ import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import java.io.IOException;
 import java.io.InputStream;
 
+import main.Boot;
+import main.Player;
 import map.TileGrid;
+import map.TileType;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -30,10 +33,14 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
+
 public class Designer {
 
 	public static int WIDTH=1280, HEIGHT=640;
 	static int  blockSize = 32;
+	
+	
+	
 	public static void beginSession(int numRows,int numCols){
 		HEIGHT= numCols*blockSize;
 		WIDTH= numRows*blockSize+300;
@@ -52,6 +59,7 @@ public class Designer {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
+		
 		}
 	
 	public static void drawQuad(float x, float y, float width, float height){
@@ -61,6 +69,7 @@ public class Designer {
 		glVertex2f(x+width, y+height);
 		glVertex2f(x, y+height);
 		glEnd();
+		
 	}
 	public static void drawQuadTex(Texture tex, float x, float y, float width, float height){
 
@@ -70,6 +79,7 @@ public class Designer {
 		glTexCoord2f(0, 0);
 		glVertex2f(0, 0);
 		glTexCoord2f(1, 0);
+		
 		glVertex2f(width, 0);
 		glTexCoord2f(1, 1);
 		glVertex2f(width, height);
@@ -95,6 +105,7 @@ public class Designer {
 	{
 		Texture tex=null;
 		tex=loadTexture("res/"+name+".png","PNG");
+		
 		return tex;
 	}
 	

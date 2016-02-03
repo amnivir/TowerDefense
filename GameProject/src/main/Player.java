@@ -9,6 +9,8 @@ public class Player {
 
 	private TileGrid grid;
 	int  blockSize =32;
+	public TileType currentTile= TileType.Grass;
+	
 	Player(TileGrid grid){
 		this.grid=grid;
 	}
@@ -24,17 +26,16 @@ public class Player {
 	 */
 	public void setTile(){
 		//TODO do not set tile multiple times i.e. set the tile only once and add toggle effect
-		//TODO set only valid tile
 		
 		if(((Mouse.getX() / blockSize) < Boot.getNoColumns()) && (((HEIGHT - Mouse.getY()) / blockSize) < Boot.getNoRows()))
 			//&& (HEIGHT-Mouse.getY()-1) <=Boot.getNoColumns())
 			if(Mouse.isButtonDown(0)) // if left mouse key is pressed
-				grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),TileType.Dirt);
+				grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
 			
 		
 			if(Mouse.isButtonDown(1))// if right mouse key is pressed
 			{
-				grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),TileType.Grass);
+				grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
 			}
 			
 			
