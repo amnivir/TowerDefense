@@ -26,7 +26,7 @@ public class Boot {
 	public Boot()
 	{	
 		Scanner keyboard = new Scanner(System.in);		
-		System.out.println("Enter Number of Rows & Columns for MAP=");
+		System.out.println("Enter Number of Rows & Columns for the MAP(max. 20x20)=");
 		noRows=keyboard.nextInt();
 		noColumns=keyboard.nextInt();
 		
@@ -44,13 +44,11 @@ public class Boot {
 					{0,0,0,0,0,0,0,0,0,0},
 					{0,0,0,0,0,0,0,0,0,0}
 				};*/
-		//int initialmapvalue=0;
 		int[][] map  = new int[noRows][noColumns];
 		
 		beginSession(noRows,noColumns);
-		TileGrid grid=new TileGrid(map,noRows, noColumns);
+		TileGrid grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		//grid.setTile(0, 0, TileType.Water);  // setting a particular tile
-		//grid.setTile(0, 0, grid.getTile(1, 1).getType());// setting a tile correspond to given one 
 		
 		player=new Player(grid);
 		

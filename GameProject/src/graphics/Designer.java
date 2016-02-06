@@ -40,12 +40,11 @@ public class Designer {
 	static int  blockSize = 32;
 	
 	
-	
 	public static void beginSession(int numRows,int numCols){
 		HEIGHT= numCols*blockSize;
 		WIDTH= numRows*blockSize+300;
 		try {
-			Display.setTitle("New Game");
+			Display.setTitle("Tower Defence Game");
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.create();
 		} catch (LWJGLException e) {
@@ -58,19 +57,10 @@ public class Designer {
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		
-		
+	
 		}
 	
-	public static void drawQuad(float x, float y, float width, float height){
-		glBegin(GL_QUADS);
-		glVertex2f(x, y);
-		glVertex2f(x+width, y);
-		glVertex2f(x+width, y+height);
-		glVertex2f(x, y+height);
-		glEnd();
-		
-	}
+
 	public static void drawQuadTex(Texture tex, float x, float y, float width, float height){
 
 		tex.bind();

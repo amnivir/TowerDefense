@@ -22,9 +22,6 @@ public class TileGrid {
 	public TileGrid(int[][] newMap, int rows, int columns){
 		
 		map=new Tile[columns][rows];
-		System.out.println(map.length);
-		System.out.println(map[0].length);
-		
 		// for loop to check the static array values and set the corresponding tiles.
 		for(int i=0; i<map.length; i++){
 			for(int j=0; j<map[i].length; j++){

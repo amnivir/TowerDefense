@@ -28,20 +28,15 @@ public class Player {
 		//TODO do not set tile multiple times i.e. set the tile only once and add toggle effect
 		
 		if(((Mouse.getX() / blockSize) < Boot.getNoColumns()) && (((HEIGHT - Mouse.getY()) / blockSize) < Boot.getNoRows()))
-			//&& (HEIGHT-Mouse.getY()-1) <=Boot.getNoColumns())
+			
 			if(Mouse.isButtonDown(0)) // if left mouse key is pressed
-				grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
+				grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile.Dirt);
 			
 		
 			if(Mouse.isButtonDown(1))// if right mouse key is pressed
 			{
-				grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
+				grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile.Grass);
 			}
 			
-			
-//		else
-			
-		//	System.out.println("Mouse="+(HEIGHT-Mouse.getY()-1) + "Columns=" + Boot.getNoColumns());
-	
 	}
 }
