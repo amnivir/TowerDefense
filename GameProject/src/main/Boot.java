@@ -52,11 +52,11 @@ public class Boot {
 		
 		player=new Player(grid);
 		
-		DesignerButtons designerButtons = new DesignerButtons(WIDTH, HEIGHT);
+		//DesignerButtons designerButtons = new DesignerButtons(WIDTH, HEIGHT);
 		while(!Display.isCloseRequested()){
 			
 			grid.draw();
-			designerButtons.draw();
+			//designerButtons.draw();
 			player.setTile();
 			Display.update();
 			Display.sync(60);

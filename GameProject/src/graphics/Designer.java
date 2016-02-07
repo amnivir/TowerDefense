@@ -35,14 +35,15 @@ import org.newdawn.slick.util.ResourceLoader;
 
 
 public class Designer {
-
-	public static int WIDTH=1280, HEIGHT=640;
+	
+	public static int WIDTH, HEIGHT;
 	static int  blockSize = 32;
+	private static int noOfBlocksOnRight=5;
 	
 	
 	public static void beginSession(int numRows,int numCols){
-		HEIGHT= numCols*blockSize;
-		WIDTH= numRows*blockSize+300;
+		HEIGHT= numRows*blockSize;
+		WIDTH= (numCols+noOfBlocksOnRight)*blockSize;
 		try {
 			Display.setTitle("Tower Defence Game");
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
