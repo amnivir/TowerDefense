@@ -4,7 +4,7 @@ import main.Boot;
 
 public class TileGrid {
 	int blockSize = 32;
-	public Tile map[][];
+	public static Tile map[][];
 	public TileGrid(int rows, int columns){
 		
 		map=new Tile[columns][rows];
@@ -13,6 +13,7 @@ public class TileGrid {
 		
 		for(int i=0; i<map.length; i++){
 			for(int j=0; j<map[i].length; j++){
+				System.out.println((i) +" " +(j));
 				map[i][j]=new Tile(i*blockSize, j*blockSize, blockSize, blockSize, TileType.Grass);
 				
 			}
@@ -28,6 +29,7 @@ public class TileGrid {
 				
 				switch(newMap[j][i]){
 					case 0:
+						System.out.println((i) +" " +(j));
 						map[i][j]=new Tile(i*blockSize, j*blockSize, blockSize, blockSize, TileType.Grass);
 						break;
 					case 1:
