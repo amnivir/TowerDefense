@@ -13,7 +13,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+import ai.Path;
 import main.Boot;
 
 /**
@@ -25,8 +25,9 @@ public class GameScreenManager {
 
 	static TileGrid grid;
 	
+	
 	@XmlElement
-	private static int[][] pathCoordinates = new int[Boot.getNoRows()][Boot.getNoColumns()];
+	private static int[][] tileCoordinates = new int[Boot.getNoRows()][Boot.getNoColumns()];
 
 	public GameScreenManager()
 	{
@@ -39,11 +40,12 @@ public class GameScreenManager {
 
 	public static int saveMap()
 	{	GameScreenManager test = new GameScreenManager();
-
+		Path p = new Path();
+		System.out.println(Path.isPathValid());
 		for(int i=0;i<Boot.getNoRows();i++)
 		{	for(int j=0;j<Boot.getNoColumns();j++) 
-		{	pathCoordinates[i][j] =  grid.getTile(i,j).getType().ordinal();
-			System.out.print((i)+","+(j)+"-->"+pathCoordinates[i][j]+"  ");
+		{	tileCoordinates[i][j] =  grid.getTile(i,j).getType().ordinal();
+			System.out.print((i)+","+(j)+"-->"+tileCoordinates[i][j]+"  ");
 		}
 		System.out.println("");
 		}

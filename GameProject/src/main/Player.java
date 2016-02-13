@@ -33,29 +33,42 @@ public class Player {
 	 */
 	public void setTile(){
 		//TODO do not set tile multiple times i.e. set the tile only once and add toggle effect
+		while(Mouse.next()){
+			if(Mouse.getEventButtonState())
+			{
 
-		if(((Mouse.getX() / blockSize) < Boot.getNoColumns()) && (((HEIGHT - Mouse.getY()) / blockSize) < Boot.getNoRows()))
+				if(((Mouse.getX() / blockSize) < Boot.getNoColumns()) && (((HEIGHT - Mouse.getY()) / blockSize) < Boot.getNoRows()))
 
-			if(Mouse.isButtonDown(0)) // if left mouse key is pressed
 				{
-				grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile.Dirt);
+					if(Mouse.isButtonDown(0)) // if left mouse key is pressed
+					{
+						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile.Dirt);
+					}
 				}
 
 
-		if(Mouse.isButtonDown(1))// if right mouse key is pressed
-		{
-			grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile.Grass);
+				if(Mouse.getEventButtonState())
+				{
+					if(Mouse.isButtonDown(1))// if right mouse key is pressed
+					{
+						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile.Grass);
+					}
+				}
+
+			}
 		}
 
 
-		if(Keyboard.isKeyDown(Keyboard.KEY_S))
-		{ 
-
-			Boot.gameScreen.saveMap();
-			System.out.println("Trying to save");
-
+		while (Keyboard.next()) {
+			if (Keyboard.getEventKeyState()) {
+				if (Keyboard.getEventKey() == Keyboard.KEY_S) {
+					System.out.println("A Key Pressed");
+					Boot.gameScreen.saveMap();
+				}
+			}
 
 		}
+
 
 	}
 }
