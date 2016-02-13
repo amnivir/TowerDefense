@@ -4,6 +4,7 @@ import graphics.DesignerButtons;
 
 import java.util.Scanner;
 
+import map.GameScreenManager;
 import map.TileGrid;
 import map.TileType;
 
@@ -23,6 +24,8 @@ public class Boot {
 	private static int noRows;
 	private static int noColumns;
 	public static Player player=null;
+	public static GameScreenManager gameScreen = null;
+
 	public Boot()
 	{	
 		Scanner keyboard = new Scanner(System.in);		
@@ -48,6 +51,7 @@ public class Boot {
 		
 		beginSession(noRows,noColumns);
 		TileGrid grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
+		gameScreen = new GameScreenManager(grid);
 		//grid.setTile(0, 0, TileType.Water);  // setting a particular tile
 		
 		player=new Player(grid);
@@ -74,5 +78,9 @@ public class Boot {
 		new Boot();
 	}
 	
+	
+	public static GameScreenManager getGameScreen() {
+		return gameScreen;
+	}
 
 }
