@@ -17,6 +17,7 @@ import ai.Path;
 import main.Boot;
 
 /**
+ * This class 
  * @author eshinig
  *
  */
@@ -37,7 +38,10 @@ public class GameScreenManager {
 	{
 		this.grid = grid;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public static int saveMap()
 	{	GameScreenManager test = new GameScreenManager();
 		Path p = new Path();
@@ -78,7 +82,9 @@ public class GameScreenManager {
 		}
 		return 0;
 	}
-
+/**
+ * 
+ */
 	public static int loadMap()
 	{
 		return 0;

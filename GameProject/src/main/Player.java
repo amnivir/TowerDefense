@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import map.GameScreenManager;
 import map.TileGrid;
 import map.TileType;
-
+/**
+ * This class accepts Mouse or Keyboard events and sends the response Model class i.e. Map package   
+ * @author s_niga
+ *
+ */
 public class Player {
 
 	private TileGrid grid;
@@ -58,7 +62,7 @@ public class Player {
 			}
 		}
 
-
+		//Map save by pressing 's' key
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 				if (Keyboard.getEventKey() == Keyboard.KEY_S) {
