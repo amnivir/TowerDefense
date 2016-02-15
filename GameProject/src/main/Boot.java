@@ -1,21 +1,17 @@
 package main;
 
-import graphics.DesignerButtons;
+import static graphics.Designer.beginSession;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.Scanner;
 
 import map.GameScreenManager;
 import map.TileGrid;
-import map.TileType;
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-import org.newdawn.slick.opengl.Texture;
 
-import static org.lwjgl.opengl.GL11.*;
-import static graphics.Designer.*;
+import utility.FileExplorer;
 
 
 public class Boot {
@@ -25,14 +21,42 @@ public class Boot {
 	private static int noColumns;
 	public static Player player=null;
 	public static GameScreenManager gameScreen = null;
-
+	public Scanner keyboard = new Scanner(System.in);
+	public static int[][] map  = null;
 	public Boot()
 	{	
-		Scanner keyboard = new Scanner(System.in);		
-		System.out.println("Enter Number of Rows & Columns for the MAP(max. 20x20)=");
-		noRows=keyboard.nextInt();
-		noColumns=keyboard.nextInt();
+		int choice;
+		int mapToLoad;
 		
+		System.out.println("Enter '1' for New Game or '2' to load Saved game");
+		choice=keyboard.nextInt();
+
+		switch (choice) {
+		case 1:
+		{
+			this.newGame();
+			break;
+		}
+		case 2:
+			System.out.println("Following Maps saved");
+		
+			FileExplorer fileExplorer = new FileExplorer();
+			fileExplorer.displayXMLFiles();
+			
+			System.out.println("Enter the File number of the map to Load:");
+			mapToLoad=keyboard.nextInt();
+						
+			//System.out.println(fileExplorer.getFileName(mapToLoad));
+			map=GameScreenManager.loadMap(fileExplorer.getFileName(mapToLoad));
+			System.out.println(map[0][1]);
+			noRows= GameScreenManager.getNoRows();
+			noColumns=GameScreenManager.getNoColumns();
+			System.out.println(noRows + noColumns);
+			break;
+			
+
+
+		}
 		//noRows=10;
 		//noColumns=10;
 		/*int[][]map={
@@ -47,18 +71,18 @@ public class Boot {
 					{0,0,0,0,0,0,0,0,0,0},
 					{0,0,0,0,0,0,0,0,0,0}
 				};*/
-		int[][] map  = new int[noRows][noColumns];
-		
 		beginSession(noRows,noColumns);
+		
+		
 		TileGrid grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		//grid.setTile(0, 0, TileType.Water);  // setting a particular tile
-		
+
 		player=new Player(grid);
-		
+
 		//DesignerButtons designerButtons = new DesignerButtons(WIDTH, HEIGHT);
 		while(!Display.isCloseRequested()){
-			
+
 			grid.draw();
 			//designerButtons.draw();
 			player.setTile();
@@ -73,13 +97,27 @@ public class Boot {
 	public static int getNoColumns() {
 		return noColumns;
 	}
+	
+	public void newGame()
+	{	
+		System.out.println("Enter Number of Rows & Columns for the MAP(max. 20x20)=");
+		noRows=keyboard.nextInt();
+		noColumns=keyboard.nextInt();
+		map  = new int[noRows][noColumns];
+	}
+	
+	public void loadGame()
+	{
+		
+	}
+	
 	public static void main(String args[])
 	{
 		new Boot();
 	}
-	
-	
-	public static GameScreenManager getGameScreen() {
+
+
+	public  GameScreenManager getGameScreen() {
 		return gameScreen;
 	}
 

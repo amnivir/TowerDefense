@@ -66,10 +66,15 @@ public class Player {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 				if (Keyboard.getEventKey() == Keyboard.KEY_S) {
-					System.out.println("A Key Pressed");
 					Boot.gameScreen.saveMap();
+					System.out.println("MAP saved");
+				}
+				if (Keyboard.getEventKey() == Keyboard.KEY_L) {
+					System.out.println("Load the map");
 				}
 			}
+
+
 
 		}
 
