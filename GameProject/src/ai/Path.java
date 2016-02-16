@@ -24,10 +24,10 @@ public class Path {
 			tempPath.add(coordinate);
 		}
 	}
-/**
- * This method performs the path validation in the map returns the appropriate error code   
- * @return PathValidationCode returns the enum code defined in class PathValidationCode
- */
+	/**
+	 * This method performs the path validation in the map returns the appropriate error code   
+	 * @return PathValidationCode returns the enum code defined in class PathValidationCode
+	 */
 	public static PathValidationCode isPathValid()
 	{
 		ArrayList<Integer> pathCordinate;
@@ -37,51 +37,53 @@ public class Path {
 		int noRows=Boot.getNoRows();
 		int noColumns=Boot.getNoColumns();
 		int currentCoordinate;
+		boolean boundryTile=false;
 		//Find boundry ; entry and exit points must be exactly equal to two
 
-		if(noExitEntryCoordinate >=2 )
-		{
-			System.out.println("No of EntryExit points more than 2. Invalid Path!");
-			return PathValidationCode.PATH_MANY_EXIT_ENTRY;
-		}
+
 		for(Integer x:pathCordinate)
 		{	//check if the path coordinate is on upper Y axis boundary
-			if(x<noColumns && noExitEntryCoordinate<2)
+			if(x<noColumns)
 			{
-				startEndPathCordinate[noExitEntryCoordinate]=x;
-				noExitEntryCoordinate++;
-				continue;
-
+				boundryTile=true;
 			}
 			//check if the path coordinate is on lower Y axis boundary
 			for(int i=(noRows-1)*noColumns;i<(noColumns*noRows);i++)
 			{
-				if(x==i && noExitEntryCoordinate<2)
-				{	
-					startEndPathCordinate[noExitEntryCoordinate]=x;
-					noExitEntryCoordinate++;
-					continue;
+				if(x==i)
+				{
+					boundryTile=true;
+					break;
 				}
 			}
 			//check if the path coordinate is on left X boundary
 			for(int i=noColumns;i<(noRows*noColumns)-noColumns;i=i+noColumns)
-			{if(x==i && noExitEntryCoordinate<2 )
 			{
-				startEndPathCordinate[noExitEntryCoordinate]=x;
-				noExitEntryCoordinate++;
-				continue;
-			}
+				if(x==i)
+				{
+					boundryTile=true;
+					break;
+				}
 			}
 			//check if the path coordinate is on right X boundary
 			for(int i=2*noColumns-1;i<(noRows*noColumns)-noColumns;i=i+noColumns)
-			{if(x==i && noExitEntryCoordinate<2)
-			{startEndPathCordinate[noExitEntryCoordinate]=x;
-			noExitEntryCoordinate++;
-			continue;
-			}
+			{
+				if(x==i)
+				{
+					boundryTile=true;
+					break;
+				}
+				
 			}
 
+			if(boundryTile)
+			{
 
+				startEndPathCordinate[noExitEntryCoordinate]=x;
+				noExitEntryCoordinate++;
+				boundryTile=false;
+				continue;
+			}
 		}
 
 		if(noExitEntryCoordinate<2)
@@ -125,5 +127,15 @@ public class Path {
 		else 
 			return PathValidationCode.PATH_MANY_ROUTES_FOUND;
 
+	}
+
+	public static void isNoOfExitEntryPointsTwo(int noExitEntryCoordinate)
+	{
+		if(noExitEntryCoordinate ==2 )
+		{
+			System.out.println("No of EntryExit points more than 2. Invalid Path!");
+			//return PathValidationCode.PATH_MANY_EXIT_ENTRY;
+			//return true;
+		}
 	}
 }
