@@ -11,8 +11,8 @@ import map.TileGrid;
  */
 public class Path {
 
-	public static ArrayList<Integer> tempPath;
-	public static ArrayList<Integer> continousPath;
+	public static ArrayList<Integer> tempPath=null;
+	public static ArrayList<Integer> continousPath=null;
 
 
 	public static void copyArray(ArrayList<Integer> arr)

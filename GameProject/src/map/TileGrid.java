@@ -12,7 +12,7 @@ import main.Boot;
 public class TileGrid {
 	int blockSize = 32;
 	public static Tile map[][];
-	public static ArrayList<Integer> pathCordinate = new ArrayList<>();
+	public static final ArrayList<Integer> pathCordinate = new ArrayList<>();
 	public TileGrid(int rows, int columns){
 
 		map=new Tile[columns][rows];

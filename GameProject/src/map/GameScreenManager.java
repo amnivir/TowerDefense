@@ -5,6 +5,7 @@ package map;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.xml.bind.JAXBContext;
@@ -34,11 +35,14 @@ public class GameScreenManager {
 	private int[][] tileCoordinates = new int[Boot.getNoRows()][Boot.getNoColumns()];
 
 	@XmlElement
-	private static int noRows;
+	private int noRows;
 
 	@XmlElement
-	private static int noColumns;
-
+	private int noColumns;
+	
+	@XmlElement
+	private static ArrayList<Integer> pathCordinates= new ArrayList<Integer>();
+	
 	public GameScreenManager()
 	{
 
@@ -46,28 +50,29 @@ public class GameScreenManager {
 	public GameScreenManager(TileGrid grid)
 	{
 		this.grid = grid;
-		GameScreenManager.noRows=Boot.getNoRows();
-		GameScreenManager.noColumns=Boot.getNoColumns();
+		this.noRows=Boot.getNoRows();
+		this.noColumns=Boot.getNoColumns();
 	}
 	/**
 	 * 
 	 * @return
 	 */
-	public  int saveMap()
+	public  boolean saveMap()
 	{
 		//System.out.println(Path.isPathValid());
-		for(int i=0;i<Boot.getNoRows();i++)
+		for(int i=0;i<this.noRows;i++)
 		{	
-			for(int j=0;j<Boot.getNoColumns();j++) 
+			for(int j=0;j<this.noColumns;j++) 
 			{	
-				tileCoordinates[i][j] =  grid.getTile(i,j).getType().ordinal();
+				tileCoordinates[j][i] =  grid.getTile(i,j).getType().ordinal();
 				System.out.print((i)+","+(j)+"-->"+tileCoordinates[i][j]+"  ");
 			}
 			System.out.println("");
 		}
-
-
-
+		
+		pathCordinates.clear();
+		for(Integer coordinate : TileGrid.pathCordinate)
+			pathCordinates.add(coordinate);
 
 		try {
 			Date date = new Date() ;
@@ -84,20 +89,14 @@ public class GameScreenManager {
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
+			return false;
 		}
-
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
+		return true;
 	}
 	/**
 	 * 
 	 */
-	public static int[][]  loadMap(String mapFileName)
+	public int[][]  loadMap(String mapFileName)
 	{	GameScreenManager readCoordinates = null;
 		System.out.println("Loading Game..  " + mapFileName);
 		
@@ -107,8 +106,9 @@ public class GameScreenManager {
 			jaxbContext = JAXBContext.newInstance(GameScreenManager.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			readCoordinates = (GameScreenManager) jaxbUnmarshaller.unmarshal(file);
-			GameScreenManager.noRows=readCoordinates.noRows;
-			GameScreenManager.noColumns=readCoordinates.noColumns;
+			System.out.println("readCoordinates.noRows"+readCoordinates.noRows);
+			this.noRows=readCoordinates.noRows;
+			this.noColumns=readCoordinates.noColumns;
 			for(int i=0;i<readCoordinates.noRows;i++)
 			{	
 				for(int j=0;j<readCoordinates.noColumns;j++) 
@@ -121,20 +121,21 @@ public class GameScreenManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		for(Integer coordinate:readCoordinates.pathCordinates)
+		{
+			//System.out.println("path cordinate from file"+coordinate);
+			TileGrid.pathCordinate.add(coordinate);
+		}
+
 		return readCoordinates.tileCoordinates;
 	}
-	public static int getNoColumns() {
+	public int getNoColumns() {
 		return noColumns;
 	}
-	public static void setNoColumns(int noColumns) {
-		GameScreenManager.noColumns = noColumns;
-	}
-	public static int getNoRows() {
+	
+	public int getNoRows() {
 		return noRows;
 	}
-	public static void setNoRows(int noRows) {
-		GameScreenManager.noRows = noRows;
-	}
+	
 
 }

@@ -43,15 +43,16 @@ public class Boot {
 			FileExplorer fileExplorer = new FileExplorer();
 			fileExplorer.displayXMLFiles();
 			
+			GameScreenManager temp = new GameScreenManager();
 			System.out.println("Enter the File number of the map to Load:");
 			mapToLoad=keyboard.nextInt();
 						
 			//System.out.println(fileExplorer.getFileName(mapToLoad));
-			map=GameScreenManager.loadMap(fileExplorer.getFileName(mapToLoad));
+			map=temp.loadMap(fileExplorer.getFileName(mapToLoad));
 			System.out.println(map[0][1]);
-			noRows= GameScreenManager.getNoRows();
-			noColumns=GameScreenManager.getNoColumns();
-			System.out.println(noRows + noColumns);
+			noRows= temp.getNoRows();
+			noColumns=temp.getNoColumns();
+			System.out.println(temp.getNoRows());
 			break;
 			
 
