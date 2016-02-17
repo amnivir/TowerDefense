@@ -13,7 +13,7 @@ public class TileGrid {
 	int blockSize = 32;
 	public static Tile map[][];
 	public static final ArrayList<Integer> pathCordinate = new ArrayList<>();
-	public TileGrid(int rows, int columns){
+	public TileGrid(int rows, int columns, int width){
 
 		map=new Tile[columns][rows];
 		//create path corrdinate list
@@ -25,7 +25,7 @@ public class TileGrid {
 		for(int i=0; i<map.length; i++){
 			for(int j=0; j<map[i].length; j++){
 				System.out.println((i) +" " +(j));
-				map[i][j]=new Tile(i*blockSize, j*blockSize, blockSize, blockSize, TileType.Grass);
+				map[i][j]=new Tile((i+width)*blockSize, j*blockSize, blockSize, blockSize, TileType.Water);
 
 			}
 		}
@@ -40,6 +40,7 @@ public class TileGrid {
 	public TileGrid(int[][] newMap, int rows, int columns){
 
 		map=new Tile[columns][rows];
+		Tile t;
 		// for loop to check the static array values and set the corresponding tiles.
 		for(int i=0; i<map.length; i++){
 			for(int j=0; j<map[i].length; j++){
@@ -56,9 +57,13 @@ public class TileGrid {
 					map[i][j]=new Tile(i*blockSize, j*blockSize, blockSize, blockSize, TileType.Water);
 					break;	
 				}
+				
 
 			}
 		}
+		//map[][]
+		//map[map.length+4][0]= new Tile(map.length+4*blockSize, 0*blockSize, blockSize, blockSize, TileType.Water);
+		
 	}
 	/**
 	 * This method to set a tile to dirt or grass at a particular position 
@@ -112,6 +117,7 @@ public class TileGrid {
 	public void draw(){
 		for(int i=0;i<map.length;i++){
 			for(int j=0;j<map[i].length;j++){
+				
 				Tile tile=map[i][j];
 				drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
 			}

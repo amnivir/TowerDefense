@@ -47,21 +47,23 @@ public class Player {
 					if(Mouse.isButtonDown(0)) // if left mouse key is pressed
 					{
 						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
+						System.out.println((int)Math.floor(Mouse.getX() / blockSize));
 					}
-
-
-
-
-					if(Mouse.isButtonDown(1))// if right mouse key is pressed
-					{
-						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
-					}
-
 				}
 				
-				else 
-				{
-					currentTile=TileType.Water;
+				else if((HEIGHT - Mouse.getY()) / blockSize==0)
+				{	
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+2)
+						currentTile=TileType.Water;
+					
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+3)
+						currentTile=TileType.Dirt;
+					
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+4)
+						currentTile=TileType.Grass;
+				}
+				else{
+					currentTile=TileType.Grass;
 				}
 			}
 		}

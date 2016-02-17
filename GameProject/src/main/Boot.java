@@ -7,7 +7,9 @@ import java.io.FilenameFilter;
 import java.util.Scanner;
 
 import map.GameScreenManager;
+import map.Tile;
 import map.TileGrid;
+import map.TileType;
 
 import org.lwjgl.opengl.Display;
 
@@ -76,6 +78,10 @@ public class Boot {
 		
 		
 		TileGrid grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
+		Tile tileMenu[]=new Tile[3];
+		tileMenu[0]=new Tile((noColumns+2) *32, 0, 32, 32, TileType.Water);
+		tileMenu[1]=new Tile((noColumns+3) *32, 0, 32, 32, TileType.Dirt);
+		tileMenu[2]=new Tile((noColumns+4) *32, 0, 32, 32, TileType.Grass);
 		gameScreen = new GameScreenManager(grid);
 		//grid.setTile(0, 0, TileType.Water);  // setting a particular tile
 
@@ -85,6 +91,9 @@ public class Boot {
 		while(!Display.isCloseRequested()){
 
 			grid.draw();
+			tileMenu[0].draw();
+			tileMenu[1].draw();
+			tileMenu[2].draw();
 			//designerButtons.draw();
 			player.setTile();
 			Display.update();
