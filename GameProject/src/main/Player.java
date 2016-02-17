@@ -46,19 +46,23 @@ public class Player {
 				{
 					if(Mouse.isButtonDown(0)) // if left mouse key is pressed
 					{
-						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile.Dirt);
+						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
 					}
-				}
 
 
-				if(Mouse.getEventButtonState())
-				{
+
+
 					if(Mouse.isButtonDown(1))// if right mouse key is pressed
 					{
-						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile.Grass);
+						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
 					}
-				}
 
+				}
+				
+				else 
+				{
+					currentTile=TileType.Water;
+				}
 			}
 		}
 
