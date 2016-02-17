@@ -53,13 +53,13 @@ public class Player {
 				
 				else if((HEIGHT - Mouse.getY()) / blockSize==0)
 				{	
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+2)
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns())
 						currentTile=TileType.Water;
 					
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+3)
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
 						currentTile=TileType.Dirt;
 					
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+4)
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+2)
 						currentTile=TileType.Grass;
 				}
 				else{

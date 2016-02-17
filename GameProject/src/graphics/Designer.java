@@ -33,7 +33,11 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
-
+/**
+ * 
+ * @author eshinig
+ *
+ */
 public class Designer {
 	
 	public static int WIDTH, HEIGHT;
@@ -61,7 +65,14 @@ public class Designer {
 	
 		}
 	
-
+/**
+ * 
+ * @param tex
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ */
 	public static void drawQuadTex(Texture tex, float x, float y, float width, float height){
 
 		tex.bind();
@@ -81,6 +92,12 @@ public class Designer {
 		
 	}
 	
+	/**
+	 * 
+	 * @param path
+	 * @param fileType
+	 * @return
+	 */
 	public static Texture loadTexture(String path, String fileType)
 	{
 		Texture tex=null;
@@ -92,6 +109,12 @@ public class Designer {
 		}
 		return tex;
 	}
+	
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public static Texture quickTexture(String name)
 	{
 		Texture tex=null;

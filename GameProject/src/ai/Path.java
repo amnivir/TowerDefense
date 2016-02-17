@@ -73,17 +73,22 @@ public class Path {
 					boundryTile=true;
 					break;
 				}
-				
+
 			}
 
 			if(boundryTile)
 			{
-
-				startEndPathCordinate[noExitEntryCoordinate]=x;
-				noExitEntryCoordinate++;
-				boundryTile=false;
-				continue;
+				if(noExitEntryCoordinate+1>2)
+					return PathValidationCode.PATH_MANY_EXIT_ENTRY;
+				else
+				{
+					startEndPathCordinate[noExitEntryCoordinate]=x;
+					noExitEntryCoordinate++;
+					boundryTile=false;
+				}
 			}
+
+
 		}
 
 		if(noExitEntryCoordinate<2)

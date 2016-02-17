@@ -9,10 +9,16 @@ import org.newdawn.slick.opengl.Texture;
 import ai.Path;
 import main.Boot;
 
+/**
+ * 
+ * @author eshinig
+ *
+ */
 public class TileGrid {
 	int blockSize = 32;
 	public static Tile map[][];
 	public static final ArrayList<Integer> pathCordinate = new ArrayList<>();
+	public static Tile tileMenu[];
 	public TileGrid(int rows, int columns, int width){
 
 		map=new Tile[columns][rows];
@@ -57,14 +63,22 @@ public class TileGrid {
 					map[i][j]=new Tile(i*blockSize, j*blockSize, blockSize, blockSize, TileType.Water);
 					break;	
 				}
-				
+
 
 			}
 		}
-		//map[][]
-		//map[map.length+4][0]= new Tile(map.length+4*blockSize, 0*blockSize, blockSize, blockSize, TileType.Water);
+		/*
+		 * Draw the tile menu on the right side of the map
+		 */
+		tileMenu=new Tile[3];
+		tileMenu[0]=new Tile((columns) *32, 0, 32, 32, TileType.Water);
+		tileMenu[1]=new Tile((columns+1) *32, 0, 32, 32, TileType.Dirt);
+		tileMenu[2]=new Tile((columns+2) *32, 0, 32, 32, TileType.Grass);
 		
+		
+
 	}
+	
 	/**
 	 * This method to set a tile to dirt or grass at a particular position 
 	 * <p>
@@ -73,34 +87,41 @@ public class TileGrid {
 	 * @return void
 	 */
 	public void setTile(int xCoord, int yCoord, TileType tile){
-		//map[xCoord][yCoord]=new Tile(xCoord*blockSize, yCoord*blockSize, blockSize, blockSize, tile);
-		//System.out.println("Before "+map[xCoord][yCoord].getType().ordinal());
 
 		int xyCoord = yCoord*Boot.getNoRows()+xCoord;//may be x&y needs to be interchanged
 		System.out.println(xyCoord);
 		System.out.println(pathCordinate);
-		if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.Grass)
+		if(tile.textureName==TileType.Dirt.textureName || tile.textureName==TileType.Grass.textureName)
 		{
-			pathCordinate.add(xyCoord);
-			map[xCoord][yCoord].setType(tile);
-			map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-		}
-		else if(pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.Dirt)
-		{
-			Iterator<Integer> iter = pathCordinate.iterator();
-
-			while (iter.hasNext()) {
-			   Integer num = iter.next();
-			    if (num==xyCoord)
-			        iter.remove();
+			if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.Grass)
+			{
+				pathCordinate.add(xyCoord);
+				map[xCoord][yCoord].setType(tile);
+				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
 			}
+			else if(pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.Dirt)
+			{
+				Iterator<Integer> iter = pathCordinate.iterator();
 
+				while (iter.hasNext()) {
+					Integer num = iter.next();
+					if (num==xyCoord)
+						iter.remove();
+				}
+
+				map[xCoord][yCoord].setType(tile);
+				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+
+			}
+		}
+		
+		else // if scenery then we don't need to compute the path validation
+		{
 			map[xCoord][yCoord].setType(tile);
 			map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-			System.out.println("DIRT");
 		}
 		System.out.println(Path.isPathValid().name());
-		
+
 	}
 	/**
 	 * This method to set a tile at a particular position 
@@ -117,10 +138,18 @@ public class TileGrid {
 	public void draw(){
 		for(int i=0;i<map.length;i++){
 			for(int j=0;j<map[i].length;j++){
-				
+
 				Tile tile=map[i][j];
 				drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
 			}
 		}
+	
+	
+		for(int i=0;i<tileMenu.length;i++)
+		{
+			Tile tile=tileMenu[i];
+			drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+		}
+	
 	}
 }

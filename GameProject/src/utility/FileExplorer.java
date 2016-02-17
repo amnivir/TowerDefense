@@ -34,6 +34,10 @@ public class FileExplorer {
 
 	}
 
+	/**
+	 * 
+	 * 
+	 */
 	public void displayXMLFiles()
 	{
 		for (int i = 0; i < listOfFiles.length; i++) 
@@ -41,6 +45,11 @@ public class FileExplorer {
 
 	}
 	
+	/**
+	 * 
+	 * @param fileNum
+	 * @return
+	 */
 	public String getFileName(int fileNum)
 	{
 		return listOfFiles[fileNum-1].getName();
