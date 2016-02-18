@@ -22,7 +22,7 @@ import ai.PathValidationCode;
 import main.Boot;
 
 /**
- * This class 
+ * This class Manages the Screen and provides the functionality like saving the game and loading the game
  * @author eshinig
  *
  */
@@ -55,8 +55,8 @@ public class GameScreenManager {
 		this.noColumns=Boot.getNoColumns();
 	}
 	/**
-	 * 
-	 * @return
+	 * This method saves the game if path is valid in the map
+	 * @return boolean return true if map is saved false otherwise
 	 */
 	public  boolean saveMap()
 	{
@@ -98,7 +98,7 @@ public class GameScreenManager {
 		return true;
 	}
 	/**
-	 * 
+	 * This method reads the saved XML file reutrns the array of Tiles 
 	 */
 	public int[][]  loadMap(String mapFileName)
 	{	GameScreenManager readCoordinates = null;
@@ -133,6 +133,7 @@ public class GameScreenManager {
 
 		return readCoordinates.tileCoordinates;
 	}
+	
 	public int getNoColumns() {
 		return noColumns;
 	}

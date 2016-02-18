@@ -36,8 +36,9 @@ import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 /**
- * 
- * @author eshinig
+ * This class access and  initializes openGL library to  creates the Display screen 
+ * of size noRows*noColumns*32(pixels).
+ * @author Rashpal
  *
  */
 public class Designer {
@@ -46,9 +47,12 @@ public class Designer {
 	static int  blockSize = 32;
 	private static int noOfBlocksOnRight=5;
 	
-	
+	/**
+	 * This method sets openGL Parameters for the Display screen and printing the text
+	 */
 	public static void beginSession(int numRows,int numCols){
 		HEIGHT= numRows*blockSize;
+		//Reserves some space on right
 		WIDTH= (numCols+noOfBlocksOnRight)*blockSize;
 		try {
 			Display.setTitle("Tower Defence Game");
@@ -74,12 +78,12 @@ public class Designer {
 		}
 	
 /**
- * 
- * @param tex
- * @param x
- * @param y
- * @param width
- * @param height
+ * This method draws quad for a specific texture. The texture refers to a tile
+ * @param tex TYexture of the tile
+ * @param x X Coordinate of the tile (quad)
+ * @param y Y Coordinate of the tile (quad)
+ * @param width location of the tile in the map along x axis
+ * @param height location of the tile in the map along y axis
  */
 	public static void drawQuadTex(Texture tex, float x, float y, float width, float height){
 
@@ -101,9 +105,9 @@ public class Designer {
 	}
 	
 	/**
-	 * 
-	 * @param path
-	 * @param fileType
+	 * This method loads the texture of tile
+	 * @param path directory path of png file of the tile 
+	 * @param fileType format of the tile
 	 * @return
 	 */
 	public static Texture loadTexture(String path, String fileType)
@@ -119,9 +123,9 @@ public class Designer {
 	}
 	
 	/**
-	 * 
-	 * @param name
-	 * @return
+	 * This method is a helper. This method adds the package and the type of the file
+	 * @param name Name of the tile
+	 * @return texture of the tile 
 	 */
 	public static Texture quickTexture(String name)
 	{

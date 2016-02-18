@@ -84,7 +84,7 @@ public class Player {
 			}
 		}
 
-		//Map save by pressing 's' key
+		//Map save by pressing 's' key and load map by pressing l
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 				if (Keyboard.getEventKey() == Keyboard.KEY_S) {

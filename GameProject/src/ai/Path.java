@@ -134,13 +134,14 @@ public class Path {
 
 	}
 
+	/**
+	 * This method determines if we have reached maximum number fo entry and exit points
+	 */
 	public static void isNoOfExitEntryPointsTwo(int noExitEntryCoordinate)
 	{
 		if(noExitEntryCoordinate ==2 )
 		{
 			System.out.println("No of EntryExit points more than 2. Invalid Path!");
-			//return PathValidationCode.PATH_MANY_EXIT_ENTRY;
-			//return true;
 		}
 	}
 }

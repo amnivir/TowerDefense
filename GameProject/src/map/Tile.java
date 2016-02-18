@@ -3,7 +3,9 @@ package map;
 import org.newdawn.slick.opengl.Texture;
 
 import static graphics.Designer.*;
-
+/**
+ * This class defines the tile texture , height , width and coordinates of it 
+ */
 public class Tile {
 
 	private float x, y, width, height;
@@ -18,7 +20,9 @@ public class Tile {
 		this.type=type;
 		this.texture=quickTexture(type.textureName);
 	}
-	
+	/**
+	 * Draws the tile Quad
+	 */
 		public void draw(){
 		drawQuadTex(texture, x, y, width, height);
 			

@@ -20,7 +20,8 @@ import tower.TowerCannon;
 import utility.FileExplorer;
 
 /**
- * This is main the class which handles all operations and takes user input
+ * This is main the class which launches the game and displays the screen to the user.
+ * This class is a view in MVC architecture. This class pulls the map from the model after each iteration
  * @author eshinig
  *
  */
@@ -34,6 +35,8 @@ public class Boot {
 	public Scanner keyboard = new Scanner(System.in);
 	public static int[][] map  = null;
 	/**
+	 * This constructor initializes openGL library , accepts user input to either start 
+	 * a new game or load the saved game
 	 * 
 	 */
 	public Boot()
@@ -55,31 +58,27 @@ public class Boot {
 			break;
 		}
 		}
-		
-	
-	
-	        
+
 		beginSession(noRows,noColumns);
 
 		TrueTypeFont font;
-		 boolean antiAlias = false;
-		 Font awtFont = new Font("Times New Roman", Font.BOLD, 16);
-		 
-	     font = new TrueTypeFont(awtFont, antiAlias);
-	     
-	     
-	     
-	    
-	     
+		boolean antiAlias = false;
+		Font awtFont = new Font("Times New Roman", Font.BOLD, 16);
+
+		font = new TrueTypeFont(awtFont, antiAlias);
+
 		TileGrid grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
-		
-		 String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
+
+		String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
 
 		while(!Display.isCloseRequested()){
+			//Draws the grid with current assignment of Grid
 			grid.draw();
+			//Captures the user input and sets the tile
 			player.setTile();
+			//Displays the text in the Screen Area
 			font.drawString(32*10, 64, currentCredits, Color.white);
 			Display.update();
 			Display.sync(60);
@@ -107,7 +106,7 @@ public class Boot {
 			return 1;
 	}
 	/**
-	 * 
+	 * This method loads the map from the saved XML file
 	 */
 	public void loadGame()
 	{	
@@ -124,22 +123,23 @@ public class Boot {
 	}
 
 	/**
-	 * 
+	 * This method returns number of Rows in the screen
+	 * @return int number of Rows
 	 */
 	public static int getNoRows() {
 		return noRows;
 	}
 
 	/**
-	 * 
-	 * @return
+ * This method returns number of Columns in the screen
+	 * @return int number of Cplumns
 	 */
 	public static int getNoColumns() {
 		return noColumns;
 	}
 
 	/**
-	 * 
+	 * Main program and starts by call the constructor
 	 * @param args
 	 */
 	public static void main(String args[])
@@ -148,8 +148,8 @@ public class Boot {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * This method returns the static object of Class GameScreenManager
+	 * @return Returns the game object
 	 */
 	public  GameScreenManager getGameScreen() {
 		return gameScreen;

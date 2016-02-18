@@ -14,7 +14,7 @@ import main.Boot;
 import main.Player;
 
 /**
- * 
+ * This class manages the tiles in the grid
  * @author eshinig
  *
  */
@@ -43,9 +43,8 @@ public class TileGrid {
 		}
 	}
 	/**
-	 * This method is creates the tile for the first time and sets the texture of the tile.
-	 * This method should not be used again. 
-	 * @param newMap
+	 * This method  creates the tile for the first time and sets the texture of the tile in the map
+	 * * @param newMap
 	 * @param rows
 	 * @param columns
 	 */
@@ -176,7 +175,7 @@ public class TileGrid {
 
 	}
 	/**
-	 * This method to set a tile at a particular position 
+	 * This method to get a tile at a particular position 
 	 * <p>
 	 * @param  xCoord  X coordinate of the tile 
 	 * @param  yCoord  Y coordinate of the tile
@@ -187,6 +186,9 @@ public class TileGrid {
 		return map[xCoord][yCoord];
 	}
 
+	/**
+	 * This method draws the specific kind of tiles in the map. It drwas Scenary , Tower and Path
+	 */
 	public void draw(){
 		for(int i=0;i<map.length;i++){
 			for(int j=0;j<map[i].length;j++){
