@@ -1,6 +1,6 @@
 package main;
 
-import static graphics.Designer.beginSession;
+import static graphics.Designer.*;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -13,6 +13,7 @@ import map.TileType;
 
 import org.lwjgl.opengl.Display;
 
+import tower.TowerCannon;
 import utility.FileExplorer;
 
 /**
@@ -57,6 +58,7 @@ public class Boot {
 		TileGrid grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
+		
 
 		while(!Display.isCloseRequested()){
 			grid.draw();

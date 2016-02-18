@@ -6,6 +6,9 @@ import java.util.Iterator;
 
 import org.newdawn.slick.opengl.Texture;
 
+import tower.TowerBomb;
+import tower.TowerCannon;
+
 import ai.Path;
 import main.Boot;
 
@@ -19,6 +22,8 @@ public class TileGrid {
 	public static Tile map[][];
 	public static final ArrayList<Integer> pathCordinate = new ArrayList<>();
 	public static Tile tileMenu[];
+	public static TowerCannon towerCannon;
+	public static TowerBomb towerBomb;
 	public TileGrid(int rows, int columns, int width){
 
 		map=new Tile[columns][rows];
@@ -70,15 +75,15 @@ public class TileGrid {
 		/*
 		 * Draw the tile menu on the right side of the map
 		 */
-		tileMenu=new Tile[3];
+		tileMenu=new Tile[4];
 		tileMenu[0]=new Tile((columns) *32, 0, 32, 32, TileType.Water);
 		tileMenu[1]=new Tile((columns+1) *32, 0, 32, 32, TileType.Dirt);
 		tileMenu[2]=new Tile((columns+2) *32, 0, 32, 32, TileType.Grass);
-		
-		
-
+		tileMenu[3]=new Tile((columns+2) *32, 0, 32, 32, TileType.Grass);
+		towerCannon=new TowerCannon(quickTexture("cannonBase"),new Tile((columns) *32, 1*32, 32, 32, TileType.Grass) ,10);
+		towerBomb=new TowerBomb(quickTexture("bombBase"),new Tile((columns+1) *32, 1*32, 32, 32, TileType.Grass) ,10);
 	}
-	
+
 	/**
 	 * This method to set a tile to dirt or grass at a particular position 
 	 * <p>
@@ -108,15 +113,26 @@ public class TileGrid {
 					if (num==xyCoord)
 						iter.remove();
 				}
-
 				map[xCoord][yCoord].setType(tile);
 				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-
 			}
 		}
-		
-		else // if scenery then we don't need to compute the path validation
+
+		else if(tile.textureName==TileType.TowerBomb.textureName || tile.textureName==TileType.TowerCannon.textureName)
 		{
+			
+			if(map[xCoord][yCoord].getType()==TileType.Grass)
+			{ System.out.println("Tower");
+				map[xCoord][yCoord].setType(tile);
+				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+			}
+			else 
+				System.out.println("Tower can only be placed on grass!");
+		}
+		//if(tile.textureName==TileType)
+
+		else // if scenery then we don't need to compute the path validation
+		{System.out.println("Inside else: texture name="+tile.textureName);
 			map[xCoord][yCoord].setType(tile);
 			map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
 		}
@@ -143,13 +159,14 @@ public class TileGrid {
 				drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
 			}
 		}
-	
-	
+
+
 		for(int i=0;i<tileMenu.length;i++)
 		{
 			Tile tile=tileMenu[i];
 			drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
 		}
-	
+		towerCannon.draw();
+		towerBomb.draw();
 	}
 }

@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.lwjgl.Sys;
 
 import ai.Path;
+import ai.PathValidationCode;
 import main.Boot;
 
 /**
@@ -59,7 +60,10 @@ public class GameScreenManager {
 	 */
 	public  boolean saveMap()
 	{
-		//System.out.println(Path.isPathValid());
+		if (Path.isPathValid()!=PathValidationCode.PATH_OK)
+			{	System.out.println("Map cannot be saved as the path has error: "+Path.isPathValid());
+				return false;
+			}
 		for(int i=0;i<this.noRows;i++)
 		{	
 			for(int j=0;j<this.noColumns;j++) 
