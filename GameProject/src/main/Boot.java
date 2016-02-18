@@ -1,6 +1,6 @@
 package main;
 
-import static graphics.Designer.beginSession;
+import static graphics.Designer.*;
 
 import java.awt.Font;
 import java.io.File;
@@ -16,6 +16,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
+import tower.TowerCannon;
 import utility.FileExplorer;
 
 /**
@@ -72,6 +73,7 @@ public class Boot {
 		TileGrid grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
+		
 
 		while(!Display.isCloseRequested()){
 			grid.draw();
