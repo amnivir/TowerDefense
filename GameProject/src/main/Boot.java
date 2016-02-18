@@ -71,15 +71,15 @@ public class Boot {
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
 
-		String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
-
+		//String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
+		System.out.println("You have $" + player.money);
 		while(!Display.isCloseRequested()){
 			//Draws the grid with current assignment of Grid
 			grid.draw();
 			//Captures the user input and sets the tile
 			player.setTile();
 			//Displays the text in the Screen Area
-			font.drawString(32*10, 64, currentCredits, Color.white);
+			//font.drawString(32*10, 64, currentCredits, Color.white);
 			Display.update();
 			Display.sync(60);
 		}

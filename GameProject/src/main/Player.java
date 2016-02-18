@@ -55,6 +55,27 @@ public class Player {
 					{
 						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
 					}
+					
+					else if(Mouse.isButtonDown(1)) // if right mouse key is pressed
+					{
+						System.out.println("inside 1");
+						System.out.println(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize)).getType().textureName);
+						if(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize)).getType().textureName=="cannonBase")
+						{
+							currentTile=TileType.Grass;
+							grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
+							TileGrid.towerCannon.sell();
+							
+						}
+						else if(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize)).getType().textureName=="bombBase")
+						{
+							currentTile=TileType.Grass;
+							grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
+							TileGrid.towerBomb.sell();
+							
+						}
+						
+					}
 				}
 
 				else if((HEIGHT - Mouse.getY()) / blockSize==0)
@@ -71,10 +92,16 @@ public class Player {
 				else if((HEIGHT - Mouse.getY()) / blockSize==1)
 				{
 					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns())
+					{
 						currentTile=TileType.TowerCannon;
+						TileGrid.towerCannon.discription();
+					}
 
 					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
+					{
 						currentTile=TileType.TowerBomb;
+						TileGrid.towerBomb.discription();
+					}
 
 				}
 

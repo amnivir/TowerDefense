@@ -52,6 +52,19 @@ public class TowerBomb extends Tower {
 
 
 	}
+	public void discription() {
 
+		System.out.println("Discription of Bomb Tower");
+		System.out.println("Damen Pwoer " + damage);
+		System.out.println("Price of tower $" + price);
+	}
+
+	public void sell() {
+		System.out.println("You sold the tower cannon");
+		Player.money = Player.money + price;
+
+		System.out.println("your current money $" + Player.money);
+
+	}
 
 }

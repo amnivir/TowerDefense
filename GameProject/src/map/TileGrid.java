@@ -116,6 +116,31 @@ public class TileGrid {
 				map[xCoord][yCoord].setType(tile);
 				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
 			}
+
+			else if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.TowerCannon)
+			{
+				Iterator<Integer> iter = pathCordinate.iterator();
+
+				while (iter.hasNext()) {
+					Integer num = iter.next();
+					if (num==xyCoord)
+						iter.remove();
+				}
+				map[xCoord][yCoord].setType(tile);
+				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+			}
+			else if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.TowerBomb)
+			{
+				Iterator<Integer> iter = pathCordinate.iterator();
+
+				while (iter.hasNext()) {
+					Integer num = iter.next();
+					if (num==xyCoord)
+						iter.remove();
+				}
+				map[xCoord][yCoord].setType(tile);
+				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+			}
 		}
 
 		else if(tile.textureName==TileType.TowerBomb.textureName)
@@ -146,7 +171,7 @@ public class TileGrid {
 		{
 			if(map[xCoord][yCoord].getType()==TileType.Grass)
 			{ 
-				boolean flag=towerBomb.buy();
+				boolean flag=towerCannon.buy();
 				if(flag==true)
 				{
 					System.out.println("You buy cannon tower");
