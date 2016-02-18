@@ -11,6 +11,7 @@ import tower.TowerCannon;
 
 import ai.Path;
 import main.Boot;
+import main.Player;
 
 /**
  * 
@@ -80,8 +81,8 @@ public class TileGrid {
 		tileMenu[1]=new Tile((columns+1) *32, 0, 32, 32, TileType.Dirt);
 		tileMenu[2]=new Tile((columns+2) *32, 0, 32, 32, TileType.Grass);
 		tileMenu[3]=new Tile((columns+2) *32, 0, 32, 32, TileType.Grass);
-		towerCannon=new TowerCannon(quickTexture("cannonBase"),new Tile((columns) *32, 1*32, 32, 32, TileType.Grass) ,10);
-		towerBomb=new TowerBomb(quickTexture("bombBase"),new Tile((columns+1) *32, 1*32, 32, 32, TileType.Grass) ,10);
+		towerCannon=new TowerCannon(quickTexture("cannonBase"),new Tile((columns) *32, 1*32, 32, 32, TileType.Grass));
+		towerBomb=new TowerBomb(quickTexture("bombBase"),new Tile((columns+1) *32, 1*32, 32, 32, TileType.Grass));
 	}
 
 	/**
@@ -118,21 +119,56 @@ public class TileGrid {
 			}
 		}
 
-		else if(tile.textureName==TileType.TowerBomb.textureName || tile.textureName==TileType.TowerCannon.textureName)
+		else if(tile.textureName==TileType.TowerBomb.textureName)
 		{
 			
 			if(map[xCoord][yCoord].getType()==TileType.Grass)
 			{ 
-				map[xCoord][yCoord].setType(tile);
-				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-
+				boolean flag=towerBomb.buy();
+				if(flag==true)
+				{
+					System.out.println("You buy bomb tower");
+					
+					System.out.println("Bomb Tower placed");
+					map[xCoord][yCoord].setType(tile);
+					map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+					towerBomb=new TowerBomb(map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]);
+					
+					System.out.println("Your current money is "+Player.money);
+				}
+				else
+					System.out.println("You cannot buy ... your money is less ->"+Player.money);
+			}
+			else 
+				System.out.println("Tower can only be placed on grass!");
+		}
+		
+		else if(tile.textureName==TileType.TowerCannon.textureName)
+		{
+			if(map[xCoord][yCoord].getType()==TileType.Grass)
+			{ 
+				boolean flag=towerBomb.buy();
+				if(flag==true)
+				{
+					System.out.println("You buy cannon tower");
+					
+					System.out.println("Cannon Tower placed");
+					map[xCoord][yCoord].setType(tile);
+					map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+					towerCannon=new TowerCannon(map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]);
+					
+					System.out.println("Your current money is "+Player.money);
+				}
+				else
+					System.out.println("You cannot buy ... your money is less ->"+Player.money);
 			}
 			else 
 				System.out.println("Tower can only be placed on grass!");
 		}
 
 		else // if scenery then we don't need to compute the path validation
-		{System.out.println("Inside else: texture name="+tile.textureName);
+		{
+			System.out.println("Inside else: texture name="+tile.textureName);
 			map[xCoord][yCoord].setType(tile);
 			map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
 		}

@@ -67,13 +67,15 @@ public class Boot {
 		 
 	     font = new TrueTypeFont(awtFont, antiAlias);
 	     
-	     int score = 100;
 	     
-	     String currentCredits = "CreditLeft:$" + Integer.toString(score);
+	     
+	    
+	     
 		TileGrid grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
 		
+		 String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
 
 		while(!Display.isCloseRequested()){
 			grid.draw();

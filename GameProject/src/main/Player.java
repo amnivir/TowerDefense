@@ -25,6 +25,7 @@ public class Player {
 	private ArrayList<Integer> intList = new ArrayList<Integer>();
 	public static TowerCannon towerCannon;
 	public static int towerX=0,towerY=0;
+	public static int money = 100;
 	Player(TileGrid grid){
 		this.grid=grid;
 

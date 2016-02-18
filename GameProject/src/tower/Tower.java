@@ -9,7 +9,9 @@ public abstract class Tower {
 	protected int damage;
 	protected Tile startTile;
 	protected Texture texture;
+	protected int price;
 	
 	public abstract void draw();
+	public abstract boolean buy();
 
 }
