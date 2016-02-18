@@ -108,10 +108,8 @@ public class TileGrid {
 					if (num==xyCoord)
 						iter.remove();
 				}
-
 				map[xCoord][yCoord].setType(tile);
 				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-
 			}
 		}
 		

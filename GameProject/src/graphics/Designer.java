@@ -29,6 +29,8 @@ import map.TileType;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GLContext;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -52,6 +54,7 @@ public class Designer {
 			Display.setTitle("Tower Defence Game");
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.create();
+			Display.setVSyncEnabled(true);
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
@@ -62,7 +65,12 @@ public class Designer {
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
+		GL11.glShadeModel(GL11.GL_SMOOTH);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+	    GL11.glDisable(GL11.GL_LIGHTING);  
+	    GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);                
+        GL11.glClearDepth(0);
+        GL11.glViewport(0,0,WIDTH,HEIGHT);
 		}
 	
 /**

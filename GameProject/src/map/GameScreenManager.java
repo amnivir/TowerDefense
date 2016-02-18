@@ -136,6 +136,4 @@ public class GameScreenManager {
 	public int getNoRows() {
 		return noRows;
 	}
-	
-
 }

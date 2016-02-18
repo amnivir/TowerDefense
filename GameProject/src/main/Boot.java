@@ -2,6 +2,7 @@ package main;
 
 import static graphics.Designer.beginSession;
 
+import java.awt.Font;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Scanner;
@@ -12,6 +13,8 @@ import map.TileGrid;
 import map.TileType;
 
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 
 import utility.FileExplorer;
 
@@ -51,9 +54,21 @@ public class Boot {
 			break;
 		}
 		}
-
+		
+	
+	
+	        
 		beginSession(noRows,noColumns);
 
+		TrueTypeFont font;
+		 boolean antiAlias = false;
+		 Font awtFont = new Font("Times New Roman", Font.BOLD, 16);
+		 
+	     font = new TrueTypeFont(awtFont, antiAlias);
+	     
+	     int score = 100;
+	     
+	     String currentCredits = "CreditLeft:$" + Integer.toString(score);
 		TileGrid grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
@@ -61,6 +76,7 @@ public class Boot {
 		while(!Display.isCloseRequested()){
 			grid.draw();
 			player.setTile();
+			font.drawString(32*10, 64, currentCredits, Color.white);
 			Display.update();
 			Display.sync(60);
 		}
