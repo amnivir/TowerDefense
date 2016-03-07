@@ -15,23 +15,24 @@ public class Path {
 	public static ArrayList<Integer> continousPath=null;
 
 
-	public static void copyArray(ArrayList<Integer> arr)
+	public static ArrayList<Integer> copyArray(ArrayList<Integer> arr)
 	{	
-		continousPath = new ArrayList<Integer>();
-		tempPath = new  ArrayList<Integer>();
+		ArrayList<Integer> temp = new  ArrayList<Integer>();
 		for (Integer coordinate:arr)
 		{
-			tempPath.add(coordinate);
+			temp.add(coordinate);
 		}
+		return temp;
 	}
 	/**
-	 * This method performs the path validation in the map returns the appropriate error code   
+	 * This method performs the path validation in the map and returns the appropriate error code   
 	 * @return PathValidationCode returns the enum code defined in class PathValidationCode
 	 */
 	public static PathValidationCode isPathValid()
 	{
 		ArrayList<Integer> pathCordinate;
 		pathCordinate = TileGrid.pathCordinate;
+		continousPath = new ArrayList<Integer>();
 		int[] startEndPathCordinate=new int[2]; 
 		int noExitEntryCoordinate=0;
 		int noRows=Boot.getNoRows();
@@ -99,7 +100,8 @@ public class Path {
 
 		System.out.println("No of Boundrypoints="+noExitEntryCoordinate);
 
-		copyArray(pathCordinate);
+		tempPath = copyArray(pathCordinate);
+		
 
 		currentCoordinate=startEndPathCordinate[0];
 		continousPath.add(startEndPathCordinate[0]);
@@ -134,14 +136,4 @@ public class Path {
 
 	}
 
-	/**
-	 * This method determines if we have reached maximum number fo entry and exit points
-	 */
-	public static void isNoOfExitEntryPointsTwo(int noExitEntryCoordinate)
-	{
-		if(noExitEntryCoordinate ==2 )
-		{
-			System.out.println("No of EntryExit points more than 2. Invalid Path!");
-		}
-	}
 }
