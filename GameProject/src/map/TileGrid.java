@@ -25,6 +25,7 @@ public class TileGrid {
 	public static Tile tileMenu[];
 	public static TowerCannon towerCannon;
 	public static TowerBomb towerBomb;
+	public static int[][] tileMatrix;
 	public TileGrid(int rows, int columns, int width){
 
 		map=new Tile[columns][rows];
@@ -209,6 +210,20 @@ public class TileGrid {
 	public Tile getTile(int xCoord, int yCoord)	{
 
 		return map[xCoord][yCoord];
+	}
+	
+	public int[][] getTileMatrix()
+	{
+		tileMatrix = new int[Boot.getNoRows()][Boot.getNoColumns()];
+		for(int i=0;i<Boot.getNoRows();i++)
+		{	
+			for(int j=0;j<Boot.getNoColumns();j++) 
+			{	
+				tileMatrix[i][j] =  Boot.grid.getTile(i,j).getType().ordinal();
+			}
+			System.out.println("");
+		}
+		return tileMatrix;
 	}
 
 	/**

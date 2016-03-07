@@ -115,7 +115,7 @@ public class Player {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 				if (Keyboard.getEventKey() == Keyboard.KEY_S) {
-					Boot.gameScreen.saveMap();
+					Boot.gameScreen.saveMap(grid.getTileMatrix(),Boot.gameScreen);
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_L) {
 					System.out.println("Loading the map");

@@ -33,7 +33,7 @@ public class GameScreenManager {
 
 
 	@XmlElement
-	private int[][] tileCoordinates = new int[Boot.getNoRows()][Boot.getNoColumns()];
+	private int[][] tileCoordinates;
 
 	@XmlElement
 	private int noRows;
@@ -46,7 +46,8 @@ public class GameScreenManager {
 	
 	public GameScreenManager()
 	{
-
+		this.noRows=Boot.getNoRows();
+		this.noColumns=Boot.getNoColumns();
 	}
 	public GameScreenManager(TileGrid grid)
 	{
@@ -58,8 +59,8 @@ public class GameScreenManager {
 	 * This method saves the game if path is valid in the map
 	 * @return boolean return true if map is saved false otherwise
 	 */
-	public  boolean saveMap()
-	{
+	public  boolean saveMap(int[][] tileMatix, GameScreenManager gs)
+	{	tileCoordinates = new int[Boot.getNoRows()][Boot.getNoColumns()];
 		if (Path.isPathValid()!=PathValidationCode.PATH_OK)
 			{	System.out.println("Map cannot be saved as the path has error: "+Path.isPathValid());
 				return false;
@@ -68,7 +69,7 @@ public class GameScreenManager {
 		{	
 			for(int j=0;j<this.noColumns;j++) 
 			{	
-				tileCoordinates[j][i] =  grid.getTile(i,j).getType().ordinal();
+				tileCoordinates[j][i] =  tileMatix[i][j];
 				System.out.print((i)+","+(j)+"-->"+tileCoordinates[i][j]+"  ");
 			}
 			System.out.println("");
@@ -77,7 +78,9 @@ public class GameScreenManager {
 		pathCordinates.clear();
 		for(Integer coordinate : TileGrid.pathCordinate)
 			pathCordinates.add(coordinate);
-
+		
+		System.out.println(pathCordinates);
+		System.out.println((this.noRows)+(this.noColumns));
 		try {
 			Date date = new Date() ;
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmssZ");
@@ -85,11 +88,10 @@ public class GameScreenManager {
 			JAXBContext jaxbContext = JAXBContext.newInstance(GameScreenManager.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
-			// output pretty printed
+			//output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-			jaxbMarshaller.marshal(Boot.gameScreen, file);
-			jaxbMarshaller.marshal(Boot.gameScreen, System.out);
+			jaxbMarshaller.marshal(gs, file);
+			jaxbMarshaller.marshal(gs, System.out);
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -127,7 +129,6 @@ public class GameScreenManager {
 		}
 		for(Integer coordinate:readCoordinates.pathCordinates)
 		{
-			//System.out.println("path cordinate from file"+coordinate);
 			TileGrid.pathCordinate.add(coordinate);
 		}
 
@@ -141,4 +142,5 @@ public class GameScreenManager {
 	public int getNoRows() {
 		return noRows;
 	}
+
 }
