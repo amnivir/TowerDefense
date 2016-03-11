@@ -3,11 +3,14 @@ package main;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import tower.TowerBomb;
 import tower.TowerCannon;
 import static graphics.Designer.*;
 
 import java.awt.List;
 import java.util.ArrayList;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import map.GameScreenManager;
 import map.TileGrid;
@@ -23,9 +26,11 @@ public class Player {
 	int  blockSize =32;
 	public TileType currentTile= TileType.Grass;
 	private ArrayList<Integer> intList = new ArrayList<Integer>();
-	public static TowerCannon towerCannon;
+//	public static TowerCannon towerCannon;
 	public static int towerX=0,towerY=0;
-	public static int money = 100;
+	public static int money = 500;
+	String tower="";		//for checking which tower it is in run time
+	int x,y;				//to get the current x coordinate and y coordinate of map
 	Player(TileGrid grid){
 		this.grid=grid;
 
@@ -42,6 +47,7 @@ public class Player {
 	 * @return void
 	 */
 	public void setTile(){
+		
 
 		//TODO do not set tile multiple times i.e. set the tile only once and add toggle effect
 		while(Mouse.next()){
@@ -58,23 +64,21 @@ public class Player {
 					
 					else if(Mouse.isButtonDown(1)) // if right mouse key is pressed
 					{
-						System.out.println("inside 1");
-						System.out.println(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize)).getType().textureName);
+						System.out.println("press 'X' to sell the tower or press 'U' to update its Range");
 						if(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize)).getType().textureName=="cannonBase")
 						{
-							currentTile=TileType.Grass;
-							grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
-							TileGrid.towerCannon.sell();
-							
+							tower="cannon tower";
+							x=(int)Math.floor(Mouse.getX() / blockSize);
+							y=(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize);
+														
 						}
 						else if(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize)).getType().textureName=="bombBase")
 						{
-							currentTile=TileType.Grass;
-							grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
-							TileGrid.towerBomb.sell();
-							
+							tower="bomb tower";
+
+							x=(int)Math.floor(Mouse.getX() / blockSize);
+							y=(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize);
 						}
-						
 					}
 				}
 
@@ -94,13 +98,13 @@ public class Player {
 					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns())
 					{
 						currentTile=TileType.TowerCannon;
-						TileGrid.towerCannon.discription();
+						TileGrid.towerCannon.description();
 					}
 
 					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
 					{
 						currentTile=TileType.TowerBomb;
-						TileGrid.towerBomb.discription();
+						TileGrid.towerBomb.description();
 					}
 
 				}
@@ -120,6 +124,79 @@ public class Player {
 				if (Keyboard.getEventKey() == Keyboard.KEY_L) {
 					System.out.println("Loading the map");
 				}
+				
+
+				if(tower.equals("cannon tower")||tower.equals("bomb tower")) // all operation will perform on third click
+				{
+					
+				if (Keyboard.getEventKey() == Keyboard.KEY_X) 
+				{
+					currentTile=TileType.Grass;
+					//grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
+					
+					if(tower.equals("cannon tower"))
+					{
+
+						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
+						for ( TowerCannon temp : TileGrid.cannonList) {
+							
+							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
+							temp.sell();
+							TileGrid.cannonList.remove(temp);
+							break;
+							}
+						}
+						
+					}
+					
+					else if(tower.equals("bomb tower"))
+					{
+						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
+						for ( TowerBomb temp : TileGrid.bombList) {
+							
+							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
+							temp.sell();
+							TileGrid.bombList.remove(temp);
+							break;
+							}
+						}
+						
+					}
+				}
+				if (Keyboard.getEventKey() == Keyboard.KEY_U) 
+				{
+					System.out.println("For increasing the range you will be charged $10");
+					System.out.println("Press 'SPACE' to enhance the range or e for exit");
+				}
+				if (Keyboard.getEventKey() == Keyboard.KEY_SPACE)
+				{
+					if(tower.equals("cannon tower"))
+					{					
+						for ( TowerCannon temp : TileGrid.cannonList) {
+							
+							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
+								temp.update();
+								break;
+							}
+						}
+					}
+					else if(tower.equals("bomb tower"))
+					{
+						for ( TowerBomb temp : TileGrid.bombList) {
+							
+							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
+								temp.update();
+								break;
+							}
+						}
+
+					}
+				}
+				
+				}
+					
+				
+				
 			}
 		}
 

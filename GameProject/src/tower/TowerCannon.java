@@ -25,9 +25,23 @@ public class TowerCannon extends Tower {
 		this.width=startTile.getWidth();
 		this.height=startTile.getHeight();
 		this.damage=10;
+		this.range=20;
 		this.texture=texture;
-		this.price=50;
+		this.price=30;
 		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * getter for x coordinate
+	 */
+	public int getX(){
+		return (int) x;
+	}
+	/**
+	 * getter for y coordinate
+	 */
+	public int getY(){
+		return (int) y;
 	}
 	
 	/**
@@ -45,26 +59,41 @@ public class TowerCannon extends Tower {
 	public boolean buy() {
 		if(Player.money >=price)
 		{
-			Player.money=Player.money-price;
+			Player.money=Player.money-this.price;
 			return true;
 		}
 		else
 			return false;		
 	}
 	
-	public void discription() {
+	public void description() {
 
-		System.out.println("Discription of Bomb Cannon");
-		System.out.println("Damen Pwoer " + damage);
-		System.out.println("Price of tower $" + price);
+		System.out.println("-----Discription of Cannon Tower-----");
+		System.out.println("Tower Power " + this.damage);
+		System.out.println("Tower Range " + this.range);
+		System.out.println("Price of tower $" + this.price);
+		System.out.println();
 	}
 
 	public void sell() {
-		System.out.println("You sold the tower cannon");
-		Player.money = Player.money + price;
-
+		System.out.println("You sold the Cannon Tower");
+		Player.money = Player.money + this.price;
 		System.out.println("your current money $"+Player.money);
+		System.out.println();
+	}
 
+	public void update() {
+		if(Player.money >=10)
+	{
+		Player.money=Player.money-10;
+		this.range=this.range+10;
+		System.out.println("Cannon Tower's updated range: "+this.range);
+		System.out.println("Your Current Money: &"+Player.money);
+	}
+	else{
+		System.out.println("Sorry your money is less the price to update the tower");
+		System.out.println("Your Current Money: &"+Player.money);	
+	}
 	}
 
 
