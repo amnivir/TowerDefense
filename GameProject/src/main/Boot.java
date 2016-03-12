@@ -31,6 +31,7 @@ public class Boot {
 	public static GameScreenManager gameScreen = null;
 	public Scanner keyboard = new Scanner(System.in);
 	public static int[][] map  = null;
+	public static TileGrid grid;
 	/**
 	 * This constructor initializes openGL library , accepts user input to either start 
 	 * a new game or load the saved game
@@ -63,8 +64,10 @@ public class Boot {
 		Font awtFont = new Font("Times New Roman", Font.BOLD, 16);
 
 		font = new TrueTypeFont(awtFont, antiAlias);
-
-		TileGrid grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
+		/*
+		 * Create singleton for grid
+		 */
+		grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
 
@@ -133,6 +136,21 @@ public class Boot {
 	 */
 	public static int getNoColumns() {
 		return noColumns;
+	}
+	/**
+	 * Set number of rows for JUNIt test
+	 * @param noRows
+	 */
+	public static void setNoRows(int noRows) {
+		Boot.noRows = noRows;
+	}
+	
+	/**
+	 * Set number of columns for JUNIt test
+	 * @param noColumns
+	 */
+	public static void setNoColumns(int noColumns) {
+		Boot.noColumns = noColumns;
 	}
 
 	/**
