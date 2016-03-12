@@ -16,7 +16,7 @@ import org.newdawn.slick.TrueTypeFont;
 
 import tower.TowerCannon;
 import utility.FileExplorer;
-
+import tower.*;
 /**
  * This is main the class which launches the game and displays the screen to the user.
  * This class is a view in MVC architecture. This class pulls the map from the model after each iteration
@@ -69,6 +69,7 @@ public class Boot {
 		grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
+		TowerCannon tower = new TowerCannon(quickTexture("CannonBase"), grid.getTile(14, 7));
 
 		//String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
 		System.out.println("You have $" + player.money);
@@ -77,6 +78,8 @@ public class Boot {
 			grid.draw();
 			//Captures the user input and sets the tile
 			player.setTile();
+			//draw the bullet on the screen
+			tower.update();
 			//Displays the text in the Screen Area
 			//font.drawString(32*10, 64, currentCredits, Color.white);
 			Display.update();

@@ -1,5 +1,7 @@
 package tower;
 
+import java.util.ArrayList;
+
 import main.Player;
 import map.Tile;
 import static graphics.Designer.*;
@@ -22,12 +24,16 @@ public class TowerCannon extends Tower {
 		super();
 		this.x=startTile.getX();
 		this.y=startTile.getY();
+		this.cannonTexture = quickTexture("CannonBase");
 		this.width=startTile.getWidth();
 		this.height=startTile.getHeight();
 		this.damage=10;
 		this.range=10;
 		this.texture=texture;
 		this.price=30;
+		this.speedOfFire = 30; //speed of firing the bullets
+		this.lastShootTime = 0; //the time for last shooted bullet
+		this.shootTiles = new ArrayList<ShootTile>(); //list of bullets
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -50,6 +56,7 @@ public class TowerCannon extends Tower {
 	@Override
 	public void draw() {
 		drawQuadTex(texture, x, y, width, height);
+		drawQuadTexRot(cannonTexture, x, y, WIDTH, HEIGHT,45); //rotate the tower to shoot the enemies
 		
 	}
 	
@@ -82,18 +89,39 @@ public class TowerCannon extends Tower {
 		System.out.println();
 	}
 
-	public void update() {
-		if(Player.money >=10)
+	private void shoot()
 	{
-		Player.money=Player.money-10;
-		this.range=this.range+10;
-		System.out.println("Cannon Tower's updated range: "+this.range);
-		System.out.println("Your Current Money: &"+Player.money);
+		//timeSinceLastShot = 0;
+		shootTiles.add(new ShootTile(quickTexture("bullet"), x+32, y+32, 5, 10));
+		
 	}
-	else{
-		System.out.println("Sorry your money is less the price to update the tower");
-		System.out.println("Your Current Money: &"+Player.money);	
-	}
+	
+	public void update() 
+	{
+		if(Player.money >=10)
+		{
+			Player.money=Player.money-10;
+			this.range=this.range+10;
+			System.out.println("Cannon Tower's updated range: "+this.range);
+			System.out.println("Your Current Money: &"+Player.money);
+			
+			/*timeSinceLastShot += Delta();
+				if(timeSinceLastShot > speedOfFire)
+				{
+					shoot();
+				}
+				
+				for(ShootTile s : shootTiles)
+				{
+					s.update();
+				}
+			draw();*/
+		}
+		else
+		{
+			System.out.println("Sorry your money is less the price to update the tower");
+			System.out.println("Your Current Money: &"+Player.money);	
+		}
 	}
 
 
