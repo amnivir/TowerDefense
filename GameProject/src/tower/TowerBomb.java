@@ -29,18 +29,7 @@ public class TowerBomb extends Tower {
 		this.price=50;
 		// TODO Auto-generated constructor stub
 	}
-	/**
-	 * getter for x coordinate
-	 */
-	public int getX(){
-		return (int) x;
-	}
-	/**
-	 * getter for y coordinate
-	 */
-	public int getY(){
-		return (int) y;
-	}
+	
 	/**
 	 * Draws the Tower on the map
 	 */
@@ -51,11 +40,12 @@ public class TowerBomb extends Tower {
 	}
 
 	@Override
-	public boolean buy() {if(Player.money >=price)
-	{
-		Player.money=Player.money-price;
-		return true;
-	}
+	public boolean buy() {
+		if(Player.money >=price)
+		{
+			Player.money=Player.money-price;
+			return true;
+		}
 	else
 		return false;	
 	}

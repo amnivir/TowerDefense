@@ -94,10 +94,11 @@ public class TileGrid {
 		 * Draw the buttons on the right side of the map for changing the strategy
 		 */
 		
-		buttonMenu=new Tile[3];
+		buttonMenu=new Tile[4];
 		buttonMenu[0]=new Tile((columns+1) *32, 5*32, 32, 32, TileType.Water);
 		buttonMenu[1]=new Tile((columns+3) *32, 5*32, 32, 32, TileType.Dirt);
 		buttonMenu[2]=new Tile((columns+2) *32, 4*32, 32, 32, TileType.StopButton);
+		buttonMenu[3]=new Tile((columns) *32, 2*32, 32, 32, TileType.PlayButton);
 		/*
 		 * Draw the Tower Icons on the right side of the map for choosing
 		 */

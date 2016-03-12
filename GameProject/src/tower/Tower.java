@@ -27,6 +27,57 @@ public abstract class Tower {
 	 * @return
 	 */
 	public abstract boolean buy();
+	public float getX() {
+		return x;
+	}
+	public void setX(float x) {
+		this.x = x;
+	}
+	public float getY() {
+		return y;
+	}
+	public void setY(float y) {
+		this.y = y;
+	}
+	public float getWidth() {
+		return width;
+	}
+	public void setWidth(float width) {
+		this.width = width;
+	}
+	public float getHeight() {
+		return height;
+	}
+	public void setHeight(float height) {
+		this.height = height;
+	}
+	public int getDamage() {
+		return damage;
+	}
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+	public int getRange() {
+		return range;
+	}
+	public void setRange(int range) {
+		this.range = range;
+	}
+	public Tile getStartTile() {
+		return startTile;
+	}
+	public void setStartTile(Tile startTile) {
+		this.startTile = startTile;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
 	/**
 	 * Abstract method that shows description of the tower
 	 * @return
@@ -44,6 +95,10 @@ public abstract class Tower {
 	 */
 	
 	public abstract void sell();
+	public Texture getTexture() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

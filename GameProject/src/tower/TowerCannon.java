@@ -37,18 +37,6 @@ public class TowerCannon extends Tower {
 		// TODO Auto-generated constructor stub
 	}
 	
-	/**
-	 * getter for x coordinate
-	 */
-	public int getX(){
-		return (int) x;
-	}
-	/**
-	 * getter for y coordinate
-	 */
-	public int getY(){
-		return (int) y;
-	}
 	
 	/**
 	 * Draws the Tower on the map
