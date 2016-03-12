@@ -56,7 +56,8 @@ public class Player {
 
 				if(((Mouse.getX() / blockSize) < Boot.getNoColumns()) && (((HEIGHT - Mouse.getY()) / blockSize) < Boot.getNoRows()))
 
-				{
+				{	
+					//Create the path
 					if(Mouse.isButtonDown(0)) // if left mouse key is pressed
 					{
 						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
