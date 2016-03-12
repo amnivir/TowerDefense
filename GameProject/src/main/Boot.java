@@ -1,6 +1,5 @@
 package main;
 import static graphics.Designer.*;
-
 import java.awt.Font;
 import java.io.File;
 import java.io.FilenameFilter;

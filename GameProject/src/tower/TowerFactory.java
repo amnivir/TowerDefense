@@ -18,6 +18,10 @@ public class TowerFactory {
 	    	  return new TowerBomb(tex, tile);
 	         
 	      } 
+	      else if(towerType.equalsIgnoreCase("freez")){
+	    	  return new TowerFreez(tex, tile);
+	         
+	      }
 	      
 	      return null;
 	   }

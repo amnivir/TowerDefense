@@ -25,7 +25,7 @@ public class TowerCannon extends Tower {
 		this.width=startTile.getWidth();
 		this.height=startTile.getHeight();
 		this.damage=10;
-		this.range=20;
+		this.range=10;
 		this.texture=texture;
 		this.price=30;
 		// TODO Auto-generated constructor stub
