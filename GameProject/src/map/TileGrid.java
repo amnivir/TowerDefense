@@ -119,18 +119,19 @@ public class TileGrid {
 		int xyCoord = yCoord*Boot.getNoRows()+xCoord;//may be x&y needs to be interchanged
 		System.out.println(xyCoord);
 		System.out.println(pathCordinate);
+		//TODO Add game state , no more editing after  
 		if(tile.textureName==TileType.Dirt.textureName || tile.textureName==TileType.Grass.textureName)
 		{
-			if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.Grass)
+			if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.Grass && tile.textureName==TileType.Dirt.textureName)
 			{
 				pathCordinate.add(xyCoord);
 				map[xCoord][yCoord].setType(tile);
 				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
 			}
-			else if(pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.Dirt)
+			else if(pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.Dirt && tile.textureName==TileType.Grass.textureName)
 			{
 				Iterator<Integer> iter = pathCordinate.iterator();
-
+				//Remove the path
 				while (iter.hasNext()) {
 					Integer num = iter.next();
 					if (num==xyCoord)
@@ -142,25 +143,13 @@ public class TileGrid {
 
 			else if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.TowerCannon)
 			{
-				Iterator<Integer> iter = pathCordinate.iterator();
-
-				while (iter.hasNext()) {
-					Integer num = iter.next();
-					if (num==xyCoord)
-						iter.remove();
-				}
+				
 				map[xCoord][yCoord].setType(tile);
 				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
 			}
 			else if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType()==TileType.TowerBomb)
 			{
-				Iterator<Integer> iter = pathCordinate.iterator();
-
-				while (iter.hasNext()) {
-					Integer num = iter.next();
-					if (num==xyCoord)
-						iter.remove();
-				}
+				
 				map[xCoord][yCoord].setType(tile);
 				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
 			}
@@ -255,7 +244,6 @@ public class TileGrid {
 
 		else // if scenery then we don't need to compute the path validation
 		{
-			System.out.println("Inside else: texture name="+tile.textureName);
 			map[xCoord][yCoord].setType(tile);
 			map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
 		}
