@@ -1,5 +1,4 @@
 package main;
-
 import static graphics.Designer.*;
 
 import java.awt.Font;
@@ -26,8 +25,6 @@ import utility.FileExplorer;
  *
  */
 public class Boot {
-
-
 	private static int noRows;
 	private static int noColumns;
 	public static Player player=null;
@@ -145,6 +142,7 @@ public class Boot {
 	public static void main(String args[])
 	{
 		new Boot();
+		
 	}
 
 	/**

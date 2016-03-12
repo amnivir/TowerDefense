@@ -9,6 +9,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import tower.TowerBomb;
 import tower.TowerCannon;
+import tower.TowerFactory;
 import ai.Path;
 import main.Boot;
 import main.Player;
@@ -23,6 +24,7 @@ public class TileGrid {
 	public static Tile map[][];
 	public static final ArrayList<Integer> pathCordinate = new ArrayList<>();
 	public static Tile tileMenu[];
+	public static Tile buttonMenu[];
 	public static TowerCannon towerCannon;
 	public static TowerBomb towerBomb;
 	public static List<TowerCannon> cannonList= new ArrayList<TowerCannon>();  	//store all the cannon tower objects in game
@@ -81,9 +83,20 @@ public class TileGrid {
 		tileMenu[0]=new Tile((columns) *32, 0, 32, 32, TileType.Water);
 		tileMenu[1]=new Tile((columns+1) *32, 0, 32, 32, TileType.Dirt);
 		tileMenu[2]=new Tile((columns+2) *32, 0, 32, 32, TileType.Grass);
+
 		//tileMenu[3]=new Tile((columns+2) *32, 0, 32, 32, TileType.Grass);
+		/*
+		 * Draw the buttons on the right side of the map for changing the strategy
+		 */
+		
+		buttonMenu=new Tile[3];
+		buttonMenu[0]=new Tile((columns+1) *32, 5*32, 32, 32, TileType.Water);
+		buttonMenu[1]=new Tile((columns+3) *32, 5*32, 32, 32, TileType.Dirt);
+		buttonMenu[2]=new Tile((columns+2) *32, 4*32, 32, 32, TileType.StopButton);
+		
 		towerCannon=new TowerCannon(quickTexture("cannonBase"),new Tile((columns) *32, 1*32, 32, 32, TileType.TowerCannon));
 		towerBomb=new TowerBomb(quickTexture("bombBase"),new Tile((columns+1) *32, 1*32, 32, 32, TileType.TowerBomb));
+		
 	}
 
 	/**
@@ -157,7 +170,12 @@ public class TileGrid {
 					System.out.println("Bomb Tower placed");
 					map[xCoord][yCoord].setType(tile);
 					map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-					bombList.add( new TowerBomb(map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
+					//bombList.add( new TowerBomb(map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
+					//calling factory method to make the object of
+					bombList.add((TowerBomb) new TowerFactory().getTower("bomb", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
+					
+					System.out.println("factory method called");
+					System.out.println("Size->"+bombList.size());
 					
 					System.out.println("Your current money is "+Player.money);
 				}
@@ -180,7 +198,11 @@ public class TileGrid {
 					System.out.println("Cannon Tower placed");
 					map[xCoord][yCoord].setType(tile);
 					map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-					cannonList.add( new TowerCannon(map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
+					
+					cannonList.add( (TowerCannon) new TowerFactory().getTower("cannon", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
+					
+					System.out.println("factory method called");
+					System.out.println("Size->"+cannonList.size());
 					
 					System.out.println("Your current money is "+Player.money);
 				}
@@ -230,7 +252,19 @@ public class TileGrid {
 			Tile tile=tileMenu[i];
 			drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
 		}
+		
+		for(int i=0;i<buttonMenu.length;i++)
+		{
+			Tile tile=buttonMenu[i];
+			drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+		}
+		
+		
 		towerCannon.draw();
 		towerBomb.draw();
+		
+		
+		
+		
 	}
 }

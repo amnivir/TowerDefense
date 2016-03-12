@@ -108,6 +108,20 @@ public class Player {
 					}
 
 				}
+				
+				else if((HEIGHT - Mouse.getY()) / blockSize==5)
+				{
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
+						
+
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+3)
+					{
+						currentTile=TileType.TowerBomb;
+						TileGrid.towerBomb.description();
+					}
+
+				}
+
 
 				else{
 					currentTile=TileType.Grass;
@@ -131,15 +145,13 @@ public class Player {
 					
 				if (Keyboard.getEventKey() == Keyboard.KEY_X) 
 				{
-					currentTile=TileType.Grass;
-					//grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
-					
 					if(tower.equals("cannon tower"))
 					{
-
+						
+						currentTile=TileType.Grass;
 						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
-						for ( TowerCannon temp : TileGrid.cannonList) {
-							
+						for ( TowerCannon temp : TileGrid.cannonList) 
+						{	
 							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
 							temp.sell();
 							TileGrid.cannonList.remove(temp);
@@ -151,9 +163,10 @@ public class Player {
 					
 					else if(tower.equals("bomb tower"))
 					{
+						currentTile=TileType.Grass;
 						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
-						for ( TowerBomb temp : TileGrid.bombList) {
-							
+						for ( TowerBomb temp : TileGrid.bombList) 
+						{	
 							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
 							temp.sell();
 							TileGrid.bombList.remove(temp);
