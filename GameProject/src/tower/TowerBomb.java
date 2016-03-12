@@ -24,23 +24,12 @@ public class TowerBomb extends Tower {
 		this.width=startTile.getWidth();
 		this.height=startTile.getHeight();
 		this.damage=20;
-		this.range=30;
+		this.range=20;
 		this.texture=texture;
 		this.price=50;
 		// TODO Auto-generated constructor stub
 	}
-	/**
-	 * getter for x coordinate
-	 */
-	public int getX(){
-		return (int) x;
-	}
-	/**
-	 * getter for y coordinate
-	 */
-	public int getY(){
-		return (int) y;
-	}
+	
 	/**
 	 * Draws the Tower on the map
 	 */
@@ -51,11 +40,12 @@ public class TowerBomb extends Tower {
 	}
 
 	@Override
-	public boolean buy() {if(Player.money >=price)
-	{
-		Player.money=Player.money-price;
-		return true;
-	}
+	public boolean buy() {
+		if(Player.money >=price)
+		{
+			Player.money=Player.money-price;
+			return true;
+		}
 	else
 		return false;	
 	}

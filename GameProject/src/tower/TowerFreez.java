@@ -11,23 +11,23 @@ import org.newdawn.slick.opengl.Texture;
  * @author Rashpal
  *
  */
-public class TowerCannon extends Tower {
+public class TowerFreez extends Tower {
 
 	/**
-	 * This constructor initializes the TowerCannon object.
+	 * This constructor initializes the TowerFreez object.
 	 * @param texture Shape or kind of Tower
 	 * @param startTile Location of the tile in the grid
 	 */
-	public TowerCannon(Texture texture, Tile startTile) {
+	public TowerFreez(Texture texture, Tile startTile) {
 		super();
 		this.x=startTile.getX();
 		this.y=startTile.getY();
 		this.width=startTile.getWidth();
 		this.height=startTile.getHeight();
-		this.damage=10;
-		this.range=10;
+		this.damage=30;
+		this.range=30;
 		this.texture=texture;
-		this.price=30;
+		this.price=70;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -56,7 +56,7 @@ public class TowerCannon extends Tower {
 	
 	public void description() {
 
-		System.out.println("-----Discription of Cannon Tower-----");
+		System.out.println("-----Discription of Freez Tower-----");
 		System.out.println("Tower Power " + this.damage);
 		System.out.println("Tower Range " + this.range);
 		System.out.println("Price of tower $" + this.price);
@@ -64,7 +64,7 @@ public class TowerCannon extends Tower {
 	}
 
 	public void sell() {
-		System.out.println("You sold the Cannon Tower");
+		System.out.println("You sold the Freez Tower");
 		Player.money = Player.money + this.price;
 		System.out.println("your current money $"+Player.money);
 		System.out.println();
@@ -75,7 +75,7 @@ public class TowerCannon extends Tower {
 	{
 		Player.money=Player.money-10;
 		this.range=this.range+10;
-		System.out.println("Cannon Tower's updated range: "+this.range);
+		System.out.println("Freez Tower's updated range: "+this.range);
 		System.out.println("Your Current Money: &"+Player.money);
 	}
 	else{

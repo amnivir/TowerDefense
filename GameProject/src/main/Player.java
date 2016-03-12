@@ -5,6 +5,7 @@ import org.lwjgl.input.Mouse;
 
 import tower.TowerBomb;
 import tower.TowerCannon;
+import tower.TowerFreez;
 import static graphics.Designer.*;
 
 import java.awt.List;
@@ -80,6 +81,13 @@ public class Player {
 							x=(int)Math.floor(Mouse.getX() / blockSize);
 							y=(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize);
 						}
+						else if(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize)).getType().textureName=="freezBase")
+						{
+							tower="freez tower";
+							System.out.println("yesss->"+tower);
+							x=(int)Math.floor(Mouse.getX() / blockSize);
+							y=(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize);
+						}
 					}
 				}
 
@@ -102,27 +110,18 @@ public class Player {
 						TileGrid.towerCannon.description();
 					}
 
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
+					else if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
 					{
 						currentTile=TileType.TowerBomb;
 						TileGrid.towerBomb.description();
 					}
-
-				}
-				
-				else if((HEIGHT - Mouse.getY()) / blockSize==5)
-				{
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
-						
-
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+3)
+					else if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+2)
 					{
-						currentTile=TileType.TowerBomb;
-						TileGrid.towerBomb.description();
+						currentTile=TileType.TowerFreez;
+						TileGrid.towerFreez.description();
 					}
 
 				}
-
 
 				else{
 					currentTile=TileType.Grass;
@@ -141,7 +140,7 @@ public class Player {
 				}
 				
 
-				if(tower.equals("cannon tower")||tower.equals("bomb tower")) // all operation will perform on third click
+				if(tower.equals("cannon tower")||tower.equals("bomb tower")||tower.equals("freez tower")) // all operation will perform on third click
 				{
 					
 				if (Keyboard.getEventKey() == Keyboard.KEY_X) 
@@ -149,14 +148,15 @@ public class Player {
 					if(tower.equals("cannon tower"))
 					{
 						
-						currentTile=TileType.Grass;
-						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
 						for ( TowerCannon temp : TileGrid.cannonList) 
 						{	
-							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
-							temp.sell();
-							TileGrid.cannonList.remove(temp);
-							break;
+							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize))
+							{
+								currentTile=TileType.Grass;
+								grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
+								temp.sell();
+								TileGrid.cannonList.remove(temp);
+								break;
 							}
 						}
 						
@@ -164,14 +164,30 @@ public class Player {
 					
 					else if(tower.equals("bomb tower"))
 					{
-						currentTile=TileType.Grass;
-						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
 						for ( TowerBomb temp : TileGrid.bombList) 
 						{	
-							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
-							temp.sell();
-							TileGrid.bombList.remove(temp);
-							break;
+							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize))
+							{
+								currentTile=TileType.Grass;
+								grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
+								temp.sell();
+								TileGrid.bombList.remove(temp);
+								break;
+							}
+						}
+						
+					}
+					else if(tower.equals("freez tower"))
+					{
+						for ( TowerFreez temp : TileGrid.freezList) 
+						{	
+							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize))
+							{
+								currentTile=TileType.Grass;
+								grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
+								temp.sell();
+								TileGrid.freezList.remove(temp);
+								break;
 							}
 						}
 						
@@ -205,6 +221,18 @@ public class Player {
 						}
 
 					}
+					else if(tower.equals("freez tower"))
+					{
+						for ( TowerFreez temp : TileGrid.freezList) {
+							
+							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
+								temp.update();
+								break;
+							}
+						}
+
+					}
+					
 				}
 				
 				}
