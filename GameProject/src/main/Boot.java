@@ -11,11 +11,16 @@ import map.Tile;
 import map.TileGrid;
 import map.TileType;
 
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
+import critter.Critter;
+import critter.Critter_A;
+import tower.TowerBomb;
 import tower.TowerCannon;
+import utility.Clock;
 import utility.FileExplorer;
 
 /**
@@ -40,7 +45,8 @@ public class Boot {
 	public Boot()
 	{	
 		int choice;
-
+		
+		GameStateManager state = new GameStateManager();
 		System.out.println("Enter '1' for New Game or '2' to load Saved game");
 		choice=keyboard.nextInt();
 
@@ -70,12 +76,17 @@ public class Boot {
 		grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
-
+		grid.draw();
+		System.out.println(grid.getTile(5, 5).getX());
+		Critter critter = new Critter_A(quickTexture("critter_A"), grid.getTile(5, 5),32,32,2); 
 		//String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
 		System.out.println("You have $" + player.money);
 		while(!Display.isCloseRequested()){
 			//Draws the grid with current assignment of Grid
+			Clock.update();
+			critter.update();
 			grid.draw();
+			critter.draw();
 			//Captures the user input and sets the tile
 			player.setTile();
 			//Displays the text in the Screen Area

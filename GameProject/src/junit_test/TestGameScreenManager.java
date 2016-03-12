@@ -1,6 +1,3 @@
-/**
- * 
- */
 package junit_test;
 
 import static org.junit.Assert.*;
