@@ -7,7 +7,10 @@ public class GameStateManager{
 	
 	private static GameState gameState;
 	
-	
+	/**
+	 * This getter function returns the game State
+	 * @return GameState 
+	 */
 	public static GameState getGameState() {
 		return gameState;
 	}
@@ -19,7 +22,7 @@ public class GameStateManager{
 		gameState=GameState.START;
 	}
 	
-	public int setGameState(String state)
+	public static int setGameState(String state)
 	{
 		gameState=GameState.valueOf(state);
 		return gameState.ordinal();

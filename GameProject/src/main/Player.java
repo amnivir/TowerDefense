@@ -3,6 +3,9 @@ package main;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import ai.Path;
+import ai.PathValidationCode;
+import critter.CritterFactory;
 import tower.TowerBomb;
 import tower.TowerCannon;
 import tower.TowerFreez;
@@ -27,7 +30,7 @@ public class Player {
 	int  blockSize =32;
 	public TileType currentTile= TileType.Grass;
 	private ArrayList<Integer> intList = new ArrayList<Integer>();
-//	public static TowerCannon towerCannon;
+	//	public static TowerCannon towerCannon;
 	public static int towerX=0,towerY=0;
 	public static int money = 500;
 	String tower="";		//for checking which tower it is in run time
@@ -48,7 +51,7 @@ public class Player {
 	 * @return void
 	 */
 	public void setTile(){
-		
+
 
 		//TODO do not set tile multiple times i.e. set the tile only once and add toggle effect
 		while(Mouse.next()){
@@ -63,7 +66,7 @@ public class Player {
 					{
 						grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);
 					}
-					
+
 					else if(Mouse.isButtonDown(1)) // if right mouse key is pressed
 					{
 						System.out.println("press 'X' to sell the tower or press 'U' to update its Range");
@@ -72,7 +75,7 @@ public class Player {
 							tower="cannon tower";
 							x=(int)Math.floor(Mouse.getX() / blockSize);
 							y=(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize);
-														
+
 						}
 						else if(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize)).getType().textureName=="bombBase")
 						{
@@ -122,6 +125,24 @@ public class Player {
 					}
 
 				}
+				//Check if Play Button is pressed
+				else if((HEIGHT - Mouse.getY()) / blockSize==2)
+				{
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns())
+					{	
+						if (Path.isPathValid()==PathValidationCode.PATH_OK)
+						{
+							GameStateManager.setGameState("PLAY");
+							System.out.println("Game State changed to = "+GameStateManager.getGameState());
+							Boot.critter = CritterFactory.getCritter("Critter_A");
+						}
+						else
+						{
+							System.out.println("Cannot Play Game as Path is not Valid");
+						}
+
+					}
+				}
 
 				else{
 					currentTile=TileType.Grass;
@@ -138,107 +159,107 @@ public class Player {
 				if (Keyboard.getEventKey() == Keyboard.KEY_L) {
 					System.out.println("Loading the map");
 				}
-				
+
 
 				if(tower.equals("cannon tower")||tower.equals("bomb tower")||tower.equals("freez tower")) // all operation will perform on third click
 				{
-					
-				if (Keyboard.getEventKey() == Keyboard.KEY_X) 
-				{
-					if(tower.equals("cannon tower"))
+
+					if (Keyboard.getEventKey() == Keyboard.KEY_X) 
 					{
-						
-						for ( TowerCannon temp : TileGrid.cannonList) 
-						{	
-							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize))
-							{
-								currentTile=TileType.Grass;
-								grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
-								temp.sell();
-								TileGrid.cannonList.remove(temp);
-								break;
+						if(tower.equals("cannon tower"))
+						{
+
+							for ( TowerCannon temp : TileGrid.cannonList) 
+							{	
+								if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize))
+								{
+									currentTile=TileType.Grass;
+									grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
+									temp.sell();
+									TileGrid.cannonList.remove(temp);
+									break;
+								}
 							}
+
 						}
-						
-					}
-					
-					else if(tower.equals("bomb tower"))
-					{
-						for ( TowerBomb temp : TileGrid.bombList) 
-						{	
-							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize))
-							{
-								currentTile=TileType.Grass;
-								grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
-								temp.sell();
-								TileGrid.bombList.remove(temp);
-								break;
+
+						else if(tower.equals("bomb tower"))
+						{
+							for ( TowerBomb temp : TileGrid.bombList) 
+							{	
+								if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize))
+								{
+									currentTile=TileType.Grass;
+									grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
+									temp.sell();
+									TileGrid.bombList.remove(temp);
+									break;
+								}
 							}
+
 						}
-						
-					}
-					else if(tower.equals("freez tower"))
-					{
-						for ( TowerFreez temp : TileGrid.freezList) 
-						{	
-							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize))
-							{
-								currentTile=TileType.Grass;
-								grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
-								temp.sell();
-								TileGrid.freezList.remove(temp);
-								break;
+						else if(tower.equals("freez tower"))
+						{
+							for ( TowerFreez temp : TileGrid.freezList) 
+							{	
+								if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize))
+								{
+									currentTile=TileType.Grass;
+									grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT-Mouse.getY()-1) / blockSize),currentTile);					
+									temp.sell();
+									TileGrid.freezList.remove(temp);
+									break;
+								}
 							}
-						}
-						
-					}
-				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_U) 
-				{
-					System.out.println("For increasing the range you will be charged $10");
-					System.out.println("Press 'SPACE' to enhance the range or e for exit");
-				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_SPACE)
-				{
-					if(tower.equals("cannon tower"))
-					{					
-						for ( TowerCannon temp : TileGrid.cannonList) {
-							
-							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
-								temp.update();
-								break;
-							}
+
 						}
 					}
-					else if(tower.equals("bomb tower"))
+					if (Keyboard.getEventKey() == Keyboard.KEY_U) 
 					{
-						for ( TowerBomb temp : TileGrid.bombList) {
-							
-							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
-								temp.update();
-								break;
+						System.out.println("For increasing the range you will be charged $10");
+						System.out.println("Press 'SPACE' to enhance the range or e for exit");
+					}
+					if (Keyboard.getEventKey() == Keyboard.KEY_SPACE)
+					{
+						if(tower.equals("cannon tower"))
+						{					
+							for ( TowerCannon temp : TileGrid.cannonList) {
+
+								if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
+									temp.update();
+									break;
+								}
 							}
+						}
+						else if(tower.equals("bomb tower"))
+						{
+							for ( TowerBomb temp : TileGrid.bombList) {
+
+								if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
+									temp.update();
+									break;
+								}
+							}
+
+						}
+						else if(tower.equals("freez tower"))
+						{
+							for ( TowerFreez temp : TileGrid.freezList) {
+
+								if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
+									temp.update();
+									break;
+								}
+							}
+
 						}
 
 					}
-					else if(tower.equals("freez tower"))
-					{
-						for ( TowerFreez temp : TileGrid.freezList) {
-							
-							if(x==(temp.getX()/blockSize)&&y==(temp.getY()/blockSize)){
-								temp.update();
-								break;
-							}
-						}
 
-					}
-					
 				}
-				
-				}
-					
-				
-				
+
+
+
 			}
 		}
 

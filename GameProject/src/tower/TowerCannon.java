@@ -24,7 +24,7 @@ public class TowerCannon extends Tower {
 		super();
 		this.x=startTile.getX();
 		this.y=startTile.getY();
-		this.cannonTexture = quickTexture("CannonBase");
+		this.cannonTexture = quickTexture("cannonBase");
 		this.width=startTile.getWidth();
 		this.height=startTile.getHeight();
 		this.damage=10;

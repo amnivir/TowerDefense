@@ -10,16 +10,20 @@ import map.Tile;
 import map.TileGrid;
 import map.TileType;
 
+import org.hamcrest.CoreMatchers;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
+import ai.Path;
 import critter.Critter;
 import critter.Critter_A;
+import main.GameStateManager.GameState;
 import tower.TowerBomb;
 import tower.TowerCannon;
 import utility.Clock;
+import utility.CoordinateConverter;
 import utility.FileExplorer;
 import tower.*;
 /**
@@ -36,6 +40,8 @@ public class Boot {
 	public Scanner keyboard = new Scanner(System.in);
 	public static int[][] map  = null;
 	public static TileGrid grid;
+	public static int[] testCritterPath={5,6,7,17,16,26,36,46,45,44,43,42,41,31,30};
+	public static Critter critter = null;
 	/**
 	 * This constructor initializes openGL library , accepts user input to either start 
 	 * a new game or load the saved game
@@ -44,11 +50,10 @@ public class Boot {
 	public Boot()
 	{	
 		int choice;
-		
-		GameStateManager state = new GameStateManager();
+
+		GameStateManager gameState = new GameStateManager();
 		System.out.println("Enter '1' for New Game or '2' to load Saved game");
 		choice=keyboard.nextInt();
-
 		switch (choice) {
 		case 1:
 		{
@@ -77,15 +82,19 @@ public class Boot {
 		player=new Player(grid);
 		//TowerCannon tower = new TowerCannon(quickTexture("CannonBase"), grid.getTile(14, 7));
 		grid.draw();
-		Critter critter = new Critter_A(quickTexture("critter_A"), grid.getTile(5, 5),32,32,2);
+		
 		//String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
 		System.out.println("You have $" + player.money);
 		while(!Display.isCloseRequested()){
 			//Draws the grid with current assignment of Grid
-			Clock.update();
-			critter.update();
+
 			grid.draw();
-			critter.draw();
+			if(GameStateManager.getGameState()==GameState.PLAY)
+			{
+				Clock.update();
+				critter.update();
+				critter.draw();
+			}
 			//Captures the user input and sets the tile
 			player.setTile();
 			//draw the bullet on the screen
@@ -143,7 +152,7 @@ public class Boot {
 	}
 
 	/**
- * This method returns number of Columns in the screen
+	 * This method returns number of Columns in the screen
 	 * @return int number of Cplumns
 	 */
 	public static int getNoColumns() {
@@ -156,7 +165,7 @@ public class Boot {
 	public static void setNoRows(int noRows) {
 		Boot.noRows = noRows;
 	}
-	
+
 	/**
 	 * Set number of columns for JUNIt test
 	 * @param noColumns
@@ -172,7 +181,7 @@ public class Boot {
 	public static void main(String args[])
 	{
 		new Boot();
-		
+
 	}
 
 	/**
