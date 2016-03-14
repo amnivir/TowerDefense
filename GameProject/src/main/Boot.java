@@ -25,6 +25,7 @@ import tower.TowerCannon;
 import utility.Clock;
 import utility.CoordinateConverter;
 import utility.FileExplorer;
+import utility.Wave;
 import tower.*;
 /**
  * This is main the class which launches the game and displays the screen to the user.
@@ -82,7 +83,7 @@ public class Boot {
 		player=new Player(grid);
 		//TowerCannon tower = new TowerCannon(quickTexture("CannonBase"), grid.getTile(14, 7));
 		grid.draw();
-		
+		Wave wave = new Wave(15,"Critter_A");
 		//String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
 		System.out.println("You have $" + player.money);
 		while(!Display.isCloseRequested()){
@@ -92,8 +93,9 @@ public class Boot {
 			if(GameStateManager.getGameState()==GameState.PLAY)
 			{
 				Clock.update();
-				critter.update();
-				critter.draw();
+				wave.update();
+				/*critter.update();
+				critter.draw();*/
 			}
 			//Captures the user input and sets the tile
 			player.setTile();

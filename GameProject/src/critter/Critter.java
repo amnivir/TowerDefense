@@ -5,8 +5,6 @@ package critter;
 
 import map.Tile;
 
-import static critter.Critter.pathStepIndex;
-
 import org.lwjgl.Sys;
 import org.newdawn.slick.opengl.Texture;
 
@@ -25,7 +23,7 @@ public abstract class Critter {
 	protected Texture tex;
 	protected Tile startTile;
 	protected Tile nextTile;
-	public static int pathStepIndex=0;
+	public int pathStepIndex=0;
 	protected boolean first = true;
 
 	public Critter() {
