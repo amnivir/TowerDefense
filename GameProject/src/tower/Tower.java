@@ -1,11 +1,14 @@
 package tower;
 
+import static graphics.Designer.quickTexture;
+
 import java.util.ArrayList;
 
 import org.newdawn.slick.opengl.Texture;
 
 import main.Player;
 import map.Tile;
+import utility.Clock;
 /**
  * This is abstract Tower class 
  */
@@ -93,7 +96,30 @@ public abstract class Tower {
 	 * Abstract method that sells the tower
 	 * @return
 	 */
-	public abstract void preaperShoot();
+	
+	private void shoot()
+	{
+		System.out.println(this.x+" "+this.y+" ");
+		lastShootTime = 0;
+		shootTiles.add(new ShootTile(quickTexture("bullet"), x+32, y, 5, this.damage));
+		
+	}
+	
+	public void preaperShoot() 
+	{
+		lastShootTime+= Clock.delta();
+		if(lastShootTime > speedOfFire)
+		{
+			shoot();			
+		}
+	
+		for(ShootTile s: shootTiles )
+		{
+			s.update();
+			s.draw();
+		}
+		
+	}
 	/**
 	 * Abstract method that sells the tower
 	 * @return

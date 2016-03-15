@@ -85,11 +85,6 @@ public class TowerFreez extends Tower {
 	}
 
 
-	@Override
-	public void preaperShoot() {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	

@@ -54,9 +54,4 @@ public class ShootTile extends Tower{
 		
 	}
 
-	@Override
-	public void preaperShoot() {
-		// TODO Auto-generated method stub
-		
 	}
-}

@@ -79,36 +79,9 @@ public class TowerCannon extends Tower {
 		System.out.println();
 	}
 
-	private void shoot()
-	{
-		System.out.println(this.x+" "+this.y+" ");
-		lastShootTime = 0;
-		shootTiles.add(new ShootTile(quickTexture("bullet"), x, y+32, 5, this.damage));
-		
-	}
 	
-	@Override
-	public void preaperShoot() 
-	{
-		System.out.println("inside prepare shoot");
-		this.lastShootTime+= Clock.delta();
-		
-		System.out.println("time->"+this.lastShootTime);
-		if(lastShootTime > speedOfFire)
-		{
-			System.out.println("calling shoot");
-			shoot();
-			
-		}
 	
-		for(ShootTile s: shootTiles )
-		{
-			System.out.println("calling update");
-			s.update();
-			s.draw();
-		}
-		
-	}
+	
 	
 //	public void prepareShoot()
 //	{
@@ -128,18 +101,7 @@ public class TowerCannon extends Tower {
 			this.range=this.range+10;
 			System.out.println("Cannon Tower's updated range: "+this.range);
 			System.out.println("Your Current Money: &"+Player.money);
-			
-			/*timeSinceLastShot += Delta();
-				if(timeSinceLastShot > speedOfFire)
-				{
-					shoot();
-				}
-				
-				for(ShootTile s : shootTiles)
-				{
-					s.update();
-				}
-			draw();*/
+		
 		}
 		else
 		{

@@ -235,13 +235,6 @@ public class TileGrid {
 					
 					cannonList.add( (TowerCannon) new TowerFactory().getTower("cannon", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
 					
-					for(TowerCannon s: cannonList )
-					{
-						System.out.println("shoot...");
-						s.preaperShoot();
-					}
-					
-					
 					System.out.println("Your current money is "+Player.money);
 				}
 				else
@@ -312,7 +305,6 @@ public class TileGrid {
 		
 		
 		towerCannon.draw();
-		//towerCannon.preaperShoot();
 		towerBomb.draw();
 		towerFreez.draw();
 		
