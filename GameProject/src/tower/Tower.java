@@ -93,6 +93,11 @@ public abstract class Tower {
 	 * Abstract method that sells the tower
 	 * @return
 	 */
+	public abstract void preaperShoot();
+	/**
+	 * Abstract method that sells the tower
+	 * @return
+	 */
 	
 	public abstract void sell();
 	public Texture getTexture() {

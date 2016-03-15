@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import main.Player;
 import map.Tile;
+import utility.Clock;
+
 import static graphics.Designer.*;
 
 import org.newdawn.slick.opengl.Texture;
@@ -24,7 +26,7 @@ public class TowerCannon extends Tower {
 		super();
 		this.x=startTile.getX();
 		this.y=startTile.getY();
-		this.cannonTexture = quickTexture("cannonBase");
+	//	this.cannonTexture = quickTexture("cannonBase");
 		this.width=startTile.getWidth();
 		this.height=startTile.getHeight();
 		this.damage=10;
@@ -44,7 +46,7 @@ public class TowerCannon extends Tower {
 	@Override
 	public void draw() {
 		drawQuadTex(texture, x, y, width, height);
-		drawQuadTexRot(cannonTexture, x, y, WIDTH, HEIGHT,45); //rotate the tower to shoot the enemies
+		//drawQuadTexRot(cannonTexture, x, y, WIDTH, HEIGHT,45); //rotate the tower to shoot the enemies
 		
 	}
 	
@@ -61,8 +63,8 @@ public class TowerCannon extends Tower {
 			return false;		
 	}
 	
-	public void description() {
-
+	public void description()
+	{ 
 		System.out.println("-----Discription of Cannon Tower-----");
 		System.out.println("Tower Power " + this.damage);
 		System.out.println("Tower Range " + this.range);
@@ -79,10 +81,44 @@ public class TowerCannon extends Tower {
 
 	private void shoot()
 	{
-		//timeSinceLastShot = 0;
-	//	shootTiles.add(new ShootTile(quickTexture("bullet"), x+32, y+32, 5, 10));
+		System.out.println(this.x+" "+this.y+" ");
+		lastShootTime = 0;
+		shootTiles.add(new ShootTile(quickTexture("bullet"), x, y+32, 5, this.damage));
 		
 	}
+	
+	@Override
+	public void preaperShoot() 
+	{
+		System.out.println("inside prepare shoot");
+		this.lastShootTime+= Clock.delta();
+		
+		System.out.println("time->"+this.lastShootTime);
+		if(lastShootTime > speedOfFire)
+		{
+			System.out.println("calling shoot");
+			shoot();
+			
+		}
+	
+		for(ShootTile s: shootTiles )
+		{
+			System.out.println("calling update");
+			s.update();
+			s.draw();
+		}
+		
+	}
+	
+//	public void prepareShoot()
+//	{
+//		lastShootTime+= Clock.delta();
+//		if(lastShootTime > speedOfFire)
+//			shoot();
+//		
+//		for(ShootTile s: shootTiles )
+//			s.update();
+//	}
 	
 	public void update() 
 	{
@@ -111,6 +147,9 @@ public class TowerCannon extends Tower {
 			System.out.println("Your Current Money: &"+Player.money);	
 		}
 	}
+
+
+	
 
 
 	

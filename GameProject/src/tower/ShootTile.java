@@ -3,6 +3,8 @@ package tower;
 import static graphics.Designer.drawQuadTex;
 
 import org.newdawn.slick.opengl.Texture;
+import utility.Clock;
+
 
 /**
  * This class is a sub class of Tower to shoot the critters
@@ -13,10 +15,10 @@ public class ShootTile extends Tower{
 
 	public ShootTile(Texture texture,float x, float y,float speed, int damage)
 	{
-		super();
+		//super();
 		this.texture = texture;
-		this.x=startTile.getX();
-		this.y=startTile.getY();
+		this.x=x;
+		this.y=y;
 		this.speed = speed;
 		this.damage = damage;
 	}
@@ -41,12 +43,19 @@ public class ShootTile extends Tower{
 
 	@Override
 	public void update() {
-		//x += Delta() * speed;
-		draw();
+		System.out.println("inside draw");
+		x += Clock.delta() * speed;
+//		draw();
 	}
 
 	@Override
 	public void sell() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void preaperShoot() {
 		// TODO Auto-generated method stub
 		
 	}

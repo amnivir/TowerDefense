@@ -12,7 +12,7 @@ import map.Tile;
 import map.TileGrid;
 import map.TileType;
 
-import org.hamcrest.CoreMatchers;
+//import org.hamcrest.CoreMatchers;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -97,6 +97,8 @@ public class Boot {
 		Wave wave = new Wave(15,"Critter_A");
 		//String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
 		System.out.println("You have $" + player.money);
+		//demo Tower
+		TowerCannon demoTower=new TowerCannon(quickTexture("cannonBase"), new Tile(1 *32, 1*32, 32, 32, TileType.TowerCannon));
 		while(!Display.isCloseRequested()){
 			//Draws the grid with current assignment of Grid
 
@@ -105,11 +107,15 @@ public class Boot {
 			{
 				Clock.update();
 				wave.update();
+				demoTower.draw();
+				demoTower.preaperShoot();
+				
 				/*critter.update();
 				critter.draw();*/
 			}
 			//Captures the user input and sets the tile
 			player.setTile();
+			
 			//draw the bullet on the screen
 			//tower.update();
 			//Displays the text in the Screen Area

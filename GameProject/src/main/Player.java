@@ -114,6 +114,7 @@ public class Player extends Observable{
 					{
 						currentTile=TileType.TowerCannon;
 						TileGrid.towerCannon.description();
+						//TileGrid.towerCannon.preaperShoot();
 					}
 
 					else if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
@@ -145,6 +146,8 @@ public class Player extends Observable{
 							
 							setChanged();
 							notifyObservers(this);
+							
+							
 						}
 						else
 						{
