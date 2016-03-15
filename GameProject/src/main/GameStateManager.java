@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Observable;
+
 /**
  * THis class maintains the state of the Game
  */
@@ -7,7 +9,10 @@ public class GameStateManager{
 	
 	private static GameState gameState;
 	
-	
+	/**
+	 * This getter function returns the game State
+	 * @return GameState 
+	 */
 	public static GameState getGameState() {
 		return gameState;
 	}
@@ -18,9 +23,11 @@ public class GameStateManager{
 	{
 		gameState=GameState.START;
 	}
-	
-	public int setGameState(String state)
-	{
+	/**
+	 * Change the state of the game and notifies the observer
+	 */
+	public static int setGameState(String state)
+	{	
 		gameState=GameState.valueOf(state);
 		return gameState.ordinal();
 	}
@@ -28,7 +35,7 @@ public class GameStateManager{
 	 * This ENUM defines the possible state of the game
 	 */
 	public enum GameState{
-		START,EDIT,PLAY,END
+		START,EDIT,PLAY,IDLE,END
 	};
 			
 }

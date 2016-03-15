@@ -125,11 +125,12 @@ public class Path {
 				tempPath.remove(new Integer(currentCoordinate));
 			}
 		}
-
 		System.out.println("Continuous Path"+continousPath);
 		System.out.println("Temp Path"+tempPath);
 		if(continousPath.size() == pathCordinate.size())
+			{
 			return PathValidationCode.PATH_OK;
+			}
 
 		else 
 			return PathValidationCode.PATH_MANY_ROUTES_FOUND;
