@@ -9,6 +9,8 @@ import critter.CritterFactory;
 import tower.TowerBomb;
 import tower.TowerCannon;
 import tower.TowerFreez;
+import utility.Wave;
+
 import static graphics.Designer.*;
 
 import java.awt.List;
@@ -138,6 +140,7 @@ public class Player extends Observable{
 						{
 							GameStateManager.setGameState("PLAY");
 							System.out.println("Game State changed to = "+GameStateManager.getGameState());
+							Wave.resetCritterCounter();
 							Boot.critter = CritterFactory.getCritter("Critter_A");
 							
 							setChanged();

@@ -44,7 +44,6 @@ public class Boot {
 	public Scanner keyboard = new Scanner(System.in);
 	public static int[][] map  = null;
 	public static TileGrid grid;
-	public static int[] testCritterPath={5,6,7,17,16,26,36,46,45,44,43,42,41,31,30};
 	public static Critter critter = null;
 	/**
 	 * This constructor initializes openGL library , accepts user input to either start 

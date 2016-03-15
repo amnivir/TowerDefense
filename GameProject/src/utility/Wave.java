@@ -4,9 +4,11 @@
 package utility;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import critter.Critter;
 import critter.CritterFactory;
+import main.GameStateManager;
 
 /**
  * THis class generates the wave of critter and shoots them. 
@@ -18,8 +20,8 @@ public class Wave {
 	private String critterType;
 	private ArrayList<Critter> critterList;
 	private static int numofCrittersInWave=3;
-	private static int counter;
-
+	private static int critterCounter=0;//No more than 3 counter in the wave
+	
 	public Wave(float spawnTime, String critterType)
 	{
 		this.critterType=critterType;
@@ -42,25 +44,47 @@ public class Wave {
 		System.out.println("Size of CritterLIst"+critterList.size());
 		if(critterList.size()<=numofCrittersInWave)
 		{
-			for(Critter c:critterList)
-			{
-				c.update();
-				c.draw();
+	
+			
+			Iterator<Critter> iter = critterList.iterator();
+			//Remove the critter if reached endpoint
+			while (iter.hasNext()) {
+				Critter critter = iter.next();
+				if (!critter.isCriterAlive)
+					iter.remove();
+				else
+				{
+					critter.update();
+					critter.draw();
+				}
 			}
 		}
 		
-		
+		if(critterList.size()==0)
+			GameStateManager.setGameState("IDLE");
+			
 	}
 	
 	/**
-	 * THis method creates new Critter using factory pattern
+	 * THis method creates new Critter using factory design pattern
 	 */
 	private void Spawn()
 	{
-		if(critterList.size()<numofCrittersInWave)
+		if(critterCounter<numofCrittersInWave)
+			{
 			critterList.add(CritterFactory.getCritter(critterType));
+			critterCounter++;
+			
+			}
 	}
-
-
+	/**
+	 * Reset Critter counter to zero to enable or create another wave 
+	 */
+	public static int resetCritterCounter()
+	{
+		critterCounter=0;
+		return critterCounter;
+		
+	}
 
 }

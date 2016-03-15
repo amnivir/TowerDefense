@@ -23,12 +23,19 @@ public abstract class Critter {
 	protected Texture tex;
 	protected Tile startTile;
 	protected Tile nextTile;
+	protected Tile endTile;
 	public int pathStepIndex=0;
 	protected boolean first = true;
-
+	public boolean isCriterAlive;
+	/**
+	 * THis constructor initializes the next tile and last tile to the critter
+	 */
 	public Critter() {
 		this.nextTile = Boot.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(pathStepIndex+1)), 
 				CoordinateConverter.getXCordinate(Path.continousPath.get(pathStepIndex+1)));
+		this.endTile = Boot.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size()-1)), 
+				CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size()-1)));
+		this.isCriterAlive=true;
 	}
 
 	public abstract void draw();
@@ -46,6 +53,12 @@ public abstract class Critter {
 			if(x<(nextTile.getX()) && y==nextTile.getY() && critterMovedOneTile==false)
 			{	
 				x = x+Clock.delta() * speed;
+
+				if(x>=endTile.getX() && y==endTile.getY())
+				{
+					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
+					this.isCriterAlive=false;
+				}
 				if(x>=nextTile.getX())
 					critterMovedOneTile=true;
 
@@ -66,7 +79,7 @@ public abstract class Critter {
 				if(x<=nextTile.getX())
 					critterMovedOneTile=true;
 			}
-			
+
 			//Move Critter up
 			if(y>(nextTile.getY()) && x==nextTile.getX() && critterMovedOneTile==false)
 			{	
