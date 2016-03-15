@@ -4,6 +4,8 @@ import main.Player;
 import map.Tile;
 import static graphics.Designer.*;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.opengl.Texture;
 /**
  * This class is a sub class of Tower with more specific characteristic
@@ -27,7 +29,9 @@ public class TowerBomb extends Tower {
 		this.range=20;
 		this.texture=texture;
 		this.price=50;
-		// TODO Auto-generated constructor stub
+		this.speedOfFire = 30; //speed of firing the bullets
+		this.lastShootTime = 0; //the time for last shooted bullet
+		this.shootTiles = new ArrayList<ShootTile>(); //list of bullets
 	}
 	
 	/**

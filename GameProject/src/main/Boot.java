@@ -114,16 +114,16 @@ public class Boot {
 					cannonTower.preaperShoot();
 					
 				}
-//				for(TowerBomb bombTower: TileGrid.bombList )
-//				{
-//					bombTower.preaperShoot();
-//					
-//				}
-//				for(TowerFreez freezTower: TileGrid.freezList )
-//				{
-//					freezTower.preaperShoot();
-//					
-//				}
+				for(TowerBomb bombTower: TileGrid.bombList )
+				{
+					bombTower.preaperShoot();
+					
+				}
+				for(TowerFreez freezTower: TileGrid.freezList )
+				{
+					freezTower.preaperShoot();
+					
+				}
 				
 				/*critter.update();
 				critter.draw();*/

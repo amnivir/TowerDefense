@@ -4,6 +4,8 @@ import main.Player;
 import map.Tile;
 import static graphics.Designer.*;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -27,8 +29,10 @@ public class TowerFreez extends Tower {
 		this.damage=30;
 		this.range=30;
 		this.texture=texture;
-		this.price=70;
-		// TODO Auto-generated constructor stub
+		this.price=70;this.speedOfFire = 30; //speed of firing the bullets
+		this.lastShootTime = 0; //the time for last shooted bullet
+		this.shootTiles = new ArrayList<ShootTile>(); //list of bullets
+		
 	}
 	
 	
