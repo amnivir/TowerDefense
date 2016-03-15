@@ -22,8 +22,6 @@ import ai.Path;
 import critter.Critter;
 import critter.Critter_A;
 import main.GameStateManager.GameState;
-import tower.TowerBomb;
-import tower.TowerCannon;
 import utility.Clock;
 import utility.CoordinateConverter;
 import utility.FileExplorer;
@@ -108,8 +106,24 @@ public class Boot {
 			{
 				Clock.update();
 				wave.update();
-				demoTower.draw();
-				demoTower.preaperShoot();
+//				demoTower.draw();
+//				demoTower.preaperShoot();
+				
+				for(TowerCannon cannonTower: TileGrid.cannonList )
+				{
+					cannonTower.preaperShoot();
+					
+				}
+//				for(TowerBomb bombTower: TileGrid.bombList )
+//				{
+//					bombTower.preaperShoot();
+//					
+//				}
+//				for(TowerFreez freezTower: TileGrid.freezList )
+//				{
+//					freezTower.preaperShoot();
+//					
+//				}
 				
 				/*critter.update();
 				critter.draw();*/
