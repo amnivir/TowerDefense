@@ -6,6 +6,7 @@ import org.lwjgl.input.Mouse;
 import ai.Path;
 import ai.PathValidationCode;
 import critter.CritterFactory;
+import main.GameStateManager.GameState;
 import tower.TowerBomb;
 import tower.TowerCannon;
 import tower.TowerFreez;
@@ -137,7 +138,7 @@ public class Player extends Observable{
 				{
 					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns())
 					{	
-						if (Path.isPathValid()==PathValidationCode.PATH_OK)
+						if (Path.isPathValid()==PathValidationCode.PATH_OK && GameStateManager.getGameState()!=GameState.END)
 						{
 							GameStateManager.setGameState("PLAY");
 							System.out.println("Game State changed to = "+GameStateManager.getGameState());

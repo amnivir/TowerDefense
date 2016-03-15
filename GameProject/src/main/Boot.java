@@ -75,21 +75,21 @@ public class Boot {
 		Font awtFont = new Font("Times New Roman", Font.BOLD, 16);
 
 		font = new TrueTypeFont(awtFont, antiAlias);
-		
+
 		TestTowerNotification testTowerNotif = new TestTowerNotification();
-		
-		
+
+
 		/*
 		 * Create singleton for grid
 		 */
-		
+
 		grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
-		
+
 		//Add obervers to player
 		player.addObserver(testTowerNotif);
-		
+
 		//TowerCannon tower = new TowerCannon(quickTexture("CannonBase"), grid.getTile(14, 7));
 		grid.draw();
 		Wave wave = new Wave(15,"Critter_A");
@@ -105,35 +105,18 @@ public class Boot {
 			{
 				Clock.update();
 				wave.update();
-//				demoTower.draw();
-//				demoTower.preaperShoot();
+
 				
 				for(TowerCannon cannonTower: TileGrid.cannonList )
 				{
 					cannonTower.preaperShoot();
 					
 				}
-//				for(TowerBomb bombTower: TileGrid.bombList )
-//				{
-//					bombTower.preaperShoot();
-//					
-//				}
-//				for(TowerFreez freezTower: TileGrid.freezList )
-//				{
-//					freezTower.preaperShoot();
-//					
-//				}
-				
-				/*critter.update();
-				critter.draw();*/
+
 			}
 			//Captures the user input and sets the tile
-			player.setTile();
-			
-			//draw the bullet on the screen
-			//tower.update();
-			//Displays the text in the Screen Area
-			//font.drawString(32*10, 64, currentCredits, Color.white);
+			if(GameStateManager.getGameState()!=GameState.END)
+				player.setTile();
 			Display.update();
 			Display.sync(60);
 		}

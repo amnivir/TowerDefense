@@ -8,7 +8,10 @@ import java.util.Iterator;
 
 import critter.Critter;
 import critter.CritterFactory;
+import main.Boot;
 import main.GameStateManager;
+import main.GameStateManager.GameState;
+import main.Player;
 
 /**
  * THis class generates the wave of critter and shoots them. 
@@ -41,7 +44,6 @@ public class Wave {
 			this.Spawn();
 			timeLastSpawn=0;
 		}
-		System.out.println("Size of CritterLIst"+critterList.size());
 		if(critterList.size()<=numofCrittersInWave)
 		{
 	
@@ -51,7 +53,15 @@ public class Wave {
 			while (iter.hasNext()) {
 				Critter critter = iter.next();
 				if (!critter.isCriterAlive)
-					iter.remove();
+					{
+					 iter.remove();
+					 Player.money-=100;
+					 	if(Player.money<0)
+					 		{
+					 		GameStateManager.setGameState("END");
+					 		System.out.println("No Money left , Game END! "+GameStateManager.getGameState());
+					 		}
+					}
 				else
 				{
 					critter.update();
@@ -60,7 +70,7 @@ public class Wave {
 			}
 		}
 		
-		if(critterList.size()==0)
+		if(critterList.size()==0 && GameStateManager.getGameState()!=GameState.END)
 			GameStateManager.setGameState("IDLE");
 			
 	}

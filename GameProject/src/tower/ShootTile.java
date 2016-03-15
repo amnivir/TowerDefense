@@ -43,7 +43,6 @@ public class ShootTile extends Tower{
 
 	@Override
 	public void update() {
-		System.out.println("inside draw");
 		x += Clock.delta() * speed;
 //		draw();
 	}
