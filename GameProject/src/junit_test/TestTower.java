@@ -64,12 +64,11 @@ public class TestTower extends TestCase
 	public void setUp() throws Exception {
 		
 		beginSession(5,5);
-		tex =Designer.quickTexture("freezBase");	// reference demo tex
-		tile=new Tile(0, 0, 32, 32, TileType.TowerFreez);	// reference demo tile
-		t1=new TowerFactory().getTower("freez", tex,tile);
-		t2=new TowerFactory().getTower("bomb", tex,tile);
-		t3=new TowerFactory().getTower("cannon", tex,tile);
-		
+		t1=new TowerFactory().getTower("freez", Designer.quickTexture("freezBase"),new Tile(0, 0, 32, 32, TileType.TowerFreez));
+		t2=new TowerFactory().getTower("bomb", Designer.quickTexture("bombBase"),new Tile(0, 0, 32, 32, TileType.TowerBomb));
+		t3=new TowerFactory().getTower("cannon", Designer.quickTexture("cannonBase"),new Tile(0, 0, 32, 32, TileType.TowerCannon));
+	//	System.out.println(t1.getStartTile());
+		Player.money=100;
 		
 	}
 
@@ -89,6 +88,48 @@ public class TestTower extends TestCase
 	public void testCannonFactory() {
 		
 			assertTrue(t3 instanceof TowerCannon);
+			Display.destroy();
+		
+	}
+	@Test
+	public void testCannonBuy() {
+		
+			assertTrue(t3.buy());
+			Display.destroy();
+		
+	}
+	@Test
+	public void testBombBuy() {
+		
+			assertTrue(t2.buy());
+			Display.destroy();
+		
+	}
+	@Test
+	public void testFreezBuy() {
+		
+			assertTrue(t1.buy());
+			Display.destroy();
+		
+	}
+	@Test
+	public void testFreezDamage() {
+		
+			assertEquals(t1.getDamage(),30);
+			Display.destroy();
+		
+	}
+	@Test
+	public void testBombDamage() {
+		
+			assertEquals(t2.getDamage(),20);
+			Display.destroy();
+		
+	}
+	@Test
+	public void testCannonDamage() {
+		
+			assertEquals(t3.getDamage(),10);
 			Display.destroy();
 		
 	}
