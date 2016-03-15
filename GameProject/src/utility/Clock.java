@@ -19,7 +19,10 @@ public class Clock {
 		return Sys.getTime()*1000/Sys.getTimerResolution();
 		
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public static float getDelta()
 	{
 		long currentTime = getTime();

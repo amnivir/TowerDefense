@@ -67,6 +67,7 @@ public abstract class Critter {
 					critterMovedOneTile=true;
 			}
 			
+			//Move Critter up
 			if(y>(nextTile.getY()) && x==nextTile.getX() && critterMovedOneTile==false)
 			{	
 				y -= Clock.delta() * speed;

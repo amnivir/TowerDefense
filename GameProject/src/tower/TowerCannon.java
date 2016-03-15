@@ -80,7 +80,7 @@ public class TowerCannon extends Tower {
 	private void shoot()
 	{
 		//timeSinceLastShot = 0;
-		shootTiles.add(new ShootTile(quickTexture("bullet"), x+32, y+32, 5, 10));
+	//	shootTiles.add(new ShootTile(quickTexture("bullet"), x+32, y+32, 5, 10));
 		
 	}
 	

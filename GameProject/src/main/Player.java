@@ -13,6 +13,7 @@ import static graphics.Designer.*;
 
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
@@ -24,7 +25,7 @@ import map.TileType;
  * @author s_niga
  *
  */
-public class Player {
+public class Player extends Observable{
 
 	private TileGrid grid;
 	int  blockSize =32;
@@ -125,7 +126,10 @@ public class Player {
 					}
 
 				}
-				//Check if Play Button is pressed
+				/*
+				 * ON pressing the play button critters will be created and will start moving along the path
+				 * Notify the observers (Towers) that critters are created  
+				 */
 				else if((HEIGHT - Mouse.getY()) / blockSize==2)
 				{
 					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns())
@@ -135,6 +139,9 @@ public class Player {
 							GameStateManager.setGameState("PLAY");
 							System.out.println("Game State changed to = "+GameStateManager.getGameState());
 							Boot.critter = CritterFactory.getCritter("Critter_A");
+							
+							setChanged();
+							notifyObservers(this);
 						}
 						else
 						{

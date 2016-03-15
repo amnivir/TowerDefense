@@ -1,10 +1,12 @@
 package main;
 import static graphics.Designer.*;
+
 import java.awt.Font;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Scanner;
 
+import junit_test.TestTower;
 import map.GameScreenManager;
 import map.Tile;
 import map.TileGrid;
@@ -25,6 +27,7 @@ import tower.TowerCannon;
 import utility.Clock;
 import utility.CoordinateConverter;
 import utility.FileExplorer;
+import utility.TestTowerNotification;
 import utility.Wave;
 import tower.*;
 /**
@@ -75,12 +78,21 @@ public class Boot {
 		Font awtFont = new Font("Times New Roman", Font.BOLD, 16);
 
 		font = new TrueTypeFont(awtFont, antiAlias);
+		
+		TestTowerNotification testTowerNotif = new TestTowerNotification();
+		
+		
 		/*
 		 * Create singleton for grid
 		 */
+		
 		grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 		player=new Player(grid);
+		
+		//Add obervers to player
+		player.addObserver(testTowerNotif);
+		
 		//TowerCannon tower = new TowerCannon(quickTexture("CannonBase"), grid.getTile(14, 7));
 		grid.draw();
 		Wave wave = new Wave(15,"Critter_A");

@@ -9,7 +9,7 @@ import critter.Critter;
 import critter.CritterFactory;
 
 /**
- * THis class generates the wave of critter and shots 
+ * THis class generates the wave of critter and shoots them. 
  * @author eshinig
  *
  */
@@ -28,7 +28,9 @@ public class Wave {
 		this.critterList=new ArrayList<Critter>();
 	}
 
-
+/**
+ * This method updates and draws the critter on the map 
+ */
 	public void update()
 	{
 		timeLastSpawn+= Clock.delta();
@@ -46,7 +48,13 @@ public class Wave {
 				c.draw();
 			}
 		}
+		
+		
 	}
+	
+	/**
+	 * THis method creates new Critter using factory pattern
+	 */
 	private void Spawn()
 	{
 		if(critterList.size()<numofCrittersInWave)
