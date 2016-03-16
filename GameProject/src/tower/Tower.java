@@ -101,10 +101,8 @@ public abstract class Tower {
 		
 	private void shoot()
 	{
-		System.out.println(this.x+" "+this.y+" ");
 		lastShootTime = 0;
-		shootTiles.add(new ShootTile(quickTexture("bullet"), x+32, y, 5, this.damage));
-		
+		shootTiles.add(new ShootTile(quickTexture("bullet"), x+32, y, 5, this.damage));	
 	}
 	
 	public void preaperShoot() 

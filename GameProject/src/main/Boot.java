@@ -112,9 +112,7 @@ public class Boot {
 					cannonTower.preaperShoot();
 					
 				}
-<<<<<<< HEAD
 
-=======
 				for(TowerBomb bombTower: TileGrid.bombList )
 				{
 					bombTower.preaperShoot();
@@ -126,9 +124,6 @@ public class Boot {
 					
 				}
 				
-				/*critter.update();
-				critter.draw();*/
->>>>>>> origin/master
 			}
 			//Captures the user input and sets the tile
 			if(GameStateManager.getGameState()!=GameState.END)
