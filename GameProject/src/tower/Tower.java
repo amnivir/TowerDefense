@@ -96,7 +96,9 @@ public abstract class Tower {
 	 * Abstract method that sells the tower
 	 * @return
 	 */
-	
+		public abstract void sell();
+		
+		
 	private void shoot()
 	{
 		System.out.println(this.x+" "+this.y+" ");
@@ -120,12 +122,7 @@ public abstract class Tower {
 		}
 		
 	}
-	/**
-	 * Abstract method that sells the tower
-	 * @return
-	 */
 	
-	public abstract void sell();
 	public Texture getTexture() {
 		// TODO Auto-generated method stub
 		return null;

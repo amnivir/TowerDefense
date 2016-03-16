@@ -44,6 +44,7 @@ public class ShootTile extends Tower{
 	@Override
 	public void update() {
 		x += Clock.delta() * speed;
+//		y += Clock.delta() * speed;
 //		draw();
 	}
 

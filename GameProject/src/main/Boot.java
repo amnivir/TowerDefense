@@ -112,7 +112,23 @@ public class Boot {
 					cannonTower.preaperShoot();
 					
 				}
+<<<<<<< HEAD
 
+=======
+				for(TowerBomb bombTower: TileGrid.bombList )
+				{
+					bombTower.preaperShoot();
+					
+				}
+				for(TowerFreez freezTower: TileGrid.freezList )
+				{
+					freezTower.preaperShoot();
+					
+				}
+				
+				/*critter.update();
+				critter.draw();*/
+>>>>>>> origin/master
 			}
 			//Captures the user input and sets the tile
 			if(GameStateManager.getGameState()!=GameState.END)
