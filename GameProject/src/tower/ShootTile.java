@@ -3,6 +3,8 @@ package tower;
 import static graphics.Designer.*;
 
 import org.newdawn.slick.opengl.Texture;
+
+import map.Tile;
 import utility.Clock;
 
 
@@ -12,8 +14,9 @@ import utility.Clock;
  *
  */
 public class ShootTile extends Tower{
-
-	public ShootTile(Texture texture,float x, float y,float speed, int damage)
+	private Tile targetTile;
+	private float xVelocity, yVelocity;
+	public ShootTile(Texture texture,float x, float y,float speed, int damage, Tile targetTile)
 	{
 		//super();
 		this.texture = texture;
@@ -24,8 +27,31 @@ public class ShootTile extends Tower{
 		this.width=32;
 		this.height=32;
 		this.angle=0;
+		this.targetTile=targetTile;
+		this.xVelocity=0f;
+		this.yVelocity=0f;
+		calculateDirection();
 	}
 
+	/**
+	 * Calculates the direction of the bullet
+	 * TODO needs to return a specific tile
+	 */
+	private void calculateDirection()
+	{	float totalAllowedMovement = 1.0f;
+		float xDistancefromTile = Math.abs(targetTile.getX()-x);
+		float yDistancefromTile = Math.abs(targetTile.getY()-y);
+		float totalDistanceFromTarget=xDistancefromTile+yDistancefromTile;
+		float xPercentofMovement=xDistancefromTile/totalDistanceFromTarget;
+		xVelocity=xPercentofMovement;
+		yVelocity=totalAllowedMovement-xPercentofMovement;
+		if(targetTile.getX()<x)
+			xVelocity*=-1;
+		if(targetTile.getY()<y)
+			yVelocity*=-1;
+		
+		System.out.println((xVelocity)+" "+(yVelocity));
+	}
 	@Override
 	public void draw() {
 		//drawQuadTex(texture, x, y, 32, 32);
@@ -46,8 +72,8 @@ public class ShootTile extends Tower{
 
 	@Override
 	public void update() {
-		x += Clock.delta() * speed;
-    	y += Clock.delta() * speed;
+		x += Clock.delta() * speed*xVelocity;
+    	y += Clock.delta() * speed*yVelocity;
 //		draw();
 	}
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.opengl.Texture;
 
+import main.Boot;
 import main.Player;
 import map.Tile;
 import utility.Clock;
@@ -103,7 +104,8 @@ public abstract class Tower {
 	private void shoot()
 	{
 		lastShootTime = 0;
-		shootTiles.add(new ShootTile(quickTexture("bullet"), x+32, y, 5, this.damage));	
+		Tile targetTile = Boot.grid.getTile(9, 1);
+		shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 20, this.damage, targetTile));	
 	}
 	
 	public void preaperShoot() 
