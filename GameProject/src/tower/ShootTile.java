@@ -19,10 +19,14 @@ import utility.Wave;
  *
  */
 public class ShootTile extends Tower{
+	//TODO Fix this multiple types
 	private Critter targetTile;
+	private Tile startEndTile;
 	private float xVelocity, yVelocity;
 	private boolean alive;
 	private Tile towerCordinates;
+	
+
 	public ShootTile(Texture texture,float x, float y,float speed, int damage, Critter targetTile)
 	{
 		//super();
@@ -40,14 +44,53 @@ public class ShootTile extends Tower{
 		alive =true;
 		towerCordinates = new Tile(x, y, width, height, TileType.Grass);
 		if(targetTile!=null)
-			calculateDirection();
+			calculateDirectionTargetTile();
+	}
+
+	public ShootTile(Texture texture,float x, float y,float speed, int damage, Tile endTile)
+	{
+		//super();
+		this.texture = texture;
+		this.x=x;
+		this.y=y;
+		this.speed = speed;
+		this.damage = damage;
+		this.width=32;
+		this.height=32;
+		this.angle=0;
+		this.startEndTile=endTile;
+		this.xVelocity=0f;
+		this.yVelocity=0f;
+		alive =true;
+		towerCordinates = new Tile(x, y, width, height, TileType.Grass);
+		calculateDirectionStartEndTile();
 	}
 
 	/**
 	 * Calculates the direction of the bullet
 	 * TODO needs to return a specific tile
 	 */
-	private void calculateDirection()
+	private void calculateDirectionStartEndTile()
+	{	float totalAllowedMovement = 1.0f;
+	float xDistancefromTile = Math.abs(startEndTile.getX()-x);
+	float yDistancefromTile = Math.abs(startEndTile.getY()-y);
+	float totalDistanceFromTarget=xDistancefromTile+yDistancefromTile;
+	float xPercentofMovement=xDistancefromTile/totalDistanceFromTarget;
+	xVelocity=xPercentofMovement;
+	yVelocity=totalAllowedMovement-xPercentofMovement;
+	if(startEndTile.getX()<x)
+		xVelocity*=-1;
+	if(startEndTile.getY()<y)
+		yVelocity*=-1;
+
+	//		System.out.println((xVelocity)+" "+(yVelocity));
+	}
+	
+	/**
+	 * Calculates the direction of the bullet
+	 * TODO needs to return a specific tile
+	 */
+	private void calculateDirectionTargetTile()
 	{	float totalAllowedMovement = 1.0f;
 	float xDistancefromTile = Math.abs(targetTile.getX()-x);
 	float yDistancefromTile = Math.abs(targetTile.getY()-y);
@@ -62,6 +105,7 @@ public class ShootTile extends Tower{
 
 	//		System.out.println((xVelocity)+" "+(yVelocity));
 	}
+	
 	@Override
 	public void draw() {
 		drawQuadTex(texture, x, y, 32, 32);

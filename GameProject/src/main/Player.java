@@ -7,11 +7,11 @@ import ai.Path;
 import ai.PathValidationCode;
 import critter.CritterFactory;
 import main.GameStateManager.GameState;
+import tower.Tower;
 import tower.TowerBomb;
 import tower.TowerCannon;
 import tower.TowerFreez;
 import utility.Wave;
-
 import static graphics.Designer.*;
 
 import java.awt.List;
@@ -21,6 +21,7 @@ import java.util.Observable;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 import map.GameScreenManager;
+import map.Tile;
 import map.TileGrid;
 import map.TileType;
 /**
@@ -169,6 +170,28 @@ public class Player extends Observable{
 
 					}
 				}
+				
+				else if(((HEIGHT - Mouse.getY()) / blockSize==4||((HEIGHT - Mouse.getY()) / blockSize==5)))
+						{
+						
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
+					{	
+						System.out.println("Shooting strategy changed");
+						Tower.shootingStrategy=1;
+					}
+					
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+2)
+					{
+						System.out.println("Shooting strategy changed");
+						Tower.shootingStrategy=2;
+					}
+					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+3)
+					{
+						System.out.println("Shooting strategy changed");
+						Tower.shootingStrategy=3;
+					}
+						}
+		
 
 				else{
 					currentTile=TileType.Grass;

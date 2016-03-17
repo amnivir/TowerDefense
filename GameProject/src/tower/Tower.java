@@ -6,11 +6,13 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.opengl.Texture;
 
+import ai.Path;
 import critter.Critter;
 import main.Boot;
 import main.Player;
 import map.Tile;
 import utility.Clock;
+import utility.CoordinateConverter;
 import utility.TowerNotification;
 import utility.Wave;
 /**
@@ -25,6 +27,7 @@ public abstract class Tower {
 	protected int price;
 	protected ArrayList<ShootTile> shootTiles;
 	protected float angle;
+	public static int shootingStrategy=3;
 
 	/**
 	 * Draws the tower on the map
@@ -108,12 +111,21 @@ public abstract class Tower {
 	{
 		lastShootTime = 0;
 		Critter targetTile=null;
-		//		Tile targetTile = Boot.grid.getTile(9, 1);
+		//Tile startEndTile = Boot.grid.getTile(9, 1);
+		Tile startTile=Boot.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)),CoordinateConverter.getXCordinate(Path.continousPath.get(0)));
+		Tile endTile=Boot.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size()-1)),CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size()-1)));
 		if(Wave.getCritterList().size()!=0)
 		{
 			targetTile=Wave.getCritterList().get(0);
+			if(shootingStrategy==3)
 			shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, targetTile));	
-		}
+			
+			if(shootingStrategy==1)
+			shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, startTile));
+			
+			if(shootingStrategy==2)
+				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, endTile));
+		}	
 		else
 			TowerNotification.towerShoot=false;
 
