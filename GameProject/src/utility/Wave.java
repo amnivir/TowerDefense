@@ -56,7 +56,6 @@ public class Wave {
 				if (!critter.isCriterAlive)
 					{
 					 iter.remove();
-					 Player.money-=100;
 					 	if(Player.money<0)
 					 		{
 					 		GameStateManager.setGameState("END");

@@ -114,6 +114,7 @@ public abstract class Tower {
 		shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, targetTile));	
 	}
 	
+	
 	public void preaperShoot() 
 	{
 		lastShootTime+= Clock.delta();
@@ -135,5 +136,9 @@ public abstract class Tower {
 		return null;
 	}
 	
+	public void reduceRange()
+	{
+		this.range-=50;
+	}
 
 }
