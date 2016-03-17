@@ -144,4 +144,9 @@ public abstract class Tower {
 	}
 
 
+	public void reduceRange()
+	{
+		this.range-=50;
+	}
+
 }

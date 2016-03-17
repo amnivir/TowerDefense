@@ -10,6 +10,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import ai.Path;
 import main.Boot;
+import main.Player;
 import utility.Clock;
 import utility.CoordinateConverter;
 /**
@@ -38,7 +39,17 @@ public abstract class Critter {
 		this.isCriterAlive=true;
 	}
 	
-	
+	public void reduceHealth(int range)
+	{
+		this.health-=range;
+		if(health<=0)
+		{
+			this.isCriterAlive=false;
+			Player.money+=10;
+			System.out.println("$10 added->"+Player.money);
+		}
+//		if(this.h)
+	}
 
 	public int getHeight() {
 		return height;
@@ -119,6 +130,8 @@ public abstract class Critter {
 				if(x>=endTile.getX() && y==endTile.getY())
 				{
 					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
+					Player.getInstance().money-=100;
+					System.out.println("Player money reduced by 100! Current Credits="+Player.getInstance().money);
 					this.isCriterAlive=false;
 				}
 				if(x>=nextTile.getX())

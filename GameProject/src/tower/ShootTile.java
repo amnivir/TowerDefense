@@ -7,6 +7,7 @@ import org.newdawn.slick.opengl.Texture;
 import critter.Critter;
 import graphics.Designer;
 import map.Tile;
+import map.TileGrid;
 import map.TileType;
 import utility.Clock;
 import utility.Wave;
@@ -83,17 +84,58 @@ public class ShootTile extends Tower{
 	public void update() {
 		if(alive && Clock.delta()<1 &&Clock.delta()>0)
 		{
-				x += Clock.delta() * speed*xVelocity;
-				y += Clock.delta() * speed*yVelocity;
-			//if(Designer.chechCollision(x, y, 32, 32, targetTile.getX(), targetTile.getY(), targetTile.getWidth(), targetTile.getHeight()))
+
+			x += Clock.delta() * speed*xVelocity;
+			y += Clock.delta() * speed*yVelocity;
+
+			//    	if(Designer.chechCollision(x, y, 32, 32, targetTile.getX(), targetTile.getY(), targetTile.getWidth(), targetTile.getHeight()))
 			if(Wave.getCritterList().size()!=0)
 			{
 				if(Designer.chechCollision(x, y, 32, 32, Wave.getCritterList().get(0).getX(), Wave.getCritterList().get(0).getY(), Wave.getCritterList().get(0).getWidth(), Wave.getCritterList().get(0).getHeight()))
 				{
 
 					alive=false;
-					System.out.println("bullet hit tile");
-					System.out.println("Tower ->"+towerCordinates.getX()+" "+towerCordinates.getY() +" hits critter");
+					//    		System.out.println("Tower ->"+towerCordinates.getX()/32+" "+towerCordinates.getY()/32 +" hits critter");
+
+					for(TowerCannon cannonTower: TileGrid.cannonList )
+					{
+						if(cannonTower.getX()==towerCordinates.getX()&&cannonTower.getY()==towerCordinates.getY())
+						{
+							Wave.getCritterList().get(0).reduceHealth(cannonTower.range);
+							System.out.println( "health->"+Wave.getCritterList().get(0).getHealth());
+							if(Wave.getCritterList().get(0).getHealth()<=0)
+								System.out.println("Tower ->"+towerCordinates.getX()/32+" "+towerCordinates.getY()/32 +" hits critter");
+
+						}
+
+
+					}
+
+					for(TowerBomb bombTower: TileGrid.bombList )
+					{
+						if(bombTower.getX()==towerCordinates.getX()&&bombTower.getY()==towerCordinates.getY())
+						{
+							Wave.getCritterList().get(0).reduceHealth(bombTower.range);
+							System.out.println( "health->"+Wave.getCritterList().get(0).getHealth());
+							if(Wave.getCritterList().get(0).getHealth()<=0)
+								System.out.println("Tower ->"+towerCordinates.getX()/32+" "+towerCordinates.getY()/32 +" hits critter");
+
+						}
+
+					}
+					for(TowerFreez freezTower: TileGrid.freezList )
+					{
+						if(freezTower.getX()==towerCordinates.getX()&&freezTower.getY()==towerCordinates.getY())
+						{
+							Wave.getCritterList().get(0).reduceHealth(freezTower.range);
+							System.out.println( "health->"+Wave.getCritterList().get(0).getHealth());
+							if(Wave.getCritterList().get(0).getHealth()<=0)
+								System.out.println("Tower ->"+towerCordinates.getX()/32+" "+towerCordinates.getY()/32 +" hits critter");
+
+						}
+					}
+					//    		Wave.getCritterList().get(0).
+
 
 
 				}
@@ -101,6 +143,7 @@ public class ShootTile extends Tower{
 				//  		System.out.println("bullet hit tile");
 				draw();
 			}
+
 		}
 	}
 

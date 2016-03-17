@@ -13,7 +13,7 @@ import utility.*;
  */
 public class Critter_A extends Critter{
 
-	public Critter_A(Texture tex, Tile StartTile, int width,int height,float speed) {
+	public Critter_A(Texture tex, Tile StartTile, int width,int height,float speed, int health) {
 		super();
 		this.tex=tex;
 		this.x=StartTile.getX();
@@ -22,6 +22,7 @@ public class Critter_A extends Critter{
 		this.height=height;
 		this.speed=speed;
 		this.startTile=StartTile;
+		this.health=health;
 	
 	}
 	/**
