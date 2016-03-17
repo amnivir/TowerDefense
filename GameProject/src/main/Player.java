@@ -24,12 +24,13 @@ import map.GameScreenManager;
 import map.TileGrid;
 import map.TileType;
 /**
- * This class accepts Mouse or Keyboard events and sends the response Model class i.e. Map package   
+ * This Singleton class accepts Mouse or Keyboard events and sends the response Model class i.e. Map package   
  * @author s_niga
  *
  */
 public class Player extends Observable{
 
+	private static Player instance = new Player();
 	private TileGrid grid;
 	int  blockSize =32;
 	public TileType currentTile= TileType.Grass;
@@ -39,10 +40,18 @@ public class Player extends Observable{
 	public static int money = 500;
 	String tower="";		//for checking which tower it is in run time
 	int x,y;				//to get the current x coordinate and y coordinate of map
-	Player(TileGrid grid){
-		this.grid=grid;
+	
+	private Player(){
+		this.grid=Boot.grid;
 
 
+	}
+	
+	public static Player getInstance()
+	{
+		if(instance==null)
+			instance = new Player();
+		return instance;
 	}
 
 	//TODO remove printing, set proper if and check it should not crash

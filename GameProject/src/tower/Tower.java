@@ -20,6 +20,7 @@ public abstract class Tower {
 	protected Texture texture, cannonTexture;
 	protected int price;
 	protected ArrayList<ShootTile> shootTiles;
+	protected float angle;
 	
 	/**
 	 * Draws the tower on the map

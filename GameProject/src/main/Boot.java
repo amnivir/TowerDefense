@@ -37,7 +37,6 @@ import tower.*;
 public class Boot {
 	private static int noRows;
 	private static int noColumns;
-	public static Player player=null;
 	public static GameScreenManager gameScreen = null;
 	public Scanner keyboard = new Scanner(System.in);
 	public static int[][] map  = null;
@@ -85,16 +84,15 @@ public class Boot {
 
 		grid=new TileGrid(map,noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
-		player=new Player(grid);
 
 		//Add obervers to player
-		player.addObserver(testTowerNotif);
+		Player.getInstance().addObserver(testTowerNotif);
 
 		//TowerCannon tower = new TowerCannon(quickTexture("CannonBase"), grid.getTile(14, 7));
 		grid.draw();
 		Wave wave = new Wave(15,"Critter_A");
 		//String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
-		System.out.println("You have $" + player.money);
+		System.out.println("You have $" + Player.getInstance().money);
 		//demo Tower
 		TowerCannon demoTower=new TowerCannon(quickTexture("cannonBase"), new Tile(1 *32, 1*32, 32, 32, TileType.TowerCannon));
 		while(!Display.isCloseRequested()){
@@ -127,7 +125,7 @@ public class Boot {
 			}
 			//Captures the user input and sets the tile
 			if(GameStateManager.getGameState()!=GameState.END)
-				player.setTile();
+				Player.getInstance().setTile();
 			Display.update();
 			Display.sync(60);
 		}

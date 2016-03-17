@@ -1,6 +1,6 @@
 package tower;
 
-import static graphics.Designer.drawQuadTex;
+import static graphics.Designer.*;
 
 import org.newdawn.slick.opengl.Texture;
 import utility.Clock;
@@ -21,12 +21,15 @@ public class ShootTile extends Tower{
 		this.y=y;
 		this.speed = speed;
 		this.damage = damage;
+		this.width=32;
+		this.height=32;
+		this.angle=0;
 	}
 
 	@Override
 	public void draw() {
-		drawQuadTex(texture, x, y, 32, 32);
-		
+		//drawQuadTex(texture, x, y, 32, 32);
+		drawQuadTexRot(texture,x,y,width,height,angle);
 	}
 
 	@Override
@@ -44,7 +47,7 @@ public class ShootTile extends Tower{
 	@Override
 	public void update() {
 		x += Clock.delta() * speed;
-//		y += Clock.delta() * speed;
+    	y += Clock.delta() * speed;
 //		draw();
 	}
 
