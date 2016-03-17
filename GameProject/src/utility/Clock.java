@@ -53,7 +53,10 @@ public class Clock {
 	public static void update()
 	{
 		d = getDelta();
+		
+//		System.out.println("insideupdate d"+d);
 		totalTime+=d;
+//		System.out.println("insideupdate totalTime"+totalTime);
 	}
 	
 	public static void changeMultiplier(int change)

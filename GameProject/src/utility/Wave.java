@@ -22,7 +22,7 @@ public class Wave {
 	private static float timeLastSpawn, spawnTime;
 	
 	private String critterType;
-	private ArrayList<Critter> critterList;
+	private static ArrayList<Critter> critterList;
 	private static int numofCrittersInWave=3;
 	private static int critterCounter=0;//No more than 3 counter in the wave
 	
@@ -30,7 +30,7 @@ public class Wave {
 	{
 		this.critterType=critterType;
 		this.spawnTime=spawnTime;
-		this.timeLastSpawn=0;
+		this.timeLastSpawn=50;
 		this.critterList=new ArrayList<Critter>();
 	}
 
@@ -96,6 +96,13 @@ public class Wave {
 		critterCounter=0;
 		return critterCounter;
 		
+	}
+	/**
+	 * getter of critter list 
+	 */
+	public static ArrayList<Critter> getCritterList()
+	{
+		return critterList;
 	}
 
 }

@@ -104,6 +104,26 @@ public class Designer {
 		glLoadIdentity();
 	}
 	
+	
+	public static boolean chechCollision(float x1, float y1, float width1, float height1 ,
+			float x2, float y2, float width2, float height2)
+	{
+		if(x1+ width1 > x2 && x1 < x2 + width2 && y1+ height1 > y2 && y1< y2+height2 )
+			return true;
+		else
+			return false;
+	}
+	
+	
+/**
+ * This method draws quad for a specific texture with an angle. The texture refers to a tile
+ * @param tex TYexture of the tile
+ * @param x X Coordinate of the tile (quad)
+ * @param y Y Coordinate of the tile (quad)
+ * @param width location of the tile in the map along x axis
+ * @param height location of the tile in the map along y axis
+ * @param angle at which it rotates
+ */
 	public static void drawQuadTexRot(Texture tex, float x, float y, float width, float height,float angle){
 
 		tex.bind();

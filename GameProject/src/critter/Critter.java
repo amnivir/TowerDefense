@@ -37,6 +37,68 @@ public abstract class Critter {
 				CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size()-1)));
 		this.isCriterAlive=true;
 	}
+	
+	
+
+	public int getHeight() {
+		return height;
+	}
+
+
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+
+
+	public int getWidth() {
+		return width;
+	}
+
+
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+
+
+	public int getHealth() {
+		return health;
+	}
+
+
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+
+
+	public float getX() {
+		return x;
+	}
+
+
+
+	public void setX(float x) {
+		this.x = x;
+	}
+
+
+
+	public float getY() {
+		return y;
+	}
+
+
+
+	public void setY(float y) {
+		this.y = y;
+	}
+
+
 
 	public abstract void draw();
 

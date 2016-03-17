@@ -4,8 +4,11 @@ import static graphics.Designer.*;
 
 import org.newdawn.slick.opengl.Texture;
 
+import critter.Critter;
+import graphics.Designer;
 import map.Tile;
 import utility.Clock;
+import utility.Wave;
 
 
 /**
@@ -14,9 +17,10 @@ import utility.Clock;
  *
  */
 public class ShootTile extends Tower{
-	private Tile targetTile;
+	private Critter targetTile;
 	private float xVelocity, yVelocity;
-	public ShootTile(Texture texture,float x, float y,float speed, int damage, Tile targetTile)
+	private boolean alive;
+	public ShootTile(Texture texture,float x, float y,float speed, int damage, Critter targetTile)
 	{
 		//super();
 		this.texture = texture;
@@ -30,6 +34,8 @@ public class ShootTile extends Tower{
 		this.targetTile=targetTile;
 		this.xVelocity=0f;
 		this.yVelocity=0f;
+		alive =true;
+		if(targetTile!=null)
 		calculateDirection();
 	}
 
@@ -50,12 +56,12 @@ public class ShootTile extends Tower{
 		if(targetTile.getY()<y)
 			yVelocity*=-1;
 		
-		System.out.println((xVelocity)+" "+(yVelocity));
+//		System.out.println((xVelocity)+" "+(yVelocity));
 	}
 	@Override
 	public void draw() {
-		//drawQuadTex(texture, x, y, 32, 32);
-		drawQuadTexRot(texture,x,y,width,height,angle);
+		drawQuadTex(texture, x, y, 32, 32);
+//		drawQuadTexRot(texture,x,y,width,height,angle);
 	}
 
 	@Override
@@ -72,9 +78,26 @@ public class ShootTile extends Tower{
 
 	@Override
 	public void update() {
+		if(alive)
+		{
 		x += Clock.delta() * speed*xVelocity;
     	y += Clock.delta() * speed*yVelocity;
-//		draw();
+    	
+//    	if(Designer.chechCollision(x, y, 32, 32, targetTile.getX(), targetTile.getY(), targetTile.getWidth(), targetTile.getHeight()))
+    		if(Wave.getCritterList().size()!=0)
+    		{
+    	if(Designer.chechCollision(x, y, 32, 32, Wave.getCritterList().get(0).getX(), Wave.getCritterList().get(0).getY(), Wave.getCritterList().get(0).getWidth(), Wave.getCritterList().get(0).getHeight()))
+    	{
+    		
+    		alive=false;
+    		
+    		
+    	}
+    		
+//  		System.out.println("bullet hit tile");
+			draw();
+    		}
+		}
 	}
 
 	@Override

@@ -103,6 +103,7 @@ public class Boot {
 			{
 				Clock.update();
 				wave.update();
+				
 
 				
 				for(TowerCannon cannonTower: TileGrid.cannonList )
