@@ -7,6 +7,7 @@ import org.newdawn.slick.opengl.Texture;
 import critter.Critter;
 import graphics.Designer;
 import map.Tile;
+import map.TileType;
 import utility.Clock;
 import utility.Wave;
 
@@ -20,6 +21,7 @@ public class ShootTile extends Tower{
 	private Critter targetTile;
 	private float xVelocity, yVelocity;
 	private boolean alive;
+	private Tile towerCordinates;
 	public ShootTile(Texture texture,float x, float y,float speed, int damage, Critter targetTile)
 	{
 		//super();
@@ -35,6 +37,7 @@ public class ShootTile extends Tower{
 		this.xVelocity=0f;
 		this.yVelocity=0f;
 		alive =true;
+		towerCordinates = new Tile(x, y, width, height, TileType.Grass);
 		if(targetTile!=null)
 		calculateDirection();
 	}
@@ -90,6 +93,8 @@ public class ShootTile extends Tower{
     	{
     		
     		alive=false;
+    		System.out.println("bullet hit tile");
+    		System.out.println("Tower ->"+towerCordinates.getX()+" "+towerCordinates.getY() +" hits critter");
     		
     		
     	}
