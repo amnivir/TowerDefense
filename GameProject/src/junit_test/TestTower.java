@@ -120,6 +120,13 @@ public class TestTower extends TestCase
 		
 	}
 	@Test
+	public void testFreezRange() {
+		
+			assertEquals(t1.getDamage(),30);
+			Display.destroy();
+		
+	}
+	@Test
 	public void testBombDamage() {
 		
 			assertEquals(t2.getDamage(),20);
@@ -127,7 +134,21 @@ public class TestTower extends TestCase
 		
 	}
 	@Test
+	public void testBombRange() {
+		
+			assertEquals(t2.getDamage(),20);
+			Display.destroy();
+		
+	}
+	@Test
 	public void testCannonDamage() {
+		
+			assertEquals(t3.getDamage(),10);
+			Display.destroy();
+		
+	}
+	@Test
+	public void testCannonRange() {
 		
 			assertEquals(t3.getDamage(),10);
 			Display.destroy();
