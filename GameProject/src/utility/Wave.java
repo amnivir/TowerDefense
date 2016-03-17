@@ -19,7 +19,8 @@ import main.Player;
  *
  */
 public class Wave {
-	private float timeLastSpawn, spawnTime;
+	private static float timeLastSpawn, spawnTime;
+	
 	private String critterType;
 	private ArrayList<Critter> critterList;
 	private static int numofCrittersInWave=3;
@@ -37,17 +38,17 @@ public class Wave {
  * This method updates and draws the critter on the map 
  */
 	public void update()
-	{
-		timeLastSpawn+= Clock.delta();
+	{	
+		if(Clock.delta()<1&&Clock.delta()>0)
+		timeLastSpawn= timeLastSpawn+Clock.delta();
+		
 		if(timeLastSpawn>spawnTime)
 		{
 			this.Spawn();
 			timeLastSpawn=0;
 		}
 		if(critterList.size()<=numofCrittersInWave)
-		{
-	
-			
+		{	
 			Iterator<Critter> iter = critterList.iterator();
 			//Remove the critter if reached endpoint
 			while (iter.hasNext()) {
@@ -70,9 +71,9 @@ public class Wave {
 			}
 		}
 		
-		if(critterList.size()==0 && GameStateManager.getGameState()!=GameState.END)
+		/*if(critterList.size()==0 && GameStateManager.getGameState()!=GameState.END)
 			GameStateManager.setGameState("IDLE");
-			
+		*/	
 	}
 	
 	/**
