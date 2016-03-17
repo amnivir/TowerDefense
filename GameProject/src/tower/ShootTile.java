@@ -39,7 +39,7 @@ public class ShootTile extends Tower{
 		alive =true;
 		towerCordinates = new Tile(x, y, width, height, TileType.Grass);
 		if(targetTile!=null)
-		calculateDirection();
+			calculateDirection();
 	}
 
 	/**
@@ -48,23 +48,23 @@ public class ShootTile extends Tower{
 	 */
 	private void calculateDirection()
 	{	float totalAllowedMovement = 1.0f;
-		float xDistancefromTile = Math.abs(targetTile.getX()-x);
-		float yDistancefromTile = Math.abs(targetTile.getY()-y);
-		float totalDistanceFromTarget=xDistancefromTile+yDistancefromTile;
-		float xPercentofMovement=xDistancefromTile/totalDistanceFromTarget;
-		xVelocity=xPercentofMovement;
-		yVelocity=totalAllowedMovement-xPercentofMovement;
-		if(targetTile.getX()<x)
-			xVelocity*=-1;
-		if(targetTile.getY()<y)
-			yVelocity*=-1;
-		
-//		System.out.println((xVelocity)+" "+(yVelocity));
+	float xDistancefromTile = Math.abs(targetTile.getX()-x);
+	float yDistancefromTile = Math.abs(targetTile.getY()-y);
+	float totalDistanceFromTarget=xDistancefromTile+yDistancefromTile;
+	float xPercentofMovement=xDistancefromTile/totalDistanceFromTarget;
+	xVelocity=xPercentofMovement;
+	yVelocity=totalAllowedMovement-xPercentofMovement;
+	if(targetTile.getX()<x)
+		xVelocity*=-1;
+	if(targetTile.getY()<y)
+		yVelocity*=-1;
+
+	//		System.out.println((xVelocity)+" "+(yVelocity));
 	}
 	@Override
 	public void draw() {
 		drawQuadTex(texture, x, y, 32, 32);
-//		drawQuadTexRot(texture,x,y,width,height,angle);
+		//		drawQuadTexRot(texture,x,y,width,height,angle);
 	}
 
 	@Override
@@ -76,39 +76,38 @@ public class ShootTile extends Tower{
 	@Override
 	public void description() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void update() {
-		if(alive)
+		if(alive && Clock.delta()<1 &&Clock.delta()>0)
 		{
-		x += Clock.delta() * speed*xVelocity;
-    	y += Clock.delta() * speed*yVelocity;
-    	
-//    	if(Designer.chechCollision(x, y, 32, 32, targetTile.getX(), targetTile.getY(), targetTile.getWidth(), targetTile.getHeight()))
-    		if(Wave.getCritterList().size()!=0)
-    		{
-    	if(Designer.chechCollision(x, y, 32, 32, Wave.getCritterList().get(0).getX(), Wave.getCritterList().get(0).getY(), Wave.getCritterList().get(0).getWidth(), Wave.getCritterList().get(0).getHeight()))
-    	{
-    		
-    		alive=false;
-    		System.out.println("bullet hit tile");
-    		System.out.println("Tower ->"+towerCordinates.getX()+" "+towerCordinates.getY() +" hits critter");
-    		
-    		
-    	}
-    		
-//  		System.out.println("bullet hit tile");
-			draw();
-    		}
+				x += Clock.delta() * speed*xVelocity;
+				y += Clock.delta() * speed*yVelocity;
+			//if(Designer.chechCollision(x, y, 32, 32, targetTile.getX(), targetTile.getY(), targetTile.getWidth(), targetTile.getHeight()))
+			if(Wave.getCritterList().size()!=0)
+			{
+				if(Designer.chechCollision(x, y, 32, 32, Wave.getCritterList().get(0).getX(), Wave.getCritterList().get(0).getY(), Wave.getCritterList().get(0).getWidth(), Wave.getCritterList().get(0).getHeight()))
+				{
+
+					alive=false;
+					System.out.println("bullet hit tile");
+					System.out.println("Tower ->"+towerCordinates.getX()+" "+towerCordinates.getY() +" hits critter");
+
+
+				}
+
+				//  		System.out.println("bullet hit tile");
+				draw();
+			}
 		}
 	}
 
 	@Override
 	public void sell() {
 		// TODO Auto-generated method stub
-		
-	}
 
 	}
+
+}

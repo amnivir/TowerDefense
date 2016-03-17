@@ -12,6 +12,7 @@ import map.Tile;
 import map.TileGrid;
 import map.TileType;
 
+
 //import org.hamcrest.CoreMatchers;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -25,7 +26,7 @@ import main.GameStateManager.GameState;
 import utility.Clock;
 import utility.CoordinateConverter;
 import utility.FileExplorer;
-import utility.TestTowerNotification;
+import utility.TowerNotification;
 import utility.Wave;
 import tower.*;
 /**
@@ -75,7 +76,10 @@ public class Boot {
 
 		font = new TrueTypeFont(awtFont, antiAlias);
 
-		TestTowerNotification testTowerNotif = new TestTowerNotification();
+		/*
+		 * Observer for tower to start shooting when critter arrive
+		 */
+		TowerNotification testTowerNotif = new TowerNotification();
 
 
 		/*
@@ -103,26 +107,28 @@ public class Boot {
 			{
 				Clock.update();
 				wave.update();
-				
 
-				
-				for(TowerCannon cannonTower: TileGrid.cannonList )
-				{
-					cannonTower.preaperShoot();
-					
-				}
 
-				for(TowerBomb bombTower: TileGrid.bombList )
+				if(TowerNotification.towerShoot==true)
 				{
-					bombTower.preaperShoot();
-					
+					for(TowerCannon cannonTower: TileGrid.cannonList )
+					{
+						cannonTower.preaperShoot();
+
+					}
+
+					for(TowerBomb bombTower: TileGrid.bombList )
+					{
+						bombTower.preaperShoot();
+
+					}
+					for(TowerFreez freezTower: TileGrid.freezList )
+					{
+						freezTower.preaperShoot();
+
+					}
+
 				}
-				for(TowerFreez freezTower: TileGrid.freezList )
-				{
-					freezTower.preaperShoot();
-					
-				}
-				
 			}
 			//Captures the user input and sets the tile
 			if(GameStateManager.getGameState()!=GameState.END)
@@ -183,12 +189,12 @@ public class Boot {
 	 */
 	public static int getNoColumns() {
 		return noColumns;
-	}
+	} 
 	/**
 	 * Set number of rows for JUNIt test
 	 * @param noRows
 	 */
-	public static void setNoRows(int noRows) {
+	public static void setNoRows(int noRows)  {
 		Boot.noRows = noRows;
 	}
 

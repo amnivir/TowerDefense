@@ -46,7 +46,10 @@ public class Player extends Observable{
 
 
 	}
-	
+	/**
+	 * Singleton instance
+	 * @return Player instance
+	 */
 	public static Player getInstance()
 	{
 		if(instance==null)

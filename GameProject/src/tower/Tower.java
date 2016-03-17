@@ -11,6 +11,7 @@ import main.Boot;
 import main.Player;
 import map.Tile;
 import utility.Clock;
+import utility.TowerNotification;
 import utility.Wave;
 /**
  * This is abstract Tower class 
@@ -24,7 +25,7 @@ public abstract class Tower {
 	protected int price;
 	protected ArrayList<ShootTile> shootTiles;
 	protected float angle;
-	
+
 	/**
 	 * Draws the tower on the map
 	 */
@@ -90,7 +91,7 @@ public abstract class Tower {
 	 * @return
 	 */
 	public abstract void description();
-	
+
 	/**
 	 * Abstract method that increases the range the tower
 	 * @return
@@ -100,40 +101,47 @@ public abstract class Tower {
 	 * Abstract method that sells the tower
 	 * @return
 	 */
-		public abstract void sell();
-		
-		
+	public abstract void sell();
+
+
 	private void shoot()
 	{
 		lastShootTime = 0;
 		Critter targetTile=null;
-//		Tile targetTile = Boot.grid.getTile(9, 1);
+		//		Tile targetTile = Boot.grid.getTile(9, 1);
 		if(Wave.getCritterList().size()!=0)
-		targetTile=Wave.getCritterList().get(0);
-		
-		shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, targetTile));	
-	}
-	
-	public void preaperShoot() 
-	{
-		lastShootTime+= Clock.delta();
-		if(lastShootTime > speedOfFire)
 		{
+			targetTile=Wave.getCritterList().get(0);
+			shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, targetTile));	
+		}
+		else
+			TowerNotification.towerShoot=false;
+
+		//TODO FIX why create Shoottile if critters not left
+
+	}
+
+	public void preaperShoot() 
+	{	
+		if(Clock.delta()<1 && Clock.delta()>0)
+			lastShootTime+= Clock.delta();
+		if(lastShootTime > speedOfFire)
+		{ //TODO check here if any critter exist if not then dont shoot
 			shoot();			
 		}
-	
+
 		for(ShootTile s: shootTiles )
 		{
 			s.update();
-//			s.draw();
+			//			s.draw();
 		}
-		
+
 	}
-	
+
 	public Texture getTexture() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 
 }

@@ -129,6 +129,12 @@ public abstract class Critter {
 			if(y<(nextTile.getY()) && x==nextTile.getX() && critterMovedOneTile==false)
 			{
 				y += Clock.delta() * speed;
+				
+				if(x==endTile.getX() && y>=endTile.getY())
+				{
+					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
+					this.isCriterAlive=false;
+				}
 				if(y>=nextTile.getY())
 					critterMovedOneTile=true;
 			}
@@ -137,7 +143,13 @@ public abstract class Critter {
 			if(x>(nextTile.getX()) && y==nextTile.getY() && critterMovedOneTile==false)
 			{	
 				x -= Clock.delta() * speed;
-
+				
+				if(x<=endTile.getX() && y==endTile.getY())
+				{
+					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
+					this.isCriterAlive=false;
+				}
+				
 				if(x<=nextTile.getX())
 					critterMovedOneTile=true;
 			}
@@ -147,6 +159,12 @@ public abstract class Critter {
 			{	
 				y -= Clock.delta() * speed;
 
+				if(x==endTile.getX() && y<=endTile.getY())
+				{
+					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
+					this.isCriterAlive=false;
+				}
+				
 				if(y<=nextTile.getY())
 					critterMovedOneTile=true;
 			}
