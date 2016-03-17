@@ -53,6 +53,7 @@ public class TestPath extends TestCase{
 	@Test
 	public void testIsPathValid_PathOK() {
 		Integer[] pathList = {1,6,5};
+		TileGrid.pathCordinate.clear();
 		TileGrid.pathCordinate.addAll(Arrays.asList(pathList));
 		assertEquals("Path is not OK",PathValidationCode.PATH_OK, Path.isPathValid());
 	}
