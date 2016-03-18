@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 /**
+ * THis class handles the MAP XML files for loading the map
  * @author s_niga
  *
  */
@@ -15,6 +16,9 @@ public class FileExplorer {
 	private FilenameFilter xmlFile;
 	private File[] listOfFiles ;
 
+	/**
+	 * THis method handles the XML files in the current directory path
+	 */
 	public FileExplorer() {
 		folder =new File(".");
 
@@ -35,8 +39,7 @@ public class FileExplorer {
 	}
 
 	/**
-	 * 
-	 * 
+	 * This method displays the XML files
 	 */
 	public void displayXMLFiles()
 	{
@@ -46,7 +49,7 @@ public class FileExplorer {
 	}
 	
 	/**
-	 * 
+	 * This method returns the list of files
 	 * @param fileNum
 	 * @return
 	 */

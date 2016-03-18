@@ -1,0 +1,22 @@
+We followed following Coding Standard
+
+Code must be indented according to its nesting level.
+The body of a function must be indented with respect to its header; the body of a for, while, or switch statement must be indented with respect to its first line; and similarly for if statements and other nested structures.
+The amount of indentation should be consistent. A default tab character (eight spaces) is too much: three or four spaces is sufficient.
+Most editors and programming environments allow you to set the width of a tab character appropriately
+
+Maximize visibility of the different blocks by having curly braces alone on their line of code
+
+Names that contain multiple words are either separated by a delimiter, such as underscore, or by using an upper case letter at the beginning of each new word
+Each class declaration should have a comment explaining what the class is for.
+Each method or function should have comments explaining what it does and how it works, as well as what is the purpose of its parameters
+User-defined type names or class names start with a capital letter
+Constants are named with upper case letters and may include underscores.
+
+For readability purpose, blank lines can be added to separate code components/sections.
+Places where a blank line is often a good idea:
+between method declarations in a class declaration;
+between variable declarations in a class declaration;
+between major sections of a long and complicated function.
+
+

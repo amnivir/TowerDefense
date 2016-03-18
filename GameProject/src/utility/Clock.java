@@ -6,21 +6,27 @@ package utility;
 import org.lwjgl.Sys;
 
 /**
+ * This class is helper for wave and shootitle class. This class provides 
+ * delta time difference 
  * @author s_niga
- * this class is AI for critter
+ * 
  */
 public class Clock {
 	
 	private static boolean paused = false;
 	public static long lastFrame,totalTime;
 	public static float d=0,multiplier =1;
+	/**
+	 * THis method returns system time
+	 * @return
+	 */
 	public static long getTime()
 	{
 		return Sys.getTime()*1000/Sys.getTimerResolution();
 		
 	}
 	/**
-	 * 
+	 * This method returns delta between two time frames
 	 * @return
 	 */
 	public static float getDelta()
@@ -50,13 +56,13 @@ public class Clock {
 		return multiplier;
 	}
 	
+	/**
+	 * THis method adds to total time from delta 
+	 */
 	public static void update()
 	{
 		d = getDelta();
-		
-//		System.out.println("insideupdate d"+d);
 		totalTime+=d;
-//		System.out.println("insideupdate totalTime"+totalTime);
 	}
 	
 	public static void changeMultiplier(int change)
