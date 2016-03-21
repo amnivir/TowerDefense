@@ -3,8 +3,8 @@ package junit_test;
 import java.awt.Font;
 import java.util.Arrays;
 
-import main.Boot;
-import main.Player;
+import main.View;
+import main.Controller;
 import map.GameScreenManager;
 import map.Tile;
 import map.TileGrid;
@@ -68,7 +68,7 @@ public class TestTower extends TestCase
 		t2=new TowerFactory().getTower("bomb", Designer.quickTexture("bombBase"),new Tile(0, 0, 32, 32, TileType.TowerBomb));
 		t3=new TowerFactory().getTower("cannon", Designer.quickTexture("cannonBase"),new Tile(0, 0, 32, 32, TileType.TowerCannon));
 	//	System.out.println(t1.getStartTile());
-		Player.money=100;
+		Controller.money=100;
 		
 	}
 

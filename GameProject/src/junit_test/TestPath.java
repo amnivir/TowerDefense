@@ -12,7 +12,7 @@ import org.junit.Test;
 import ai.Path;
 import ai.PathValidationCode;
 import junit.framework.TestCase;
-import main.Boot;
+import main.View;
 import map.TileGrid;
 
 public class TestPath extends TestCase{
@@ -28,8 +28,8 @@ public class TestPath extends TestCase{
 
 	@Before
 	public void setUp() throws Exception {
-		Boot.setNoRows(5);
-		Boot.setNoColumns(5);
+		View.setNoRows(5);
+		View.setNoColumns(5);
 	}
 
 	@After

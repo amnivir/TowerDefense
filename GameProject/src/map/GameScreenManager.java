@@ -19,7 +19,7 @@ import org.lwjgl.Sys;
 
 import ai.Path;
 import ai.PathValidationCode;
-import main.Boot;
+import main.View;
 
 /**
  * This class Manages the Screen and provides the functionality like saving the game and loading the game
@@ -46,21 +46,21 @@ public class GameScreenManager {
 	
 	public GameScreenManager()
 	{
-		this.noRows=Boot.getNoRows();
-		this.noColumns=Boot.getNoColumns();
+		this.noRows=View.getNoRows();
+		this.noColumns=View.getNoColumns();
 	}
 	public GameScreenManager(TileGrid grid)
 	{
 		this.grid = grid;
-		this.noRows=Boot.getNoRows();
-		this.noColumns=Boot.getNoColumns();
+		this.noRows=View.getNoRows();
+		this.noColumns=View.getNoColumns();
 	}
 	/**
 	 * This method saves the game if path is valid in the map
 	 * @return boolean return true if map is saved false otherwise
 	 */
 	public  boolean saveMap(int[][] tileMatix, GameScreenManager gs)
-	{	tileCoordinates = new int[Boot.getNoRows()][Boot.getNoColumns()];
+	{	tileCoordinates = new int[View.getNoRows()][View.getNoColumns()];
 		if (Path.isPathValid()!=PathValidationCode.PATH_OK)
 			{	System.out.println("Map cannot be saved as the path has error: "+Path.isPathValid());
 				return false;

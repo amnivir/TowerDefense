@@ -14,8 +14,8 @@ import tower.TowerCannon;
 import tower.TowerFactory;
 import tower.TowerFreez;
 import ai.Path;
-import main.Boot;
-import main.Player;
+import main.View;
+import main.Controller;
 
 /**
  * This class manages the tiles in the grid
@@ -118,7 +118,7 @@ public class TileGrid {
 	 */
 	public void setTile(int xCoord, int yCoord, TileType tile){
 
-		int xyCoord = yCoord*Boot.getNoRows()+xCoord;//may be x&y needs to be interchanged
+		int xyCoord = yCoord*View.getNoRows()+xCoord;//may be x&y needs to be interchanged
 		System.out.println(xyCoord);
 		System.out.println(pathCordinate);
 		//TODO Add game state , no more editing after  
@@ -185,10 +185,10 @@ public class TileGrid {
 					//calling factory method to make the object of
 					bombList.add((TowerBomb) new TowerFactory().getTower("bomb", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
 					
-					System.out.println("Your current money is "+Player.money);
+					System.out.println("Your current money is "+Controller.money);
 				}
 				else
-					System.out.println("You cannot buy ... your money is less ->"+Player.money);
+					System.out.println("You cannot buy ... your money is less ->"+Controller.money);
 			}
 			else 
 				System.out.println("Tower can only be placed on grass!");
@@ -210,10 +210,10 @@ public class TileGrid {
 					//calling factory method to make the object of
 					freezList.add((TowerFreez) new TowerFactory().getTower("freez", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
 					
-					System.out.println("Your current money is "+Player.money);
+					System.out.println("Your current money is "+Controller.money);
 				}
 				else
-					System.out.println("You cannot buy ... your money is less ->"+Player.money);
+					System.out.println("You cannot buy ... your money is less ->"+Controller.money);
 			}
 			else 
 				System.out.println("Tower can only be placed on grass!");
@@ -235,10 +235,10 @@ public class TileGrid {
 					
 					cannonList.add( (TowerCannon) new TowerFactory().getTower("cannon", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
 					
-					System.out.println("Your current money is "+Player.money);
+					System.out.println("Your current money is "+Controller.money);
 				}
 				else
-					System.out.println("You cannot buy ... your money is less ->"+Player.money);
+					System.out.println("You cannot buy ... your money is less ->"+Controller.money);
 			}
 			else 
 				System.out.println("Tower can only be placed on grass!");
@@ -266,12 +266,12 @@ public class TileGrid {
 	
 	public int[][] getTileMatrix()
 	{
-		tileMatrix = new int[Boot.getNoRows()][Boot.getNoColumns()];
-		for(int i=0;i<Boot.getNoRows();i++)
+		tileMatrix = new int[View.getNoRows()][View.getNoColumns()];
+		for(int i=0;i<View.getNoRows();i++)
 		{	
-			for(int j=0;j<Boot.getNoColumns();j++) 
+			for(int j=0;j<View.getNoColumns();j++) 
 			{	
-				tileMatrix[i][j] =  Boot.grid.getTile(i,j).getType().ordinal();
+				tileMatrix[i][j] =  View.grid.getTile(i,j).getType().ordinal();
 			}
 			System.out.println("");
 		}

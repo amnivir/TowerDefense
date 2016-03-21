@@ -2,7 +2,7 @@ package ai;
 
 import java.util.ArrayList;
 
-import main.Boot;
+import main.View;
 import map.TileGrid;
 /**
  * This class determines if the path created by player is valid
@@ -35,8 +35,8 @@ public class Path {
 		continousPath = new ArrayList<Integer>();
 		int[] startEndPathCordinate=new int[2]; 
 		int noExitEntryCoordinate=0;
-		int noRows=Boot.getNoRows();
-		int noColumns=Boot.getNoColumns();
+		int noRows=View.getNoRows();
+		int noColumns=View.getNoColumns();
 		int currentCoordinate;
 		boolean boundryTile=false;
 		//Find boundry ; entry and exit points must be exactly equal to two

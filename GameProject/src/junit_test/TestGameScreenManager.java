@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import main.Boot;
+import main.View;
 import map.GameScreenManager;
 import map.Tile;
 import map.TileGrid;
@@ -29,8 +29,8 @@ public class TestGameScreenManager {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Boot.setNoRows(5);
-		Boot.setNoColumns(5);
+		View.setNoRows(5);
+		View.setNoColumns(5);
 		/*
 		 * This path list is valid path for matrix 5X5
 		 */

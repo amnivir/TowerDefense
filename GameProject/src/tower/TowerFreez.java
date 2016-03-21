@@ -1,6 +1,6 @@
 package tower;
 
-import main.Player;
+import main.Controller;
 import map.Tile;
 import static graphics.Designer.*;
 
@@ -49,9 +49,9 @@ public class TowerFreez extends Tower {
 	 * Buys the tower 
 	 */
 	public boolean buy() {
-		if(Player.money >=price)
+		if(Controller.money >=price)
 		{
-			Player.money=Player.money-this.price;
+			Controller.money=Controller.money-this.price;
 			return true;
 		}
 		else
@@ -69,22 +69,22 @@ public class TowerFreez extends Tower {
 
 	public void sell() {
 		System.out.println("You sold the Freez Tower");
-		Player.money = Player.money + this.price;
-		System.out.println("your current money $"+Player.money);
+		Controller.money = Controller.money + this.price;
+		System.out.println("your current money $"+Controller.money);
 		System.out.println();
 	}
 
 	public void update() {
-		if(Player.money >=10)
+		if(Controller.money >=10)
 	{
-		Player.money=Player.money-10;
+		Controller.money=Controller.money-10;
 		this.range=this.range+10;
 		System.out.println("Freez Tower's updated range: "+this.range);
-		System.out.println("Your Current Money: &"+Player.money);
+		System.out.println("Your Current Money: &"+Controller.money);
 	}
 	else{
 		System.out.println("Sorry your money is less the price to update the tower");
-		System.out.println("Your Current Money: &"+Player.money);	
+		System.out.println("Your Current Money: &"+Controller.money);	
 	}
 	}
 

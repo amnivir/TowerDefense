@@ -9,8 +9,8 @@ import org.lwjgl.Sys;
 import org.newdawn.slick.opengl.Texture;
 
 import ai.Path;
-import main.Boot;
-import main.Player;
+import main.View;
+import main.Controller;
 import utility.Clock;
 import utility.CoordinateConverter;
 /**
@@ -32,9 +32,9 @@ public abstract class Critter {
 	 * THis constructor initializes the next tile and last tile to the critter
 	 */
 	public Critter() {
-		this.nextTile = Boot.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(pathStepIndex+1)), 
+		this.nextTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(pathStepIndex+1)), 
 				CoordinateConverter.getXCordinate(Path.continousPath.get(pathStepIndex+1)));
-		this.endTile = Boot.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size()-1)), 
+		this.endTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size()-1)), 
 				CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size()-1)));
 		this.isCriterAlive=true;
 	}
@@ -45,8 +45,8 @@ public abstract class Critter {
 		if(health<=0)
 		{
 			this.isCriterAlive=false;
-			Player.money+=10;
-			System.out.println("$10 added->"+Player.money);
+			Controller.money+=10;
+			System.out.println("$10 added->"+Controller.money);
 		}
 //		if(this.h)
 	}
@@ -130,8 +130,8 @@ public abstract class Critter {
 				if(x>=endTile.getX() && y==endTile.getY())
 				{
 					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
-					Player.getInstance().money-=100;
-					System.out.println("Player money reduced by 100! Current Credits="+Player.getInstance().money);
+					Controller.getInstance().money-=100;
+					System.out.println("Player money reduced by 100! Current Credits="+Controller.getInstance().money);
 					this.isCriterAlive=false;
 				}
 				if(x>=nextTile.getX())
@@ -192,7 +192,7 @@ public abstract class Critter {
 					x=startTile.getX();
 					y=startTile.getY();
 					pathStepIndex++;
-					this.nextTile = Boot.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(pathStepIndex+1)), 
+					this.nextTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(pathStepIndex+1)), 
 							CoordinateConverter.getXCordinate(Path.continousPath.get(pathStepIndex+1)));
 					critterMovedOneTile=false;
 				}

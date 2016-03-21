@@ -3,7 +3,7 @@
  */
 package utility;
 
-import main.Boot;
+import main.View;
 
 /**
  * This class provides helper function to converts the linear array to X & Y coordinate
@@ -19,7 +19,7 @@ public class CoordinateConverter {
 	 */
 	public static int getXCordinate(int arrayIndex)
 	{	
-		return arrayIndex/Boot.getNoRows();
+		return arrayIndex/View.getNoRows();
 		
 	}
 	
@@ -29,7 +29,7 @@ public class CoordinateConverter {
 	 * @return Y Coordinate
 	 */
 	public static int getYCordinate(int arrayIndex){
-		return arrayIndex-((arrayIndex/Boot.getNoRows())*Boot.getNoRows());
+		return arrayIndex-((arrayIndex/View.getNoRows())*View.getNoRows());
 		
 	}
 }

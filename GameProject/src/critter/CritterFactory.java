@@ -6,7 +6,7 @@ package critter;
 import static graphics.Designer.quickTexture;
 
 import ai.Path;
-import main.Boot;
+import main.View;
 import utility.CoordinateConverter;
 
 /**
@@ -23,7 +23,7 @@ public class CritterFactory {
 		
 		if(critterType.equalsIgnoreCase("Critter_A"))
 		{
-			return new Critter_A(quickTexture("critter_A"), Boot.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)),CoordinateConverter.getXCordinate(Path.continousPath.get(0))),32,32,2,50);
+			return new Critter_A(quickTexture("critter_A"), View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)),CoordinateConverter.getXCordinate(Path.continousPath.get(0))),32,32,2,50);
 		}
 		
 		return null;

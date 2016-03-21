@@ -35,7 +35,7 @@ import tower.*;
  * @author eshinig
  *
  */
-public class Boot {
+public class View {
 	private static int noRows;
 	private static int noColumns;
 	public static GameScreenManager gameScreen = null;
@@ -48,7 +48,7 @@ public class Boot {
 	 * a new game or load the saved game
 	 * 
 	 */
-	public Boot()
+	public View()
 	{	
 		int choice;
 
@@ -90,13 +90,13 @@ public class Boot {
 		gameScreen = new GameScreenManager(grid);
 
 		//Add obervers to player
-		Player.getInstance().addObserver(testTowerNotif);
+		Controller.getInstance().addObserver(testTowerNotif);
 
 		//TowerCannon tower = new TowerCannon(quickTexture("CannonBase"), grid.getTile(14, 7));
 		grid.draw();
 		Wave wave = new Wave(15,"Critter_A");
 		//String currentCredits = "CreditLeft:$" + Integer.toString(player.money);
-		System.out.println("You have $" + Player.getInstance().money);
+		System.out.println("You have $" + Controller.getInstance().money);
 		//demo Tower
 		TowerCannon demoTower=new TowerCannon(quickTexture("cannonBase"), new Tile(1 *32, 1*32, 32, 32, TileType.TowerCannon));
 		while(!Display.isCloseRequested()){
@@ -132,7 +132,7 @@ public class Boot {
 			}
 			//Captures the user input and sets the tile
 			if(GameStateManager.getGameState()!=GameState.END)
-				Player.getInstance().setTile();
+				Controller.getInstance().setTile();
 			Display.update();
 			Display.sync(60);
 		}
@@ -195,7 +195,7 @@ public class Boot {
 	 * @param noRows
 	 */
 	public static void setNoRows(int noRows)  {
-		Boot.noRows = noRows;
+		View.noRows = noRows;
 	}
 
 	/**
@@ -203,7 +203,7 @@ public class Boot {
 	 * @param noColumns
 	 */
 	public static void setNoColumns(int noColumns) {
-		Boot.noColumns = noColumns;
+		View.noColumns = noColumns;
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class Boot {
 	 */
 	public static void main(String args[])
 	{
-		new Boot();
+		new View();
 
 	}
 

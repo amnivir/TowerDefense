@@ -3,7 +3,7 @@ package critter;
 import static graphics.Designer.drawQuadTex;
 import map.Tile;
 import graphics.*;
-import main.Boot;
+import main.View;
 
 import org.newdawn.slick.opengl.Texture;
 import utility.*;

@@ -8,8 +8,8 @@ import org.newdawn.slick.opengl.Texture;
 
 import ai.Path;
 import critter.Critter;
-import main.Boot;
-import main.Player;
+import main.View;
+import main.Controller;
 import map.Tile;
 import utility.Clock;
 import utility.CoordinateConverter;
@@ -112,8 +112,8 @@ public abstract class Tower {
 		lastShootTime = 0;
 		Critter targetTile=null;
 		//Tile startEndTile = Boot.grid.getTile(9, 1);
-		Tile startTile=Boot.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)),CoordinateConverter.getXCordinate(Path.continousPath.get(0)));
-		Tile endTile=Boot.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size()-1)),CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size()-1)));
+		Tile startTile=View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)),CoordinateConverter.getXCordinate(Path.continousPath.get(0)));
+		Tile endTile=View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size()-1)),CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size()-1)));
 		if(Wave.getCritterList().size()!=0)
 		{
 			targetTile=Wave.getCritterList().get(0);

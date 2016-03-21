@@ -22,8 +22,8 @@ import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import java.io.IOException;
 import java.io.InputStream;
 
-import main.Boot;
-import main.Player;
+import main.View;
+import main.Controller;
 import map.TileGrid;
 import map.TileType;
 

@@ -29,9 +29,9 @@ import map.TileType;
  * @author s_niga
  *
  */
-public class Player extends Observable{
+public class Controller extends Observable{
 
-	private static Player instance = new Player();
+	private static Controller instance = new Controller();
 	private TileGrid grid;
 	int  blockSize =32;
 	public TileType currentTile= TileType.Grass;
@@ -42,8 +42,8 @@ public class Player extends Observable{
 	String tower="";		//for checking which tower it is in run time
 	int x,y;				//to get the current x coordinate and y coordinate of map
 	
-	private Player(){
-		this.grid=Boot.grid;
+	private Controller(){
+		this.grid=View.grid;
 
 
 	}
@@ -51,10 +51,10 @@ public class Player extends Observable{
 	 * Singleton instance
 	 * @return Player instance
 	 */
-	public static Player getInstance()
+	public static Controller getInstance()
 	{
 		if(instance==null)
-			instance = new Player();
+			instance = new Controller();
 		return instance;
 	}
 
@@ -75,7 +75,7 @@ public class Player extends Observable{
 			if(Mouse.getEventButtonState())
 			{
 
-				if(((Mouse.getX() / blockSize) < Boot.getNoColumns()) && (((HEIGHT - Mouse.getY()) / blockSize) < Boot.getNoRows()))
+				if(((Mouse.getX() / blockSize) < View.getNoColumns()) && (((HEIGHT - Mouse.getY()) / blockSize) < View.getNoRows()))
 
 				{	
 					//Create the path
@@ -113,30 +113,30 @@ public class Player extends Observable{
 
 				else if((HEIGHT - Mouse.getY()) / blockSize==0)
 				{	
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns())
+					if((int)Math.floor(Mouse.getX() / blockSize)==View.getNoColumns())
 						currentTile=TileType.Water;
 
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
+					if((int)Math.floor(Mouse.getX() / blockSize)==View.getNoColumns()+1)
 						currentTile=TileType.Dirt;
 
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+2)
+					if((int)Math.floor(Mouse.getX() / blockSize)==View.getNoColumns()+2)
 						currentTile=TileType.Grass;
 				}
 				else if((HEIGHT - Mouse.getY()) / blockSize==1)
 				{
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns())
+					if((int)Math.floor(Mouse.getX() / blockSize)==View.getNoColumns())
 					{
 						currentTile=TileType.TowerCannon;
 						TileGrid.towerCannon.description();
 						//TileGrid.towerCannon.preaperShoot();
 					}
 
-					else if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
+					else if((int)Math.floor(Mouse.getX() / blockSize)==View.getNoColumns()+1)
 					{
 						currentTile=TileType.TowerBomb;
 						TileGrid.towerBomb.description();
 					}
-					else if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+2)
+					else if((int)Math.floor(Mouse.getX() / blockSize)==View.getNoColumns()+2)
 					{
 						currentTile=TileType.TowerFreez;
 						TileGrid.towerFreez.description();
@@ -149,14 +149,14 @@ public class Player extends Observable{
 				 */
 				else if((HEIGHT - Mouse.getY()) / blockSize==2)
 				{
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns())
+					if((int)Math.floor(Mouse.getX() / blockSize)==View.getNoColumns())
 					{	
 						if (Path.isPathValid()==PathValidationCode.PATH_OK && GameStateManager.getGameState()!=GameState.END)
 						{
 							GameStateManager.setGameState("PLAY");
 							System.out.println("Game State changed to = "+GameStateManager.getGameState());
 							Wave.resetCritterCounter();
-							Boot.critter = CritterFactory.getCritter("Critter_A");
+							View.critter = CritterFactory.getCritter("Critter_A");
 							
 							setChanged();
 							notifyObservers(this);
@@ -174,18 +174,18 @@ public class Player extends Observable{
 				else if(((HEIGHT - Mouse.getY()) / blockSize==4||((HEIGHT - Mouse.getY()) / blockSize==5)))
 						{
 						
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+1)
+					if((int)Math.floor(Mouse.getX() / blockSize)==View.getNoColumns()+1)
 					{	
 						System.out.println("Shooting strategy changed");
 						Tower.shootingStrategy=1;
 					}
 					
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+2)
+					if((int)Math.floor(Mouse.getX() / blockSize)==View.getNoColumns()+2)
 					{
 						System.out.println("Shooting strategy changed");
 						Tower.shootingStrategy=2;
 					}
-					if((int)Math.floor(Mouse.getX() / blockSize)==Boot.getNoColumns()+3)
+					if((int)Math.floor(Mouse.getX() / blockSize)==View.getNoColumns()+3)
 					{
 						System.out.println("Shooting strategy changed");
 						Tower.shootingStrategy=3;
@@ -203,7 +203,7 @@ public class Player extends Observable{
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 				if (Keyboard.getEventKey() == Keyboard.KEY_S) {
-					Boot.gameScreen.saveMap(grid.getTileMatrix(),Boot.gameScreen);
+					View.gameScreen.saveMap(grid.getTileMatrix(),View.gameScreen);
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_L) {
 					System.out.println("Loading the map");
