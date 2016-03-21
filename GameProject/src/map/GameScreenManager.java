@@ -100,7 +100,7 @@ public class GameScreenManager {
 		return true;
 	}
 	/**
-	 * This method reads the saved XML file reutrns the array of Tiles 
+	 * This method reads the saved XML file returns the array of Tiles 
 	 */
 	public int[][]  loadMap(String mapFileName)
 	{	GameScreenManager readCoordinates = null;

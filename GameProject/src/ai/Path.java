@@ -9,11 +9,11 @@ import map.TileGrid;
  * @author s_niga
  *
  */
-public class Path {
 
+public class Path 
+{
 	public static ArrayList<Integer> tempPath=null;
 	public static ArrayList<Integer> continousPath=null;
-
 
 	public static ArrayList<Integer> copyArray(ArrayList<Integer> arr)
 	{	
@@ -24,6 +24,7 @@ public class Path {
 		}
 		return temp;
 	}
+	
 	/**
 	 * This method performs the path validation in the map and returns the appropriate error code   
 	 * @return PathValidationCode returns the enum code defined in class PathValidationCode
@@ -41,13 +42,13 @@ public class Path {
 		boolean boundryTile=false;
 		//Find boundry ; entry and exit points must be exactly equal to two
 
-
 		for(Integer x:pathCordinate)
 		{	//check if the path coordinate is on upper Y axis boundary
 			if(x<noColumns)
 			{
 				boundryTile=true;
 			}
+			
 			//check if the path coordinate is on lower Y axis boundary
 			for(int i=(noRows-1)*noColumns;i<(noColumns*noRows);i++)
 			{
@@ -57,6 +58,7 @@ public class Path {
 					break;
 				}
 			}
+			
 			//check if the path coordinate is on left X boundary
 			for(int i=noColumns;i<(noRows*noColumns)-noColumns;i=i+noColumns)
 			{
@@ -66,6 +68,7 @@ public class Path {
 					break;
 				}
 			}
+			
 			//check if the path coordinate is on right X boundary
 			for(int i=2*noColumns-1;i<(noRows*noColumns)-noColumns;i=i+noColumns)
 			{
@@ -88,10 +91,8 @@ public class Path {
 					boundryTile=false;
 				}
 			}
-
-
 		}
-
+		
 		if(noExitEntryCoordinate<2)
 		{
 			System.out.println("No of EntryExit points less than 2. Invalid Path!");
@@ -99,15 +100,12 @@ public class Path {
 		}
 
 		System.out.println("No of Boundrypoints="+noExitEntryCoordinate);
-
 		tempPath = copyArray(pathCordinate);
-		
-
 		currentCoordinate=startEndPathCordinate[0];
 		continousPath.add(startEndPathCordinate[0]);
 		tempPath.remove(new Integer(currentCoordinate));
-
 		boolean adjacentCoordinate=false;
+		
 		for(int i=0;i<pathCordinate.size();i++)
 		{
 			for(Integer x:tempPath)
@@ -125,16 +123,18 @@ public class Path {
 				tempPath.remove(new Integer(currentCoordinate));
 			}
 		}
+		
 		System.out.println("Continuous Path"+continousPath);
 		System.out.println("Temp Path"+tempPath);
+		
 		if(continousPath.size() == pathCordinate.size())
-			{
+		{
 			return PathValidationCode.PATH_OK;
-			}
+		}
 
 		else 
+		{
 			return PathValidationCode.PATH_MANY_ROUTES_FOUND;
-
+		}
 	}
-
 }
