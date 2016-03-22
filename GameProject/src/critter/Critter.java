@@ -18,7 +18,8 @@ import utility.CoordinateConverter;
  * 
  *
  */
-public abstract class Critter {
+public abstract class Critter 
+{
 	protected int width, height,health;
 	protected float speed,x, y;
 	protected Texture tex;
@@ -28,10 +29,12 @@ public abstract class Critter {
 	public int pathStepIndex=0;
 	protected boolean first = true;
 	public boolean isCriterAlive;
+	
 	/**
 	 * THis constructor initializes the next tile and last tile to the critter
 	 */
-	public Critter() {
+	public Critter()
+	{
 		this.nextTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(pathStepIndex+1)), 
 				CoordinateConverter.getXCordinate(Path.continousPath.get(pathStepIndex+1)));
 		this.endTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size()-1)), 
@@ -48,78 +51,69 @@ public abstract class Critter {
 			Controller.money+=10;
 			System.out.println("$10 added->"+Controller.money);
 		}
-//		if(this.h)
 	}
 
-	public int getHeight() {
+	public int getHeight()
+	{
 		return height;
 	}
 
-
-
-	public void setHeight(int height) {
+	public void setHeight(int height)
+	{
 		this.height = height;
 	}
 
-
-
-	public int getWidth() {
+	public int getWidth()
+	{
 		return width;
 	}
 
-
-
-	public void setWidth(int width) {
+	public void setWidth(int width) 
+	{
 		this.width = width;
 	}
 
-
-
-	public int getHealth() {
+	public int getHealth() 
+	{
 		return health;
 	}
 
-
-
-	public void setHealth(int health) {
+	public void setHealth(int health)
+	{
 		this.health = health;
 	}
 
-
-
-	public float getX() {
+	public float getX() 
+	{
 		return x;
 	}
 
-
-
-	public void setX(float x) {
+	public void setX(float x)
+	{
 		this.x = x;
 	}
 
-
-
-	public float getY() {
+	public float getY() 
+	{
 		return y;
 	}
 
-
-
-	public void setY(float y) {
+	public void setY(float y) 
+	{
 		this.y = y;
 	}
 
-
-
 	public abstract void draw();
 
-	public final void update() {
-
-
+	public final void update() 
+	{
 		boolean critterMovedOneTile=false;
+		
 		//this first is set to false to avoid reading large Clock.delta
 		if(first)
+		{
 			first =false;
+		}
 		else
 		{
 			//Critter move right
@@ -134,9 +128,11 @@ public abstract class Critter {
 					System.out.println("Player money reduced by 100! Current Credits="+Controller.getInstance().money);
 					this.isCriterAlive=false;
 				}
+				
 				if(x>=nextTile.getX())
+				{
 					critterMovedOneTile=true;
-
+				}
 			}
 			//Move critter down
 			if(y<(nextTile.getY()) && x==nextTile.getX() && critterMovedOneTile==false)
@@ -148,8 +144,11 @@ public abstract class Critter {
 					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
 					this.isCriterAlive=false;
 				}
+				
 				if(y>=nextTile.getY())
+				{
 					critterMovedOneTile=true;
+				}
 			}
 
 			//Move Critter left
@@ -164,7 +163,9 @@ public abstract class Critter {
 				}
 				
 				if(x<=nextTile.getX())
+				{
 					critterMovedOneTile=true;
+				}
 			}
 
 			//Move Critter up
@@ -179,9 +180,10 @@ public abstract class Critter {
 				}
 				
 				if(y<=nextTile.getY())
+				{
 					critterMovedOneTile=true;
+				}
 			}
-
 
 			//Critter moved to the next tile so change the start tile and next tile for it
 			if(critterMovedOneTile)
@@ -198,6 +200,5 @@ public abstract class Critter {
 				}
 			}
 		}
-
 	}
 }

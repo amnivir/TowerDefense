@@ -18,8 +18,9 @@ import utility.Wave;
 /**
  * This is abstract Tower class 
  */
-public abstract class Tower {
-	protected float x,y,width,height,speed,lastShootTime,speedOfFire;
+public abstract class Tower 
+{
+	protected float x, y, width, height, speed, lastShootTime, speedOfFire;
 	protected int damage;
 	protected int range;
 	protected Tile startTile;
@@ -27,68 +28,103 @@ public abstract class Tower {
 	protected int price;
 	protected ArrayList<ShootTile> shootTiles;
 	protected float angle;
-	public static int shootingStrategy=3;
+	public static int shootingStrategy = 3;
 
 	/**
 	 * Draws the tower on the map
 	 */
 	public abstract void draw();
+	
 	/**
 	 * Abstract method that buys the tower
 	 * @return
 	 */
 	public abstract boolean buy();
-	public float getX() {
+	
+	public float getX()
+	{
 		return x;
 	}
-	public void setX(float x) {
+	
+	public void setX(float x) 
+	{
 		this.x = x;
 	}
-	public float getY() {
+	
+	public float getY() 
+	{
 		return y;
 	}
-	public void setY(float y) {
+	
+	public void setY(float y) 
+	{
 		this.y = y;
 	}
-	public float getWidth() {
+	
+	public float getWidth()
+	{
 		return width;
 	}
-	public void setWidth(float width) {
+	
+	public void setWidth(float width)
+	{
 		this.width = width;
 	}
-	public float getHeight() {
+	public float getHeight()
+	{
 		return height;
 	}
-	public void setHeight(float height) {
+	
+	public void setHeight(float height) 
+	{
 		this.height = height;
 	}
-	public int getDamage() {
+	
+	public int getDamage()
+	{
 		return damage;
 	}
-	public void setDamage(int damage) {
+	
+	public void setDamage(int damage) 
+	{
 		this.damage = damage;
 	}
-	public int getRange() {
+	
+	public int getRange()
+	{
 		return range;
 	}
-	public void setRange(int range) {
+	
+	public void setRange(int range)
+	{
 		this.range = range;
 	}
-	public Tile getStartTile() {
+	
+	public Tile getStartTile() 
+	{
 		return startTile;
 	}
-	public void setStartTile(Tile startTile) {
+	
+	public void setStartTile(Tile startTile) 
+	{
 		this.startTile = startTile;
 	}
-	public int getPrice() {
+	
+	public int getPrice() 
+	{
 		return price;
 	}
-	public void setPrice(int price) {
+	
+	public void setPrice(int price) 
+	{
 		this.price = price;
 	}
-	public void setTexture(Texture texture) {
+	
+	public void setTexture(Texture texture)
+	{
 		this.texture = texture;
 	}
+	
 	/**
 	 * Abstract method that shows description of the tower
 	 * @return
@@ -100,65 +136,68 @@ public abstract class Tower {
 	 * @return
 	 */
 	public abstract void update();
+	
 	/**
 	 * Abstract method that sells the tower
 	 * @return
 	 */
 	public abstract void sell();
 
-
 	private void shoot()
 	{
 		lastShootTime = 0;
-		Critter targetTile=null;
-		//Tile startEndTile = Boot.grid.getTile(9, 1);
-		Tile startTile=View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)),CoordinateConverter.getXCordinate(Path.continousPath.get(0)));
-		Tile endTile=View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size()-1)),CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size()-1)));
-		if(Wave.getCritterList().size()!=0)
+		Critter targetTile = null;
+		Tile startTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)), CoordinateConverter.getXCordinate(Path.continousPath.get(0)));
+		Tile endTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size() - 1)), CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size() - 1)));
+		
+		if(Wave.getCritterList().size() != 0)
 		{
-			targetTile=Wave.getCritterList().get(0);
-			if(shootingStrategy==3)
-			shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, targetTile));	
+			targetTile = Wave.getCritterList().get(0);
 			
-			if(shootingStrategy==1)
-			shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, startTile));
-			
-			if(shootingStrategy==2)
+			if(shootingStrategy == 3)
+			{
+				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, targetTile));	
+			}
+			if(shootingStrategy == 1)
+			{
+				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, startTile));
+			}
+			if(shootingStrategy == 2)
+			{
 				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, endTile));
+			}
 		}	
 		else
-			TowerNotification.towerShoot=false;
-
+		{
+			TowerNotification.towerShoot = false;
+		}
 		//TODO FIX why create Shoottile if critters not left
-
 	}
 
 	public void preaperShoot() 
 	{	
-		if(Clock.delta()<1 && Clock.delta()>0)
-			lastShootTime+= Clock.delta();
+		if(Clock.delta() < 1 && Clock.delta() > 0)
+		{
+			lastShootTime += Clock.delta();
+		}
 		if(lastShootTime > speedOfFire)
-		{ //TODO check here if any critter exist if not then dont shoot
+		{ 
 			shoot();			
 		}
 
-		for(ShootTile s: shootTiles )
+		for(ShootTile s : shootTiles )
 		{
 			s.update();
-			//			s.draw();
 		}
-
 	}
 
-	public Texture getTexture() {
-		// TODO Auto-generated method stub
+	public Texture getTexture() 
+	{
 		return null;
 	}
-
 
 	public void reduceRange()
 	{
 		this.range-=50;
 	}
-
 }

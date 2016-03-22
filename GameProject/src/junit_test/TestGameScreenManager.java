@@ -19,73 +19,48 @@ import map.TileGrid;
  * @author eshinig
  *
  */
-public class TestGameScreenManager {
-
-	GameScreenManager gamescreen=null;
+public class TestGameScreenManager 
+{
+	GameScreenManager gamescreen = null;
 	TileGrid grid = null;
 	static int[][] tileArray;
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() throws Exception 
+	{
 		View.setNoRows(5);
 		View.setNoColumns(5);
+		
 		/*
 		 * This path list is valid path for matrix 5X5
 		 */
 		Integer[] pathList = {1,6,5};
 		TileGrid.pathCordinate.addAll(Arrays.asList(pathList));
+		
 		/*
 		 * Map to save
 		 */
-		tileArray = new int[][]{
-			  { 1, 0, 0, 0, 0},
-			  { 0, 1, 0, 0, 0},
-			  { 0, 0, 1, 0, 0},
-			  { 0, 0, 0, 1, 0},
-			  { 0, 0, 0, 0, 1}
-			};
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		
-		
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
+		tileArray = new int[][]
+						{
+						  { 1, 0, 0, 0, 0},
+						  { 0, 1, 0, 0, 0},
+						  { 0, 0, 1, 0, 0},
+						  { 0, 0, 0, 1, 0},
+						  { 0, 0, 0, 0, 1}
+						};
 	}
 
 	/**
 	 * Test method for {@link map.GameScreenManager#saveMap()}.
 	 */
 	@Test
-	public void testSaveMap() {
+	public void testSaveMap()
+	{
 		gamescreen = new GameScreenManager();
 		assertTrue("Map not saved", gamescreen.saveMap(tileArray,gamescreen));
-	}
-
-	/**
-	 * Test method for {@link map.GameScreenManager#loadMap(java.lang.String)}.
-	 */
-	@Test
-	public void testLoadMap() {
-		
 	}
 
 }

@@ -11,20 +11,22 @@ import org.lwjgl.Sys;
  * @author s_niga
  * 
  */
-public class Clock {
-	
+public class Clock 
+{
 	private static boolean paused = false;
-	public static long lastFrame,totalTime;
-	public static float d=0,multiplier =1;
+	public static long lastFrame, totalTime;
+	public static float d=0,multiplier = 1;
+	
 	/**
 	 * THis method returns system time
 	 * @return
 	 */
 	public static long getTime()
 	{
-		return Sys.getTime()*1000/Sys.getTimerResolution();
+		return Sys.getTime() * 1000 / Sys.getTimerResolution();
 		
 	}
+	
 	/**
 	 * This method returns delta between two time frames
 	 * @return
@@ -32,18 +34,21 @@ public class Clock {
 	public static float getDelta()
 	{
 		long currentTime = getTime();
-		int delta = (int)(currentTime-lastFrame);
+		int delta = (int)(currentTime - lastFrame);
 		lastFrame = getTime();
-		return delta*0.01f;
+		return delta * 0.01f;
 	}
 	
 	public static float delta()
 	{
 		if(paused)
+		{
 			return 0;
-		
+		}
 		else
-			return d*multiplier;
+		{
+			return d * multiplier;
+		}
 	}
 	
 	public static float totalTime()
@@ -62,19 +67,16 @@ public class Clock {
 	public static void update()
 	{
 		d = getDelta();
-		totalTime+=d;
+		totalTime += d;
 	}
 	
 	public static void changeMultiplier(int change)
 	{
-		if(multiplier+change<-1 && multiplier+change >7)
+		if(multiplier + change < -1 && multiplier + change > 7)
 		{
 			
 		}
 		else 
-			multiplier+=change;
+			multiplier += change;
 	}
-	
-	
-	
 }

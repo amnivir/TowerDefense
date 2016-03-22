@@ -9,16 +9,18 @@ import org.junit.runner.notification.Failure;
  * @author eshinig
  *
  */
-public class TestRunner {
+public class TestRunner
+{
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 	      Result result = JUnitCore.runClasses(GameTestsSuite.class);
-	      for (Failure failure : result.getFailures()) {
+	      for (Failure failure : result.getFailures())
+	      {
 	         System.out.println(failure.toString());
-	         
 	      }
 	      
 	      System.out.println("No. od TestRun="+result.getRunCount());

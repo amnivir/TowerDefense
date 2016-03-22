@@ -8,11 +8,11 @@ package ai;
  * @author s_niga
  *
  */
-public class TargetEndTile implements Strategy {
-
+public class TargetEndTile implements Strategy 
+{
 	@Override
-	public int execute(int strategyNum) {
-		// TODO Auto-generated method stub
+	public int execute(int strategyNum)
+	{
 		return 2;
 	}
 

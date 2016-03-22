@@ -10,8 +10,8 @@ import main.View;
  * @author eshinig
  *
  */
-public class CoordinateConverter {
-
+public class CoordinateConverter
+{
 	/**
 	 * This method returns the x cordinate
 	 * @param arrayIndex The linear array index
@@ -19,8 +19,7 @@ public class CoordinateConverter {
 	 */
 	public static int getXCordinate(int arrayIndex)
 	{	
-		return arrayIndex/View.getNoRows();
-		
+		return arrayIndex / View.getNoRows();
 	}
 	
 	/**
@@ -28,8 +27,8 @@ public class CoordinateConverter {
 	 * @param arrayIndex The linear array index
 	 * @return Y Coordinate
 	 */
-	public static int getYCordinate(int arrayIndex){
-		return arrayIndex-((arrayIndex/View.getNoRows())*View.getNoRows());
-		
+	public static int getYCordinate(int arrayIndex)
+	{
+		return arrayIndex-((arrayIndex / View.getNoRows()) * View.getNoRows());	
 	}
 }

@@ -52,107 +52,98 @@ public class TestTower extends TestCase
 	Texture tex=null;
 	Tile tile=null;
 	Tower t1,t2,t3;
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	
-	}
 
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 	@Before
-	public void setUp() throws Exception {
-		
+	public void setUp() throws Exception 
+	{
 		beginSession(5,5);
 		t1=new TowerFactory().getTower("freez", Designer.quickTexture("freezBase"),new Tile(0, 0, 32, 32, TileType.TowerFreez));
 		t2=new TowerFactory().getTower("bomb", Designer.quickTexture("bombBase"),new Tile(0, 0, 32, 32, TileType.TowerBomb));
 		t3=new TowerFactory().getTower("cannon", Designer.quickTexture("cannonBase"),new Tile(0, 0, 32, 32, TileType.TowerCannon));
-	//	System.out.println(t1.getStartTile());
 		Controller.money=100;
-		
 	}
 
 	@Test
-	public void testFreezFactory() {
-		
-			assertTrue(t1 instanceof TowerFreez);
-			Display.destroy();
+	public void testFreezFactory() 
+	{
+		assertTrue(t1 instanceof TowerFreez);
+		Display.destroy();
 	}
+	
 	@Test
-	public void testBombFactory() {
-		
-			assertTrue(t2 instanceof TowerBomb);
-			Display.destroy();
+	public void testBombFactory()
+	{
+		assertTrue(t2 instanceof TowerBomb);
+		Display.destroy();
 	}
+	
 	@Test
-	public void testCannonFactory() {
-		
-			assertTrue(t3 instanceof TowerCannon);
-			Display.destroy();
-		
+	public void testCannonFactory() 
+	{
+		assertTrue(t3 instanceof TowerCannon);
+		Display.destroy();
 	}
+	
 	@Test
-	public void testCannonBuy() {
-		
-			assertTrue(t3.buy());
-			Display.destroy();
-		
+	public void testCannonBuy()
+	{
+		assertTrue(t3.buy());
+		Display.destroy();
 	}
+	
 	@Test
-	public void testBombBuy() {
-		
-			assertTrue(t2.buy());
-			Display.destroy();
-		
+	public void testBombBuy()
+	{
+		assertTrue(t2.buy());
+		Display.destroy();
 	}
+	
 	@Test
-	public void testFreezBuy() {
-		
-			assertTrue(t1.buy());
-			Display.destroy();
-		
+	public void testFreezBuy() 
+	{
+		assertTrue(t1.buy());
+		Display.destroy();
 	}
+	
 	@Test
-	public void testFreezDamage() {
-		
-			assertEquals(t1.getDamage(),30);
-			Display.destroy();
-		
+	public void testFreezDamage() 
+	{
+		assertEquals(t1.getDamage(),30);
+		Display.destroy();
 	}
+	
 	@Test
-	public void testFreezRange() {
-		
-			assertEquals(t1.getDamage(),30);
-			Display.destroy();
-		
+	public void testFreezRange()
+	{
+		assertEquals(t1.getDamage(),30);
+		Display.destroy();
 	}
+	
 	@Test
-	public void testBombDamage() {
-		
-			assertEquals(t2.getDamage(),20);
-			Display.destroy();
-		
+	public void testBombDamage() 
+	{
+		assertEquals(t2.getDamage(),20);
+		Display.destroy();
 	}
+	
 	@Test
-	public void testBombRange() {
-		
-			assertEquals(t2.getDamage(),20);
-			Display.destroy();
-		
+	public void testBombRange() 
+	{
+		assertEquals(t2.getDamage(),20);
+		Display.destroy();
 	}
+	
 	@Test
-	public void testCannonDamage() {
-		
-			assertEquals(t3.getDamage(),10);
-			Display.destroy();
-		
+	public void testCannonDamage() 
+	{
+		assertEquals(t3.getDamage(),10);
+		Display.destroy();
 	}
+	
 	@Test
-	public void testCannonRange() {
-		
-			assertEquals(t3.getDamage(),10);
-			Display.destroy();
-		
+	public void testCannonRange() 
+	{
+		assertEquals(t3.getDamage(),10);
+		Display.destroy();
 	}
-
 }

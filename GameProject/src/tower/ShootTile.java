@@ -18,7 +18,8 @@ import utility.Wave;
  * @author Gurpreet
  *
  */
-public class ShootTile extends Tower{
+public class ShootTile extends Tower
+{
 	//TODO Fix this multiple types
 	private Critter targetTile;
 	private Tile startEndTile;
@@ -31,19 +32,19 @@ public class ShootTile extends Tower{
 	{
 		//super();
 		this.texture = texture;
-		this.x=x;
-		this.y=y;
+		this.x = x;
+		this.y = y;
 		this.speed = speed;
 		this.damage = damage;
-		this.width=32;
-		this.height=32;
-		this.angle=0;
-		this.targetTile=targetTile;
-		this.xVelocity=0f;
-		this.yVelocity=0f;
-		alive =true;
+		this.width = 32;
+		this.height = 32;
+		this.angle = 0;
+		this.targetTile = targetTile;
+		this.xVelocity = 0f;
+		this.yVelocity = 0f;
+		alive = true;
 		towerCordinates = new Tile(x, y, width, height, TileType.Grass);
-		if(targetTile!=null)
+		if(targetTile != null)
 			calculateDirectionTargetTile();
 	}
 
@@ -51,17 +52,17 @@ public class ShootTile extends Tower{
 	{
 		//super();
 		this.texture = texture;
-		this.x=x;
-		this.y=y;
+		this.x = x;
+		this.y = y;
 		this.speed = speed;
 		this.damage = damage;
-		this.width=32;
-		this.height=32;
-		this.angle=0;
-		this.startEndTile=endTile;
-		this.xVelocity=0f;
-		this.yVelocity=0f;
-		alive =true;
+		this.width = 32;
+		this.height = 32;
+		this.angle = 0;
+		this.startEndTile = endTile;
+		this.xVelocity = 0f;
+		this.yVelocity = 0f;
+		alive = true;
 		towerCordinates = new Tile(x, y, width, height, TileType.Grass);
 		calculateDirectionStartEndTile();
 	}
@@ -71,19 +72,22 @@ public class ShootTile extends Tower{
 	 * TODO needs to return a specific tile
 	 */
 	private void calculateDirectionStartEndTile()
-	{	float totalAllowedMovement = 1.0f;
-	float xDistancefromTile = Math.abs(startEndTile.getX()-x);
-	float yDistancefromTile = Math.abs(startEndTile.getY()-y);
-	float totalDistanceFromTarget=xDistancefromTile+yDistancefromTile;
-	float xPercentofMovement=xDistancefromTile/totalDistanceFromTarget;
-	xVelocity=xPercentofMovement;
-	yVelocity=totalAllowedMovement-xPercentofMovement;
-	if(startEndTile.getX()<x)
-		xVelocity*=-1;
-	if(startEndTile.getY()<y)
-		yVelocity*=-1;
-
-	//		System.out.println((xVelocity)+" "+(yVelocity));
+	{	
+		float totalAllowedMovement = 1.0f;
+		float xDistancefromTile = Math.abs(startEndTile.getX()- x);
+		float yDistancefromTile = Math.abs(startEndTile.getY()- y);
+		float totalDistanceFromTarget = xDistancefromTile + yDistancefromTile;
+		float xPercentofMovement = xDistancefromTile / totalDistanceFromTarget;
+		xVelocity = xPercentofMovement;
+		yVelocity = totalAllowedMovement-xPercentofMovement;
+		if(startEndTile.getX() < x)
+		{
+			xVelocity *= -1;
+		}
+		if(startEndTile.getY() < y)
+		{
+			yVelocity *= -1;
+		}
 	}
 	
 	/**
@@ -91,110 +95,97 @@ public class ShootTile extends Tower{
 	 * TODO needs to return a specific tile
 	 */
 	private void calculateDirectionTargetTile()
-	{	float totalAllowedMovement = 1.0f;
-	float xDistancefromTile = Math.abs(targetTile.getX()-x);
-	float yDistancefromTile = Math.abs(targetTile.getY()-y);
-	float totalDistanceFromTarget=xDistancefromTile+yDistancefromTile;
-	float xPercentofMovement=xDistancefromTile/totalDistanceFromTarget;
-	xVelocity=xPercentofMovement;
-	yVelocity=totalAllowedMovement-xPercentofMovement;
-	if(targetTile.getX()<x)
-		xVelocity*=-1;
-	if(targetTile.getY()<y)
-		yVelocity*=-1;
-
-	//		System.out.println((xVelocity)+" "+(yVelocity));
+	{	
+		float totalAllowedMovement = 1.0f;
+		float xDistancefromTile = Math.abs(targetTile.getX() - x);
+		float yDistancefromTile = Math.abs(targetTile.getY() - y);
+		float totalDistanceFromTarget = xDistancefromTile + yDistancefromTile;
+		float xPercentofMovement = xDistancefromTile / totalDistanceFromTarget;
+		xVelocity = xPercentofMovement;
+		yVelocity = totalAllowedMovement - xPercentofMovement;
+		if(targetTile.getX()<x)
+		{
+			xVelocity *= -1;
+		}
+		if(targetTile.getY()<y)
+		{
+			yVelocity *= -1;
+		}
 	}
 	
 	@Override
-	public void draw() {
+	public void draw()
+	{
 		drawQuadTex(texture, x, y, 32, 32);
-		//		drawQuadTexRot(texture,x,y,width,height,angle);
 	}
 
 	@Override
-	public boolean buy() {
-		// TODO Auto-generated method stub
+	public boolean buy() 
+	{
 		return false;
 	}
 
 	@Override
-	public void description() {
-		// TODO Auto-generated method stub
-
-	}
+	public void description() {	}
 
 	@Override
-	public void update() {
-		if(alive && Clock.delta()<1 &&Clock.delta()>0)
+	public void update()
+	{
+		if(alive && Clock.delta() < 1 && Clock.delta() > 0)
 		{
+			x += Clock.delta() * speed * xVelocity;
+			y += Clock.delta() * speed * yVelocity;
 
-			x += Clock.delta() * speed*xVelocity;
-			y += Clock.delta() * speed*yVelocity;
-
-			//    	if(Designer.chechCollision(x, y, 32, 32, targetTile.getX(), targetTile.getY(), targetTile.getWidth(), targetTile.getHeight()))
-			if(Wave.getCritterList().size()!=0)
+			if(Wave.getCritterList().size()!= 0)
 			{
 				if(Designer.chechCollision(x, y, 32, 32, Wave.getCritterList().get(0).getX(), Wave.getCritterList().get(0).getY(), Wave.getCritterList().get(0).getWidth(), Wave.getCritterList().get(0).getHeight()))
 				{
-
 					alive=false;
-					//    		System.out.println("Tower ->"+towerCordinates.getX()/32+" "+towerCordinates.getY()/32 +" hits critter");
-
-					for(TowerCannon cannonTower: TileGrid.cannonList )
+					
+					for(TowerCannon cannonTower : TileGrid.cannonList )
 					{
-						if(cannonTower.getX()==towerCordinates.getX()&&cannonTower.getY()==towerCordinates.getY())
+						if(cannonTower.getX() == towerCordinates.getX() && cannonTower.getY() == towerCordinates.getY())
 						{
 							Wave.getCritterList().get(0).reduceHealth(cannonTower.range);
-							System.out.println( "health->"+Wave.getCritterList().get(0).getHealth());
-							if(Wave.getCritterList().get(0).getHealth()<=0)
-								System.out.println("Tower ->"+towerCordinates.getX()/32+" "+towerCordinates.getY()/32 +" hits critter");
-
+							System.out.println( "health->" + Wave.getCritterList().get(0).getHealth());
+							if(Wave.getCritterList().get(0).getHealth() <= 0)
+							{
+								System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+							}
 						}
-
-
 					}
 
-					for(TowerBomb bombTower: TileGrid.bombList )
+					for(TowerBomb bombTower : TileGrid.bombList )
 					{
-						if(bombTower.getX()==towerCordinates.getX()&&bombTower.getY()==towerCordinates.getY())
+						if(bombTower.getX() == towerCordinates.getX() && bombTower.getY() == towerCordinates.getY())
 						{
 							Wave.getCritterList().get(0).reduceHealth(bombTower.range);
-							System.out.println( "health->"+Wave.getCritterList().get(0).getHealth());
-							if(Wave.getCritterList().get(0).getHealth()<=0)
-								System.out.println("Tower ->"+towerCordinates.getX()/32+" "+towerCordinates.getY()/32 +" hits critter");
-
+							System.out.println( "health->" + Wave.getCritterList().get(0).getHealth());
+							if(Wave.getCritterList().get(0).getHealth() <= 0)
+							{
+								System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+							}
 						}
-
 					}
-					for(TowerFreez freezTower: TileGrid.freezList )
+					
+					for(TowerFreez freezTower : TileGrid.freezList )
 					{
-						if(freezTower.getX()==towerCordinates.getX()&&freezTower.getY()==towerCordinates.getY())
+						if(freezTower.getX() == towerCordinates.getX() && freezTower.getY() == towerCordinates.getY())
 						{
 							Wave.getCritterList().get(0).reduceHealth(freezTower.range);
-							System.out.println( "health->"+Wave.getCritterList().get(0).getHealth());
-							if(Wave.getCritterList().get(0).getHealth()<=0)
-								System.out.println("Tower ->"+towerCordinates.getX()/32+" "+towerCordinates.getY()/32 +" hits critter");
-
+							System.out.println( "health->" + Wave.getCritterList().get(0).getHealth());
+							if(Wave.getCritterList().get(0).getHealth() <= 0)
+							{
+								System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+							}
 						}
 					}
-					//    		Wave.getCritterList().get(0).
-
-
-
 				}
-
-				//  		System.out.println("bullet hit tile");
 				draw();
 			}
-
 		}
 	}
-
+	
 	@Override
-	public void sell() {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void sell() {}
 }

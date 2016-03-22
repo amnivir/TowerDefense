@@ -27,10 +27,9 @@ import main.View;
  *
  */
 @XmlRootElement
-public class GameScreenManager {
-
+public class GameScreenManager
+{
 	private TileGrid grid;
-
 
 	@XmlElement
 	private int[][] tileCoordinates;
@@ -46,31 +45,36 @@ public class GameScreenManager {
 	
 	public GameScreenManager()
 	{
-		this.noRows=View.getNoRows();
-		this.noColumns=View.getNoColumns();
+		this.noRows = View.getNoRows();
+		this.noColumns = View.getNoColumns();
 	}
 	public GameScreenManager(TileGrid grid)
 	{
 		this.grid = grid;
-		this.noRows=View.getNoRows();
-		this.noColumns=View.getNoColumns();
+		this.noRows = View.getNoRows();
+		this.noColumns = View.getNoColumns();
 	}
+	
 	/**
 	 * This method saves the game if path is valid in the map
 	 * @return boolean return true if map is saved false otherwise
 	 */
 	public  boolean saveMap(int[][] tileMatix, GameScreenManager gs)
-	{	tileCoordinates = new int[View.getNoRows()][View.getNoColumns()];
+	{	
+		tileCoordinates = new int[View.getNoRows()][View.getNoColumns()];
+		
 		if (Path.isPathValid()!=PathValidationCode.PATH_OK)
-			{	System.out.println("Map cannot be saved as the path has error: "+Path.isPathValid());
-				return false;
-			}
-		for(int i=0;i<this.noRows;i++)
 		{	
-			for(int j=0;j<this.noColumns;j++) 
+			System.out.println("Map cannot be saved as the path has error: " + Path.isPathValid());
+			return false;
+		}
+		
+		for(int i = 0; i < this.noRows; i++)
+		{	
+			for(int j = 0; j < this.noColumns; j++) 
 			{	
-				tileCoordinates[j][i] =  tileMatix[i][j];
-				System.out.print((i)+","+(j)+"-->"+tileCoordinates[i][j]+"  ");
+				tileCoordinates[j][i] = tileMatix[i][j];
+				System.out.print((i) + "," + (j) + "-->" + tileCoordinates[i][j] +"  ");
 			}
 			System.out.println("");
 		}
@@ -80,11 +84,13 @@ public class GameScreenManager {
 			pathCordinates.add(coordinate);
 		
 		System.out.println(pathCordinates);
-		System.out.println((this.noRows)+(this.noColumns));
-		try {
+		System.out.println((this.noRows) + (this.noColumns));
+		
+		try 
+		{
 			Date date = new Date() ;
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmssZ");
-			File file = new File("Map_"+noRows+"X"+noColumns+"_"+dateFormat.format(date) +".xml");
+			File file = new File("Map_" + noRows + "X" + noColumns + "_" + dateFormat.format(date) + ".xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(GameScreenManager.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
@@ -92,55 +98,60 @@ public class GameScreenManager {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			jaxbMarshaller.marshal(gs, file);
 			jaxbMarshaller.marshal(gs, System.out);
-
-		} catch (JAXBException e) {
+		} 
+		catch (JAXBException e)
+		{
 			e.printStackTrace();
 			return false;
 		}
 		return true;
 	}
+	
 	/**
 	 * This method reads the saved XML file returns the array of Tiles 
 	 */
 	public int[][]  loadMap(String mapFileName)
-	{	GameScreenManager readCoordinates = null;
+	{	
+		GameScreenManager readCoordinates = null;
 		System.out.println("Loading Game..  " + mapFileName);
-		
 		File file = new File(mapFileName);
 		JAXBContext jaxbContext;
-		try {
+		try
+		{
 			jaxbContext = JAXBContext.newInstance(GameScreenManager.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			readCoordinates = (GameScreenManager) jaxbUnmarshaller.unmarshal(file);
-			System.out.println("readCoordinates.noRows"+readCoordinates.noRows);
-			this.noRows=readCoordinates.noRows;
-			this.noColumns=readCoordinates.noColumns;
-			for(int i=0;i<readCoordinates.noRows;i++)
+			System.out.println("readCoordinates.noRows" + readCoordinates.noRows);
+			this.noRows = readCoordinates.noRows;
+			this.noColumns = readCoordinates.noColumns;
+			for(int i = 0; i < readCoordinates.noRows; i++)
 			{	
-				for(int j=0;j<readCoordinates.noColumns;j++) 
+				for(int j = 0;j < readCoordinates.noColumns; j++) 
 				{	
-					System.out.print((i)+","+(j)+"-->"+readCoordinates.tileCoordinates[i][j]+"  ");
+					System.out.print((i) + "," + (j) + "-->" + readCoordinates.tileCoordinates[i][j] + "  ");
 				}
 				System.out.println("");
 			}
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (JAXBException e) 
+		{
 			e.printStackTrace();
 		}
+		
 		for(Integer coordinate:readCoordinates.pathCordinates)
 		{
 			TileGrid.pathCordinate.add(coordinate);
 		}
-
 		return readCoordinates.tileCoordinates;
 	}
 	
-	public int getNoColumns() {
+	public int getNoColumns() 
+	{
 		return noColumns;
 	}
 	
-	public int getNoRows() {
+	public int getNoRows()
+	{
 		return noRows;
 	}
-
 }

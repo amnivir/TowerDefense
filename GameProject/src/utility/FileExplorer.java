@@ -11,7 +11,8 @@ import java.io.FilenameFilter;
  * @author s_niga
  *
  */
-public class FileExplorer {
+public class FileExplorer 
+{
 	private File folder = null;
 	private FilenameFilter xmlFile;
 	private File[] listOfFiles ;
@@ -19,23 +20,26 @@ public class FileExplorer {
 	/**
 	 * THis method handles the XML files in the current directory path
 	 */
-	public FileExplorer() {
-		folder =new File(".");
-
-		xmlFile = new FilenameFilter() {
-
+	public FileExplorer()
+	{
+		folder = new File(".");
+		xmlFile = new FilenameFilter()
+		{
 			@Override
-			public boolean accept(File dir, String name) {
-				// TODO Auto-generated method stub
+			public boolean accept(File dir, String name)
+			{
 				if(name.endsWith(".xml"))
+				{
 					return true;
+				}
 				else
+				{
 					return false;
+				}
 			}
 		};
 
 		listOfFiles=folder.listFiles(xmlFile);
-
 	}
 
 	/**
@@ -44,8 +48,9 @@ public class FileExplorer {
 	public void displayXMLFiles()
 	{
 		for (int i = 0; i < listOfFiles.length; i++) 
+		{
 			System.out.println((i+1)+". " + listOfFiles[i].getName());
-
+		}
 	}
 	
 	/**
@@ -55,9 +60,6 @@ public class FileExplorer {
 	 */
 	public String getFileName(int fileNum)
 	{
-		return listOfFiles[fileNum-1].getName();
+		return listOfFiles[fileNum - 1].getName();
 	}
-	
-	
-
 }
