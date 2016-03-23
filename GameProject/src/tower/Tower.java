@@ -60,8 +60,8 @@ public abstract class Tower
 	public void description() 
 	{
 		System.out.println("-----Discription of "+this.name+"-----");
-		System.out.println("Tower Power " + this.damage);
-		System.out.println("Tower Range " + this.range);
+		System.out.println("Tower's damage power " + this.damage);
+		System.out.println("Tower range " + this.range);
 		System.out.println("Price of tower $" + this.price);
 		System.out.println();
 	}
@@ -93,7 +93,7 @@ public abstract class Tower
 		if(Controller.money >= 10)
 		{
 			Controller.money = Controller.money - 10;
-			this.range = this.damage + 10;
+			this.damage += 10;
 			System.out.println(this.name+"'s updated damage power:" + this.damage);
 			System.out.println("Your Current Money: &" + Controller.money);
 		}

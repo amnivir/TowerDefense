@@ -85,7 +85,7 @@ public class Controller extends Observable
 					
 					else if(Mouse.isButtonDown(1)) // if right mouse key is pressed
 					{
-						System.out.println("press 'X' to sell the tower or press 'U' to update its Range");
+						System.out.println("press 'X' to sell the tower or press 'U' to update its Range or 'D' to see its description");
 						
 						if(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT - Mouse.getY() - 1) / blockSize)).getType().textureName == "cannonBase")
 						{
@@ -300,6 +300,35 @@ public class Controller extends Observable
 									temp.upgrade();
 									break;
 								}
+							}
+						}
+					}
+					
+					if (Keyboard.getEventKey() == Keyboard.KEY_D) 
+					{
+						{
+							for(TowerBomb cannonBomb : TileGrid.bombList )
+							{
+								if(x==cannonBomb.getX()/ blockSize && y== cannonBomb.getY()/ blockSize)
+									cannonBomb.description();
+							}
+							
+						}
+						if(tower.equals("freez tower"))
+						{
+							for(TowerFreez freezTower : TileGrid.freezList )
+							{
+								if(x==freezTower.getX()/ blockSize && y== freezTower.getY()/ blockSize)
+									freezTower.description();
+							}
+							
+						}
+						if(tower.equals("cannon tower"))
+						{
+							for(TowerCannon cannonTower : TileGrid.cannonList )
+							{
+								if(x==cannonTower.getX()/ blockSize && y== cannonTower.getY()/ blockSize)
+									cannonTower.description();
 							}
 						}
 					}
