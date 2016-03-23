@@ -25,6 +25,7 @@ public class TowerCannon extends Tower
 	public TowerCannon(Texture texture, Tile startTile)
 	{
 		super();
+		this.name="Cannon Tower";
 		this.x = startTile.getX();
 		this.y = startTile.getY();
 		this.width = startTile.getWidth();
@@ -38,61 +39,4 @@ public class TowerCannon extends Tower
 		this.shootTiles = new ArrayList<ShootTile>(); //list of bullets
 	}
 	
-	/**
-	 * Draws the Tower on the map
-	 */
-	@Override
-	public void draw()
-	{
-		drawQuadTex(texture, x, y, width, height);
-	}
-	
-	/**
-	 * Buys the tower 
-	 */
-	public boolean buy() 
-	{
-		if(Controller.money >= price)
-		{
-			Controller.money = Controller.money - this.price;
-			return true;
-		}
-		else
-		{
-			return false;	
-		}
-	}
-	
-	public void description()
-	{ 
-		System.out.println("-----Discription of Cannon Tower-----");
-		System.out.println("Tower Power " + this.damage);
-		System.out.println("Tower Range " + this.range);
-		System.out.println("Price of tower $" + this.price);
-		System.out.println();
-	}
-
-	public void sell() 
-	{
-		System.out.println("You sold the Cannon Tower");
-		Controller.money = Controller.money + this.price;
-		System.out.println("your current money $" + Controller.money);
-		System.out.println();
-	}
-
-	public void update() 
-	{
-		if(Controller.money >= 10)
-		{
-			Controller.money = Controller.money - 10;
-			this.range = this.range + 10;
-			System.out.println("Cannon Tower's updated range: " + this.range);
-			System.out.println("Your Current Money: &" + Controller.money);
-		}
-		else
-		{
-			System.out.println("Sorry your money is less the price to update the tower");
-			System.out.println("Your Current Money: &" + Controller.money);	
-		}
-	}
 }
