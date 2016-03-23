@@ -29,10 +29,8 @@ public class clockTest extends TestCase
 			long time1 = Sys.getTime();
 			Thread.sleep(5000);
 			long time2 = Sys.getTime();
-			
 			Clock.lastFrame = time1;
 			float actualDelta = Clock.getDelta();
-
 			float expectedDelta = (time2 - time1)*0.01f;
 			assertEquals(expectedDelta, actualDelta);
 		} 
