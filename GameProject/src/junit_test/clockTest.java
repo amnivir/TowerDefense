@@ -16,7 +16,7 @@ public class clockTest extends TestCase
 	@Test
 	public void testgetTime()
 	{
-		currentTime = Clock.getTime() * 1000/Sys.getTimerResolution();
+		currentTime = Clock.getTime();
 		long expectedValue = Sys.getTime() * 1000/Sys.getTimerResolution();
 		assertEquals(expectedValue, currentTime);
 	}
@@ -24,14 +24,21 @@ public class clockTest extends TestCase
 	@Test
 	public void testgetDelta()
 	{
-		currentTime = Clock.getTime() * 1000/Sys.getTimerResolution();
-		lastFrame =  Clock.getTime() * 1000/Sys.getTimerResolution();;
-		int delta = (int)(currentTime-lastFrame);
-		float actualValue = delta * 0.01f;
-		long expectedValue = Sys.getTime() * 1000/Sys.getTimerResolution();
-		int delta1 = (int)(expectedValue-lastFrame);
-		float expectedValue1 = delta1 * 0.01f;
-		assertEquals(expectedValue1, actualValue);
-		
+		try 
+		{
+			long time1 = Sys.getTime();
+			Thread.sleep(5000);
+			long time2 = Sys.getTime();
+			
+			Clock.lastFrame = time1;
+			float actualDelta = Clock.getDelta();
+
+			float expectedDelta = (time2 - time1)*0.01f;
+			assertEquals(expectedDelta, actualDelta);
+		} 
+		catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
 	}	
 }
