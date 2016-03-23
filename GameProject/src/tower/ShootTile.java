@@ -113,22 +113,22 @@ public class ShootTile extends Tower
 		}
 	}
 	
-	@Override
-	public void draw()
-	{
-		drawQuadTex(texture, x, y, 32, 32);
-	}
+//	@Override
+//	public void draw()
+//	{
+//		drawQuadTex(texture, x, y, 32, 32);
+//	}
+//
+//	@Override
+//	public boolean buy() 
+//	{
+//		return false;
+////	}
+//
+//	@Override
+//	public void description() {	}
 
-	@Override
-	public boolean buy() 
-	{
-		return false;
-	}
-
-	@Override
-	public void description() {	}
-
-	@Override
+//	@Override
 	public void update()
 	{
 		if(alive && Clock.delta() < 1 && Clock.delta() > 0)
@@ -146,7 +146,7 @@ public class ShootTile extends Tower
 					{
 						if(cannonTower.getX() == towerCordinates.getX() && cannonTower.getY() == towerCordinates.getY())
 						{
-							Wave.getCritterList().get(0).reduceHealth(cannonTower.range);
+							Wave.getCritterList().get(0).reduceHealth(cannonTower.damage);
 							System.out.println( "health->" + Wave.getCritterList().get(0).getHealth());
 							if(Wave.getCritterList().get(0).getHealth() <= 0)
 							{
@@ -159,7 +159,7 @@ public class ShootTile extends Tower
 					{
 						if(bombTower.getX() == towerCordinates.getX() && bombTower.getY() == towerCordinates.getY())
 						{
-							Wave.getCritterList().get(0).reduceHealth(bombTower.range);
+							Wave.getCritterList().get(0).reduceHealth(bombTower.damage);
 							System.out.println( "health->" + Wave.getCritterList().get(0).getHealth());
 							if(Wave.getCritterList().get(0).getHealth() <= 0)
 							{
@@ -172,7 +172,7 @@ public class ShootTile extends Tower
 					{
 						if(freezTower.getX() == towerCordinates.getX() && freezTower.getY() == towerCordinates.getY())
 						{
-							Wave.getCritterList().get(0).reduceHealth(freezTower.range);
+							Wave.getCritterList().get(0).reduceHealth(freezTower.damage);
 							System.out.println( "health->" + Wave.getCritterList().get(0).getHealth());
 							if(Wave.getCritterList().get(0).getHealth() <= 0)
 							{
@@ -185,7 +185,7 @@ public class ShootTile extends Tower
 			}
 		}
 	}
-	
-	@Override
-	public void sell() {}
+//	
+//	@Override
+//	public void sell() {}
 }

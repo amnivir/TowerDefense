@@ -273,7 +273,7 @@ public class Controller extends Observable
 							{
 								if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
 								{
-									temp.update();
+									temp.upgrade();
 									break;
 								}
 							}
@@ -285,7 +285,7 @@ public class Controller extends Observable
 							{
 								if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
 								{
-									temp.update();
+									temp.upgrade();
 									break;
 								}
 							}
@@ -297,7 +297,7 @@ public class Controller extends Observable
 							{
 								if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
 								{
-									temp.update();
+									temp.upgrade();
 									break;
 								}
 							}

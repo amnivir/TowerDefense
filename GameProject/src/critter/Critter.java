@@ -42,9 +42,9 @@ public abstract class Critter
 		this.isCriterAlive=true;
 	}
 	
-	public void reduceHealth(int range)
+	public void reduceHealth(int damage)
 	{
-		this.health-=range;
+		this.health-=damage;
 		if(health<=0)
 		{
 			this.isCriterAlive=false;

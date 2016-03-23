@@ -12,7 +12,7 @@ import map.Tile;
 public class TowerFactory
 {
 	//use getTower method to get object of type tower 
-	public Tower getTower(String towerType, Texture tex, Tile tile)
+	public static Tower getTower(String towerType, Texture tex, Tile tile)
 	{
 		if(towerType == null)
 		{

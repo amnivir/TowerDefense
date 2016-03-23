@@ -105,9 +105,9 @@ public class TileGrid
 		/*
 		 * Draw the Tower Icons on the right side of the map for choosing
 		 */
-		towerCannon = (TowerCannon) new TowerFactory().getTower("cannon", quickTexture("cannonBase"), new Tile((columns) * 32, 1 * 32, 32, 32, TileType.TowerCannon));
-		towerBomb = (TowerBomb) new TowerFactory().getTower("bomb", quickTexture("bombBase"), new Tile((columns + 1) * 32, 1 * 32, 32, 32, TileType.TowerBomb));
-		towerFreez = (TowerFreez) new TowerFactory().getTower("freez", quickTexture("freezBase"), new Tile((columns + 2) * 32, 1 * 32, 32, 32, TileType.TowerFreez));
+		towerCannon = (TowerCannon) TowerFactory.getTower("cannon", quickTexture("cannonBase"), new Tile((columns) * 32, 1 * 32, 32, 32, TileType.TowerCannon));
+		towerBomb = (TowerBomb) TowerFactory.getTower("bomb", quickTexture("bombBase"), new Tile((columns + 1) * 32, 1 * 32, 32, 32, TileType.TowerBomb));
+		towerFreez = (TowerFreez) TowerFactory.getTower("freez", quickTexture("freezBase"), new Tile((columns + 2) * 32, 1 * 32, 32, 32, TileType.TowerFreez));
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class TileGrid
 					map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
 					
 					//calling factory method to make the object of
-					bombList.add((TowerBomb) new TowerFactory().getTower("bomb", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
+					bombList.add((TowerBomb) TowerFactory.getTower("bomb", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
 					
 					System.out.println("Your current money is " + Controller.money);
 				}
@@ -214,7 +214,7 @@ public class TileGrid
 					map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
 					
 					//calling factory method to make the object of
-					freezList.add((TowerFreez) new TowerFactory().getTower("freez", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
+					freezList.add((TowerFreez) TowerFactory.getTower("freez", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
 					System.out.println("Your current money is " + Controller.money);
 				}
 				else
@@ -239,7 +239,7 @@ public class TileGrid
 					System.out.println("Cannon Tower placed");
 					map[xCoord][yCoord].setType(tile);
 					map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-					cannonList.add( (TowerCannon) new TowerFactory().getTower("cannon", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
+					cannonList.add( (TowerCannon) TowerFactory.getTower("cannon", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
 					System.out.println("Your current money is " + Controller.money);
 				}
 				else
