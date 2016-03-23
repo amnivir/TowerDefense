@@ -8,13 +8,13 @@ import tower.TowerFreez;
 import utility.Clock;
 import junit.framework.TestCase;
 
-public class clockTest extends TestCase
+public class ClockTest extends TestCase
 {
 	long currentTime ;
 	public static long lastFrame;
 	
 	@Test
-	public void testgetTime()
+	public void testGetTime()
 	{
 		currentTime = Clock.getTime();
 		long expectedValue = Sys.getTime() * 1000/Sys.getTimerResolution();
@@ -22,7 +22,7 @@ public class clockTest extends TestCase
 	}
 	
 	@Test
-	public void testgetDelta()
+	public void testGetDelta()
 	{
 		try 
 		{

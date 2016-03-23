@@ -11,17 +11,17 @@ import ai.TargetEndTile;
 import ai.TargetStartTile;
 import tower.TowerCannon;
 
-public class testStrategy extends TestCase 
+public class TestStrategy extends TestCase 
 {
 	@Test
-	public void testexecute()
+	public void testExecute()
 	{
 		Strategy targetCritter = new TargetCritter();
 		Strategy targetEndTile = new TargetEndTile(); 
 		Strategy targetStartTile = new TargetStartTile();
-		int targetCritterValue = targetCritter.execute(3);
-		int targetEndTileValue = targetEndTile.execute(2);
-		int targetStartTileValue = targetStartTile.execute(1);
+		int targetCritterValue = targetCritter.execute(0);
+		int targetEndTileValue = targetEndTile.execute(0);
+		int targetStartTileValue = targetStartTile.execute(0);
 		
 		int expectedValueTC = 3;
 		int expectedValueTET = 2;
