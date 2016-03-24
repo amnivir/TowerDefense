@@ -146,4 +146,18 @@ public class TestTower extends TestCase
 		assertEquals(t3.getDamage(),10);
 		Display.destroy();
 	}
+	
+	@Test
+	public void testSell() 
+	{
+		t1 = new TowerFactory().getTower("freez", Designer.quickTexture("freezBase"),new Tile(0, 0, 32, 32, TileType.TowerFreez));
+		int originalMoney = Controller.money;
+		int towerPrice = t1.getPrice();
+		int expectedValue = originalMoney + towerPrice;
+		
+		t1.sell();
+		int actualValue = Controller.money;
+		assertEquals(expectedValue, actualValue);
+		Display.destroy();
+	}
 }
