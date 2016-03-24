@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import main.GameStateManager;
+import main.GameStateManager.GameState;
 import main.View;
 import map.GameScreenManager;
 import map.Tile;
@@ -63,4 +65,13 @@ public class TestGameScreenManager
 		assertTrue("Map not saved", gamescreen.saveMap(tileArray,gamescreen));
 	}
 
+	@Test
+	public void testGetGameState()
+	{
+		GameStateManager Gsm = new GameStateManager();
+		GameState actualValue = Gsm.getGameState();
+		GameState expectedValue = GameState.valueOf("START");
+		assertEquals(expectedValue, actualValue);
+		
+	}
 }
