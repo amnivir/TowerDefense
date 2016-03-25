@@ -22,17 +22,36 @@ public class ClockTest extends TestCase
 	}
 	
 	@Test
+	public void testGetDelta_NotZero()
+	{
+		try 
+		{
+			long time1 = Sys.getTime();
+			Thread.sleep(100);// 100 milliseconds
+			Clock.lastFrame = time1;
+			float actualDelta = Clock.getDelta();
+			
+			assertFalse(actualDelta == 0);
+		} 
+		catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
+	}	
+	
+	@Test
 	public void testGetDelta()
 	{
 		try 
 		{
 			long time1 = Sys.getTime();
-			Thread.sleep(5000);
-			long time2 = Sys.getTime();
+			Thread.sleep(100); // 100 milliseconds
 			Clock.lastFrame = time1;
+			long time2 = Sys.getTime();
 			float actualDelta = Clock.getDelta();
 			float expectedDelta = (time2 - time1)*0.01f;
-			assertEquals(expectedDelta, actualDelta);
+			
+			assertTrue(actualDelta >= expectedDelta);
 		} 
 		catch (InterruptedException e) 
 		{
