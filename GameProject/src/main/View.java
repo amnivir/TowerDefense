@@ -99,8 +99,11 @@ public class View
 		Wave wave = new Wave(15,"Critter_A");
 		System.out.println("You have $" + Controller.getInstance().money);
 		
-		//demo Tower
+		//demo Tower TODO @Rashpal remove it?
 		TowerCannon demoTower = new TowerCannon(quickTexture("cannonBase"), new Tile(1 * 32, 1 * 32, 32, 32, TileType.TowerCannon));
+		
+		// Game starts in EDIT mode
+		GameStateManager.setGameState("EDIT");
 		
 		while(!Display.isCloseRequested())
 		{
@@ -108,11 +111,12 @@ public class View
 			grid.draw();
 			if(GameStateManager.getGameState() == GameState.PLAY)
 			{
+			    //Critter wave
 				Clock.update();
 				wave.update();
 				
 				if(TowerNotification.towerShoot == true)
-				{
+				{   //bullet wave
 					for(TowerCannon cannonTower: TileGrid.cannonList )
 					{
 						cannonTower.preaperShoot();

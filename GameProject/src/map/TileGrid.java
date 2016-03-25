@@ -16,6 +16,8 @@ import tower.TowerFreez;
 import ai.Path;
 import main.View;
 import main.Controller;
+import main.GameStateManager;
+import main.GameStateManager.GameState;
 
 /**
  * This class manages the tiles in the grid
@@ -24,297 +26,320 @@ import main.Controller;
  */
 public class TileGrid
 {
-	int blockSize = 32;
-	public static Tile map[][];
-	public static final ArrayList<Integer> pathCordinate = new ArrayList<>();
-	public static Tile tileMenu[];
-	public static Tile buttonMenu[];
-	public static Tower towerCannon;
-	public static Tower towerBomb;
-	public static Tower towerFreez;
-	public static List<TowerCannon> cannonList = new ArrayList<TowerCannon>();  	//store all the cannon tower objects in game
-	public static List<TowerBomb> bombList = new ArrayList<TowerBomb>();			// store all the bomb tower objects in game
-	public static List<TowerFreez> freezList = new ArrayList<TowerFreez>();			// store all the freez tower objects in game
-	public static int[][] tileMatrix;
-	
-	public TileGrid(int rows, int columns, int width)
-	{
-		map=new Tile[columns][rows]; //create path corrdinate list
-		System.out.println(map.length);
-		System.out.println(map[0].length);
-	
-		for(int i = 0; i < map.length; i++)
-		{
-			for(int j = 0; j < map[i].length; j++)
-			{
-				System.out.println((i) + " " + (j));
-				map[i][j] = new Tile((i + width) * blockSize, j * blockSize, blockSize, blockSize, TileType.Water);
-			}
-		}
-	}
-	
-	/**
-	 * This method  creates the tile for the first time and sets the texture of the tile in the map
-	 * * @param newMap
-	 * @param rows
-	 * @param columns
-	 */
-	public TileGrid(int[][] newMap, int rows, int columns)
-	{
-		map=new Tile[columns][rows];
-		Tile t;
-		
-		// for loop to check the static array values and set the corresponding tiles.
-		for(int i = 0; i < map.length; i++)
-		{
-			for(int j = 0; j < map[i].length; j++)
-			{
-				switch(newMap[j][i])
-				{
-					case 0:
-						System.out.println((i) + " " + (j));
-						map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.Grass);
-						break;
-					case 1:
-						map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.Dirt);
-						break;
-					case 2:
-						map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.Water);
-						break;	
-				}
-			}
-		}
-		
-		/*
-		 * Draw the tile menu on the right side of the map
-		 */
-		tileMenu=new Tile[3];
-		tileMenu[0] = new Tile((columns) * 32, 0, 32, 32, TileType.Water);
-		tileMenu[1] = new Tile((columns + 1) * 32, 0, 32, 32, TileType.Dirt);
-		tileMenu[2] = new Tile((columns + 2) * 32, 0, 32, 32, TileType.Grass);
+    int blockSize = 32;
+    public static Tile map[][];
+    public static final ArrayList<Integer> pathCordinate = new ArrayList<>();
+    public static Tile tileMenu[];
+    public static Tile buttonMenu[];
+    public static Tower towerCannon;
+    public static Tower towerBomb;
+    public static Tower towerFreez;
+    public static List<TowerCannon> cannonList = new ArrayList<TowerCannon>();  	//store all the cannon tower objects in game
+    public static List<TowerBomb> bombList = new ArrayList<TowerBomb>();			// store all the bomb tower objects in game
+    public static List<TowerFreez> freezList = new ArrayList<TowerFreez>();			// store all the freez tower objects in game
+    public static int[][] tileMatrix;
 
-		/*
-		 * Draw the buttons on the right side of the map for changing the strategy
-		 */
-		buttonMenu = new Tile[4];
-		buttonMenu[0] = new Tile((columns + 1) * 32, 5 * 32, 32, 32, TileType.Water);
-		buttonMenu[1] = new Tile((columns + 3) * 32, 5 * 32, 32, 32, TileType.Dirt);
-		buttonMenu[2] = new Tile((columns + 2) * 32, 4 * 32, 32, 32, TileType.StopButton);
-		buttonMenu[3] = new Tile((columns) * 32, 2 * 32, 32, 32, TileType.PlayButton);
-		
-		/*
-		 * Draw the Tower Icons on the right side of the map for choosing
-		 */
-		towerCannon = (TowerCannon) TowerFactory.getTower("cannon", quickTexture("cannonBase"), new Tile((columns) * 32, 1 * 32, 32, 32, TileType.TowerCannon));
-		towerBomb = (TowerBomb) TowerFactory.getTower("bomb", quickTexture("bombBase"), new Tile((columns + 1) * 32, 1 * 32, 32, 32, TileType.TowerBomb));
-		towerFreez = (TowerFreez) TowerFactory.getTower("freez", quickTexture("freezBase"), new Tile((columns + 2) * 32, 1 * 32, 32, 32, TileType.TowerFreez));
-	}
+    public TileGrid(int rows, int columns, int width)
+    {
+        map=new Tile[columns][rows]; //create path corrdinate list
+        System.out.println(map.length);
+        System.out.println(map[0].length);
 
-	/**
-	 * This method to set a tile to dirt or grass at a particular position 
-	 * <p>
-	 * @param  xCoord  X coordinate of the tile 
-	 * @param  yCoord  Y coordinate of the tile
-	 * @return void
-	 */
-	public void setTile(int xCoord, int yCoord, TileType tile)
-	{
-		int xyCoord = yCoord * View.getNoRows() + xCoord;	//may be x&y needs to be interchanged
-		System.out.println(xyCoord);
-		System.out.println(pathCordinate);
-		
-		//TODO Add game state , no more editing after  
-		if(tile.textureName == TileType.Dirt.textureName || tile.textureName == TileType.Grass.textureName)
-		{
-			if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType() == TileType.Grass && tile.textureName == TileType.Dirt.textureName)
-			{
-				pathCordinate.add(xyCoord);
-				map[xCoord][yCoord].setType(tile);
-				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-			}
-			else if(pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType() == TileType.Dirt && tile.textureName == TileType.Grass.textureName)
-			{
-				Iterator<Integer> iter = pathCordinate.iterator();
-				//Remove the path
-				while (iter.hasNext()) 
-				{
-					Integer num = iter.next();
-					if (num == xyCoord)
-						iter.remove();
-				}
-				map[xCoord][yCoord].setType(tile);
-				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-			}
+        for(int i = 0; i < map.length; i++)
+        {
+            for(int j = 0; j < map[i].length; j++)
+            {
+                System.out.println((i) + " " + (j));
+                map[i][j] = new Tile((i + width) * blockSize, j * blockSize, blockSize, blockSize, TileType.Water);
+            }
+        }
+    }
 
-			else if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType() == TileType.TowerCannon)
-			{
-				map[xCoord][yCoord].setType(tile);
-				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-			}
-			
-			else if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType() == TileType.TowerBomb)
-			{
-				map[xCoord][yCoord].setType(tile);
-				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-			}
-			else if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType() == TileType.TowerFreez)
-			{
-				Iterator<Integer> iter = pathCordinate.iterator();
-				while (iter.hasNext())
-				{
-					Integer num = iter.next();
-					if (num==xyCoord)
-					{
-						iter.remove();
-					}
-				}
-				map[xCoord][yCoord].setType(tile);
-				map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-			}
-		}
+    /**
+     * This method  creates the tile for the first time and sets the texture of the tile in the map
+     * * @param newMap
+     * @param rows
+     * @param columns
+     */
+    public TileGrid(int[][] newMap, int rows, int columns)
+    {
+        map=new Tile[columns][rows];
+        Tile t;
 
-		else if(tile.textureName == TileType.TowerBomb.textureName)
-		{
-			if(map[xCoord][yCoord].getType() == TileType.Grass)
-			{ 
-				boolean flag = towerBomb.buy();
-				if(flag == true)
-				{
-					System.out.println("You buy bomb tower");
-					System.out.println("Bomb Tower placed");
-					map[xCoord][yCoord].setType(tile);
-					map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-					
-					//calling factory method to make the object of
-					bombList.add((TowerBomb) TowerFactory.getTower("bomb", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
-					
-					System.out.println("Your current money is " + Controller.money);
-				}
-				else
-				{
-					System.out.println("You cannot buy ... your money is less ->" + Controller.money);
-				}
-			}
-			else 
-			{
-				System.out.println("Tower can only be placed on grass!");
-			}
-		}
-		
-		else if(tile.textureName == TileType.TowerFreez.textureName)
-		{
-			if(map[xCoord][yCoord].getType() == TileType.Grass)
-			{ 
-				boolean flag = towerFreez.buy();
-				if(flag == true)
-				{
-					System.out.println("You buy freez tower");
-					System.out.println("Freez Tower placed");
-					map[xCoord][yCoord].setType(tile);
-					map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-					
-					//calling factory method to make the object of
-					freezList.add((TowerFreez) TowerFactory.getTower("freez", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
-					System.out.println("Your current money is " + Controller.money);
-				}
-				else
-				{
-					System.out.println("You cannot buy ... your money is less ->" + Controller.money);
-				}
-			}
-			else 
-			{
-				System.out.println("Tower can only be placed on grass!");
-			}
-		}
-		
-		else if(tile.textureName == TileType.TowerCannon.textureName)
-		{
-			if(map[xCoord][yCoord].getType() == TileType.Grass)
-			{ 
-				boolean flag = towerCannon.buy();
-				if(flag == true)
-				{
-					System.out.println("You buy cannon tower");
-					System.out.println("Cannon Tower placed");
-					map[xCoord][yCoord].setType(tile);
-					map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-					cannonList.add( (TowerCannon) TowerFactory.getTower("cannon", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
-					System.out.println("Your current money is " + Controller.money);
-				}
-				else
-				{
-					System.out.println("You cannot buy ... your money is less ->" + Controller.money);
-				}
-			}
-			else 
-			{
-				System.out.println("Tower can only be placed on grass!");
-			}		
-		}
+        // for loop to check the static array values and set the corresponding tiles.
+        for(int i = 0; i < map.length; i++)
+        {
+            for(int j = 0; j < map[i].length; j++)
+            {
+                switch(newMap[j][i])
+                {
+                case 0:
+                    System.out.println((i) + " " + (j));
+                    map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.Grass);
+                    break;
+                case 1:
+                    map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.Dirt);
+                    break;
+                case 2:
+                    map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.Water);
+                    break;	
+                }
+            }
+        }
 
-		else // if scenery then we don't need to compute the path validation
-		{
-			map[xCoord][yCoord].setType(tile);
-			map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
-		}
-		System.out.println(Path.isPathValid().name());
-	}
-	
-	/**
-	 * This method to get a tile at a particular position 
-	 * <p>
-	 * @param  xCoord  X coordinate of the tile 
-	 * @param  yCoord  Y coordinate of the tile
-	 * @return map object at (xCoord, yCoord) coordinate
-	 */
-	public Tile getTile(int xCoord, int yCoord)	
-	{
-		return map[xCoord][yCoord];
-	}
-	
-	public int[][] getTileMatrix()
-	{
-		tileMatrix = new int[View.getNoRows()][View.getNoColumns()];
-		for(int i = 0; i < View.getNoRows(); i++)
-		{	
-			for(int j = 0; j < View.getNoColumns(); j++) 
-			{	
-				tileMatrix[i][j] =  View.grid.getTile(i,j).getType().ordinal();
-			}
-			System.out.println("");
-		}
-		return tileMatrix;
-	}
+        /*
+         * Draw the tile menu on the right side of the map
+         */
+        tileMenu=new Tile[3];
+        tileMenu[0] = new Tile((columns) * 32, 0, 32, 32, TileType.Water);
+        tileMenu[1] = new Tile((columns + 1) * 32, 0, 32, 32, TileType.Dirt);
+        tileMenu[2] = new Tile((columns + 2) * 32, 0, 32, 32, TileType.Grass);
 
-	/**
-	 * This method draws the specific kind of tiles in the map. It drwas Scenary , Tower and Path
-	 */
-	public void draw()
-	{
-		for(int i = 0; i < map.length; i++)
-		{
-			for(int j = 0; j < map[i].length; j++)
-			{
-				Tile tile = map[i][j];
-				drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
-			}
-		}
+        /*
+         * Draw the buttons on the right side of the map for changing the strategy
+         * During edit mode draw only play button, rest of the button are place holder
+         */
 
-		for(int i = 0; i < tileMenu.length; i++)
-		{
-			Tile tile = tileMenu[i];
-			drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
-		}
-		
-		for(int i = 0; i < buttonMenu.length; i++)
-		{
-			Tile tile = buttonMenu[i];
-			drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
-		}
-		
-		towerCannon.draw();
-		towerBomb.draw();
-		towerFreez.draw();
-	}
+        buttonMenu = new Tile[4];
+        buttonMenu[0] =null;
+        buttonMenu[1] =null;
+        buttonMenu[2] =null;
+        buttonMenu[3] =new Tile((View.getNoColumns()) * 32, 2 * 32, 32, 32, TileType.PlayButton);
+        /*
+         * Draw the Tower Icons on the right side of the map for choosing
+         */
+        towerCannon = (TowerCannon) TowerFactory.getTower("cannon", quickTexture("cannonBase"), new Tile((columns) * 32, 1 * 32, 32, 32, TileType.TowerCannon));
+        towerBomb = (TowerBomb) TowerFactory.getTower("bomb", quickTexture("bombBase"), new Tile((columns + 1) * 32, 1 * 32, 32, 32, TileType.TowerBomb));
+        towerFreez = (TowerFreez) TowerFactory.getTower("freez", quickTexture("freezBase"), new Tile((columns + 2) * 32, 1 * 32, 32, 32, TileType.TowerFreez));
+    }
+
+    /**
+     * This method to set a tile to dirt or grass at a particular position 
+     * <p>
+     * @param  xCoord  X coordinate of the tile 
+     * @param  yCoord  Y coordinate of the tile
+     * @return void
+     */
+    public void setTile(int xCoord, int yCoord, TileType tile)
+    {
+        int xyCoord = yCoord * View.getNoRows() + xCoord;	//may be x&y needs to be interchanged
+        System.out.println(xyCoord);
+        System.out.println(pathCordinate);
+
+        //TODO Add game state , no more editing after  
+        if(tile.textureName == TileType.Dirt.textureName || tile.textureName == TileType.Grass.textureName)
+        {
+            if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType() == TileType.Grass && tile.textureName == TileType.Dirt.textureName)
+            {
+                pathCordinate.add(xyCoord);
+                map[xCoord][yCoord].setType(tile);
+                map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+            }
+            else if(pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType() == TileType.Dirt && tile.textureName == TileType.Grass.textureName)
+            {
+                Iterator<Integer> iter = pathCordinate.iterator();
+                //Remove the path
+                while (iter.hasNext()) 
+                {
+                    Integer num = iter.next();
+                    if (num == xyCoord)
+                        iter.remove();
+                }
+                map[xCoord][yCoord].setType(tile);
+                map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+            }
+
+            else if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType() == TileType.TowerCannon)
+            {
+                map[xCoord][yCoord].setType(tile);
+                map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+            }
+
+            else if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType() == TileType.TowerBomb)
+            {
+                map[xCoord][yCoord].setType(tile);
+                map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+            }
+            else if(!pathCordinate.contains(xyCoord) && map[xCoord][yCoord].getType() == TileType.TowerFreez)
+            {
+                Iterator<Integer> iter = pathCordinate.iterator();
+                while (iter.hasNext())
+                {
+                    Integer num = iter.next();
+                    if (num==xyCoord)
+                    {
+                        iter.remove();
+                    }
+                }
+                map[xCoord][yCoord].setType(tile);
+                map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+            }
+        }
+
+        else if(tile.textureName == TileType.TowerBomb.textureName)
+        {
+            if(map[xCoord][yCoord].getType() == TileType.Grass)
+            { 
+                boolean flag = towerBomb.buy();
+                if(flag == true)
+                {
+                    System.out.println("You buy bomb tower");
+                    System.out.println("Bomb Tower placed");
+                    map[xCoord][yCoord].setType(tile);
+                    map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+
+                    //calling factory method to make the object of
+                    bombList.add((TowerBomb) TowerFactory.getTower("bomb", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
+
+                    System.out.println("Your current money is " + Controller.money);
+                }
+                else
+                {
+                    System.out.println("You cannot buy ... your money is less ->" + Controller.money);
+                }
+            }
+            else 
+            {
+                System.out.println("Tower can only be placed on grass!");
+            }
+        }
+
+        else if(tile.textureName == TileType.TowerFreez.textureName)
+        {
+            if(map[xCoord][yCoord].getType() == TileType.Grass)
+            { 
+                boolean flag = towerFreez.buy();
+                if(flag == true)
+                {
+                    System.out.println("You buy freez tower");
+                    System.out.println("Freez Tower placed");
+                    map[xCoord][yCoord].setType(tile);
+                    map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+
+                    //calling factory method to make the object of
+                    freezList.add((TowerFreez) TowerFactory.getTower("freez", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
+                    System.out.println("Your current money is " + Controller.money);
+                }
+                else
+                {
+                    System.out.println("You cannot buy ... your money is less ->" + Controller.money);
+                }
+            }
+            else 
+            {
+                System.out.println("Tower can only be placed on grass!");
+            }
+        }
+
+        else if(tile.textureName == TileType.TowerCannon.textureName)
+        {
+            if(map[xCoord][yCoord].getType() == TileType.Grass)
+            { 
+                boolean flag = towerCannon.buy();
+                if(flag == true)
+                {
+                    System.out.println("You buy cannon tower");
+                    System.out.println("Cannon Tower placed");
+                    map[xCoord][yCoord].setType(tile);
+                    map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+                    cannonList.add( (TowerCannon) TowerFactory.getTower("cannon", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
+                    System.out.println("Your current money is " + Controller.money);
+                }
+                else
+                {
+                    System.out.println("You cannot buy ... your money is less ->" + Controller.money);
+                }
+            }
+            else 
+            {
+                System.out.println("Tower can only be placed on grass!");
+            }		
+        }
+
+        else // if scenery then we don't need to compute the path validation
+        {
+            map[xCoord][yCoord].setType(tile);
+            map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
+        }
+        System.out.println(Path.isPathValid().name());
+    }
+
+    /**
+     * This method to get a tile at a particular position 
+     * <p>
+     * @param  xCoord  X coordinate of the tile 
+     * @param  yCoord  Y coordinate of the tile
+     * @return map object at (xCoord, yCoord) coordinate
+     */
+    public Tile getTile(int xCoord, int yCoord)	
+    {
+        return map[xCoord][yCoord];
+    }
+
+    public int[][] getTileMatrix()
+    {
+        tileMatrix = new int[View.getNoRows()][View.getNoColumns()];
+        for(int i = 0; i < View.getNoRows(); i++)
+        {	
+            for(int j = 0; j < View.getNoColumns(); j++) 
+            {	
+                tileMatrix[i][j] =  View.grid.getTile(i,j).getType().ordinal();
+            }
+            System.out.println("");
+        }
+        return tileMatrix;
+    }
+
+    /**
+     * This method draws the specific kind of tiles in the map. It drwas Scenary , Tower and Path
+     */
+    public void draw()
+    {
+        for(int i = 0; i < map.length; i++)
+        {
+            for(int j = 0; j < map[i].length; j++)
+            {
+                Tile tile = map[i][j];
+                drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+            }
+        }
+
+        //Draw Scenary tile menu only in EDIT mode. this block needs to be updated as the tiles wont be removed
+        if(GameStateManager.getGameState()==GameState.EDIT)
+        { 
+            for(int i = 0; i < tileMenu.length; i++)
+            {
+                Tile tile = tileMenu[i];
+                drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+            }
+        }
+        /*
+         * Draw Play button regardless of state
+         */
+        drawQuadTex(buttonMenu[3].getTexture(), buttonMenu[3].getX(), buttonMenu[3].getY(), buttonMenu[3].getWidth(), buttonMenu[3].getHeight());
+
+        /*
+         * Draw the button if GameState is Play
+         */
+        if(GameStateManager.getGameState()==GameState.PLAY)
+        {
+            if(buttonMenu[0]==null)
+            {
+                buttonMenu[0] =new Tile((View.getNoColumns() + 1) * 32, 5 * 32, 32, 32, TileType.Water);
+                buttonMenu[1] =new Tile((View.getNoColumns()+ 3) * 32, 5 * 32, 32, 32, TileType.Dirt);
+                buttonMenu[2] =new Tile((View.getNoColumns()+ 2) * 32, 4 * 32, 32, 32, TileType.StopButton);
+
+
+            }
+            for(int i = 0; i < buttonMenu.length; i++)
+            {
+                Tile tile = buttonMenu[i];
+                drawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+            }
+
+            towerCannon.draw();
+            towerBomb.draw();
+            towerFreez.draw();
+        }
+    }
 }

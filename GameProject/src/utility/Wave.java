@@ -64,7 +64,14 @@ public class Wave
 				 	{
 				 		GameStateManager.setGameState("END");
 				 		System.out.println("No Money left , Game END! " + GameStateManager.getGameState());
+				 		break;
 				 	}
+				 	
+				 	if(critterList.size()==0)
+				 	   {
+				 	    GameStateManager.setGameState("IDLE");
+				 	    System.out.println("Game state changed to IDLE");
+				 	   }
 				}
 				else
 				{
