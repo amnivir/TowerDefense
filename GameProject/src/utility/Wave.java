@@ -5,6 +5,7 @@ package utility;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
 
 import critter.Critter;
 import critter.CritterFactory;
@@ -19,7 +20,7 @@ import main.Controller;
  * @author eshinig
  *
  */
-public class Wave
+public class Wave extends Observable
 {
     private static float timeLastSpawn, spawnTime;
     private String critterType;
@@ -42,6 +43,8 @@ public class Wave
      */
     public void update()
     {	
+    	setChanged();
+    	notifyObservers(this);
         if(Clock.delta() < 1 && Clock.delta() > 0)
         {
             timeLastSpawn= timeLastSpawn+Clock.delta();
@@ -93,7 +96,7 @@ public class Wave
         if(critterCounter < numofCrittersInWave)
         {
             critterList.add(CritterFactory.getCritter(critterType));
-            critterList.get(critterList.size()-1).addObserver(test);
+            //
             critterCounter++;
             //System.out.println("CritterList SIze=="+critterList.size() + " Number of Critters created="+critterCounter);
         }

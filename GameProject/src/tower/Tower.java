@@ -120,15 +120,15 @@ public abstract class Tower
 			
 			if(shootingStrategy == 3)
 			{
-				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, targetTile));	
+				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, targetTile));	
 			}
 			if(shootingStrategy == 1)
 			{
-				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, startTile));
+				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, startTile));
 			}
 			if(shootingStrategy == 2)
 			{
-				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 30, this.damage, endTile));
+				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, endTile));
 			}
 		}	
 		else

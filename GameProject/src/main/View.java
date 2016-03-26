@@ -90,13 +90,15 @@ public class View
 		gameScreen = new GameScreenManager(grid);
 
 		//Add obervers to player
-		Controller.getInstance().addObserver(testTowerNotif);
+	//	Controller.getInstance().addObserver(testTowerNotif);
 
 		//TowerCannon tower = new TowerCannon(quickTexture("CannonBase"), grid.getTile(14, 7));
 		grid.draw();
 		
 		Wave wave = new Wave(15,"Critter_A");
 		System.out.println("You have $" + Controller.getInstance().money);
+		
+		wave.addObserver(testTowerNotif);
 		
 		//demo Tower TODO @Rashpal remove it?
 		TowerCannon demoTower = new TowerCannon(quickTexture("cannonBase"), new Tile(1 * 32, 1 * 32, 32, 32, TileType.TowerCannon));

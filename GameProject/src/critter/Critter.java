@@ -20,7 +20,7 @@ import utility.CoordinateConverter;
  * 
  *
  */
-public abstract class Critter extends Observable
+public abstract class Critter
 {
 	protected int width, height,health;
 	protected float speed,x, y;
@@ -205,7 +205,5 @@ public abstract class Critter extends Observable
 		/*
 		 * notify the tower about criter movement
 		 */
-		setChanged();
-        notifyObservers(this);
 	}
 }
