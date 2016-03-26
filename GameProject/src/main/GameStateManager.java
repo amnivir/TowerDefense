@@ -32,6 +32,7 @@ public class GameStateManager
 	public static int setGameState(String state)
 	{	
 		gameState = GameState.valueOf(state);
+		System.out.println("Game State changed to = " + GameStateManager.getGameState());
 		return gameState.ordinal();
 	}
 	

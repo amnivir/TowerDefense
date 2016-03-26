@@ -39,7 +39,8 @@ public class Controller extends Observable
     public static int towerX = 0, towerY = 0;
     public static int money = 500;
     String tower = "";		//for checking which tower it is in run time
-    int x, y;				//to get the current x coordinate and y coordinate of map
+    int x, y;//to get the current x coordinate and y coordinate of map
+    boolean playTilePressedFirstTime=false;
 
     private Controller()
     {
@@ -155,12 +156,18 @@ public class Controller extends Observable
                     {	
                         if (Path.isPathValid() == PathValidationCode.PATH_OK && GameStateManager.getGameState() != GameState.END)
                         {
+                            /*
+                             * If play button is pressed for first time we transistion to IDLE mode to avoid critter 
+                             * wave. On second click the critter movement will start
+                             */
+                            if(!playTilePressedFirstTime)
+                                {
+                                 playTilePressedFirstTime=true;
+                                 GameStateManager.setGameState("IDLE");
+                                 return;
+                                }
                             GameStateManager.setGameState("PLAY");
-                            System.out.println("Game State changed to = " + GameStateManager.getGameState());
-                            Wave.resetCritterCounter();
-                            View.critter = CritterFactory.getCritter("Critter_A");
-                            setChanged();
-                            notifyObservers(this);
+                            Wave.resetCritterCounter();;
                         }
                         else
                         {

@@ -14,7 +14,6 @@ import main.Controller;
 import map.Tile;
 import utility.Clock;
 import utility.CoordinateConverter;
-import utility.TowerNotification;
 import utility.Wave;
 /**
  * This is abstract Tower class 

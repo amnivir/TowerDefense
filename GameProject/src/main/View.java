@@ -26,7 +26,6 @@ import main.GameStateManager.GameState;
 import utility.Clock;
 import utility.CoordinateConverter;
 import utility.FileExplorer;
-import utility.TowerNotification;
 import utility.Wave;
 import tower.*;
 
@@ -117,19 +116,7 @@ public class View
 				
 				if(TowerNotification.towerShoot == true)
 				{   //bullet wave
-					for(TowerCannon cannonTower: TileGrid.cannonList )
-					{
-						cannonTower.preaperShoot();
-					}
-
-					for(TowerBomb bombTower: TileGrid.bombList )
-					{
-						bombTower.preaperShoot();
-					}
-					for(TowerFreez freezTower: TileGrid.freezList )
-					{
-						freezTower.preaperShoot();
-					}
+					
 				}
 			}
 			

@@ -321,7 +321,7 @@ public class TileGrid
         /*
          * Draw the button if GameState is Play
          */
-        if(GameStateManager.getGameState()==GameState.PLAY)
+        if(GameStateManager.getGameState()==GameState.PLAY ||GameStateManager.getGameState()==GameState.IDLE)
         {
             if(buttonMenu[0]==null)
             {

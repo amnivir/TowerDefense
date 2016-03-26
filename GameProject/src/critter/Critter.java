@@ -5,6 +5,8 @@ package critter;
 
 import map.Tile;
 
+import java.util.Observable;
+
 import org.lwjgl.Sys;
 import org.newdawn.slick.opengl.Texture;
 
@@ -18,7 +20,7 @@ import utility.CoordinateConverter;
  * 
  *
  */
-public abstract class Critter 
+public abstract class Critter extends Observable
 {
 	protected int width, height,health;
 	protected float speed,x, y;
@@ -200,5 +202,10 @@ public abstract class Critter
 				}
 			}
 		}
+		/*
+		 * notify the tower about criter movement
+		 */
+		setChanged();
+        notifyObservers(this);
 	}
 }
