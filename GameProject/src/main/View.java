@@ -86,7 +86,7 @@ public class View
 		/*
 		 * Create singleton for grid
 		 */
-		grid = new TileGrid(map,noRows, noColumns);//draws the green tiles
+		grid = new TileGrid(map, noRows, noColumns);//draws the green tiles
 		gameScreen = new GameScreenManager(grid);
 
 		//Add obervers to player

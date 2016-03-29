@@ -110,25 +110,35 @@ public abstract class Tower
 	private void shoot()
 	{
 		lastShootTime = 0;
-		Critter targetTile = null;
+		Critter closestCritter = null;
 		Tile startTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)), CoordinateConverter.getXCordinate(Path.continousPath.get(0)));
 		Tile endTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size() - 1)), CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size() - 1)));
 		
 		if(Wave.getCritterList().size() != 0)
 		{
-			targetTile = Wave.getCritterList().get(0);
+			//targetTile = Wave.getCritterList().get(0);
+			closestCritter = getClosestCritter();
 			
-			if(shootingStrategy == 3)
+			if (closestCritter != null)
 			{
-				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, targetTile));	
+				Tile targetTile = closestCritter.getStartTile();
+				
+				if(shootingStrategy == 3)
+				{
+					shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, targetTile));	
+				}
+				if(shootingStrategy == 1)
+				{
+					shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, startTile));
+				}
+				if(shootingStrategy == 2)
+				{
+					shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, endTile));
+				}
 			}
-			if(shootingStrategy == 1)
+			else
 			{
-				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, startTile));
-			}
-			if(shootingStrategy == 2)
-			{
-				shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, endTile));
+				TowerNotification.towerShoot = false;
 			}
 		}	
 		else
@@ -136,6 +146,26 @@ public abstract class Tower
 			TowerNotification.towerShoot = false;
 		}
 		//TODO FIX why create Shoot tile if critters not left
+	}
+	
+	private Critter getClosestCritter()
+	{
+		float closestDistance = 400000; //some large distance
+		Critter closestCritter = null;
+		for(Critter critter: Wave.getCritterList())
+		{
+			float distance = (this.getX() - critter.getX())*(this.getX() - critter.getX()) + (this.getY() - critter.getY())*(this.getY() - critter.getY());
+			if(distance < closestDistance)
+			{
+				closestDistance = distance;
+				closestCritter = critter;
+			}
+		}
+		//System.out.println("closest distance "+ closestDistance);
+		if (closestDistance > this.range)
+			return null;
+		
+		return closestCritter;
 	}
 	
 	/**
@@ -156,7 +186,7 @@ public abstract class Tower
 
 		for(ShootTile s : shootTiles )
 		{
-			s.update();
+			s.update1();
 		}
 	}
 	/**

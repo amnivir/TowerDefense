@@ -28,7 +28,7 @@ public class TowerBomb extends Tower
 		this.width = startTile.getWidth();
 		this.height = startTile.getHeight();
 		this.damage = 20;
-		this.range = 20;
+		this.range = 20000;
 		this.texture = texture;
 		this.price = 50;
 		this.speedOfFire = 30; 			//speed of firing the bullets

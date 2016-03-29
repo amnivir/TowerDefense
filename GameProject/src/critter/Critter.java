@@ -25,7 +25,7 @@ public abstract class Critter
 	protected int width, height,health;
 	protected float speed,x, y;
 	protected Texture tex;
-	protected Tile startTile;
+	public Tile startTile;
 	protected Tile nextTile;
 	protected Tile endTile;
 	public int pathStepIndex=0;
@@ -103,6 +103,11 @@ public abstract class Critter
 	public void setY(float y) 
 	{
 		this.y = y;
+	}
+	
+	public Tile getStartTile()
+	{
+		return startTile;
 	}
 
 	public abstract void draw();

@@ -2,6 +2,8 @@ package tower;
 
 import static graphics.Designer.*;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.opengl.Texture;
 
 import critter.Critter;
@@ -168,5 +170,53 @@ public class ShootTile extends Tower
 				draw();
 			}
 		}
+	}
+	
+	public void update1()
+	{
+		if(alive && Clock.delta() < 1 && Clock.delta() > 0)
+		{
+			x += Clock.delta() * speed * xVelocity;
+			y += Clock.delta() * speed * yVelocity;
+
+			if(Wave.getCritterList().size()!= 0)
+			{
+				Critter critter = getTargetCritterOnTargetTile();
+				
+				if (critter != null)
+				{
+					if(Designer.chechCollision(x, y, 32, 32, critter.getX(), critter.getY(), critter.getWidth(), critter.getHeight()))
+					{
+						alive = false;
+						
+						critter.reduceHealth(this.damage);
+						System.out.println( "health->" + critter.getHealth());
+						if(critter.getHealth() <= 0)
+						{
+							System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+						}
+					}
+				}
+				
+				draw();
+			}
+		}
+	}
+	
+	public Critter getTargetCritterOnTargetTile()
+	{
+		ArrayList<Critter> targetCritters = new ArrayList<Critter>();
+		for (Critter critter: Wave.getCritterList())
+		{
+			if(Designer.chechCollision(critter.getX(), critter.getY(), critter.getWidth(), critter.getHeight(), startEndTile.getX(), startEndTile.getY(), startEndTile.getWidth(), startEndTile.getHeight()))
+			{
+				targetCritters.add(critter);
+			}
+		}
+		
+		if(targetCritters.size() == 0)
+			return null;
+		
+		return targetCritters.get(0);
 	}
 }

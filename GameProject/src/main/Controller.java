@@ -38,6 +38,7 @@ public class Controller extends Observable
     private ArrayList<Integer> intList = new ArrayList<Integer>();
     public static int towerX = 0, towerY = 0;
     public static int money = 500;
+    
     String tower = "";		//for checking which tower it is in run time
     int x, y;//to get the current x coordinate and y coordinate of map
     boolean playTilePressedFirstTime=false;
