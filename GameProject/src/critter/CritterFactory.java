@@ -25,7 +25,7 @@ public class CritterFactory
 		
 		if(critterType.equalsIgnoreCase("Critter_A"))
 		{
-			return new Critter_A(quickTexture("critter_A"), View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)),CoordinateConverter.getXCordinate(Path.continousPath.get(0))),32,32,2,50);
+			return new Critter_A(quickTexture("critter_A_brown"), View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)),CoordinateConverter.getXCordinate(Path.continousPath.get(0))),32,32,2,50);
 		}
 		return null;
 	}

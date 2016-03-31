@@ -30,7 +30,6 @@ public abstract class Tower
 	protected float angle;
 	public static int shootingStrategy = 3;
 	String name;
-
 	/**
 	 * Draws the tower on the map
 	 */
@@ -39,6 +38,9 @@ public abstract class Tower
 		{
 			drawQuadTex(this.texture, this.x, this.y, this.width, this.height);
 		}
+	
+	
+	
 	/**
 	 * Method that sells the tower
 	 * @return
@@ -186,7 +188,7 @@ public abstract class Tower
 
 		for(ShootTile s : shootTiles )
 		{
-			s.update1();
+			s.update();
 		}
 	}
 	/**
@@ -282,5 +284,4 @@ public abstract class Tower
 	{
 		return null;
 	}
-	
 }

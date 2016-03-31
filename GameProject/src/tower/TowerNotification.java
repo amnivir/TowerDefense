@@ -33,5 +33,4 @@ public class TowerNotification implements Observer
         }
 		towerShoot = true;
 	}
-
 }

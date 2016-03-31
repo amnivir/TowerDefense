@@ -3,6 +3,9 @@ package tower;
 import static graphics.Designer.*;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -24,10 +27,13 @@ public class ShootTile extends Tower
 {
 	//TODO Fix this multiple types
 	private Critter targetTile;
+	public String effects= "";
 	private Tile startEndTile;
 	private float xVelocity, yVelocity;
 	private boolean alive;
 	private Tile towerCordinates;
+	private boolean isFreezeInProgress = false;
+	private final Timer freezeTimer = new Timer();
 	
 
 	public ShootTile(Texture texture,float x, float y,float speed, int damage, Critter targetTile)
@@ -124,76 +130,90 @@ public class ShootTile extends Tower
 
 			if(Wave.getCritterList().size()!= 0)
 			{
-				if(Designer.chechCollision(x, y, 32, 32, Wave.getCritterList().get(0).getX(), Wave.getCritterList().get(0).getY(), Wave.getCritterList().get(0).getWidth(), Wave.getCritterList().get(0).getHeight()))
-				{
-					alive=false;
-					
-					for(TowerCannon cannonTower : TileGrid.cannonList )
-					{
-						if(cannonTower.getX() == towerCordinates.getX() && cannonTower.getY() == towerCordinates.getY())
-						{
-							Wave.getCritterList().get(0).reduceHealth(cannonTower.damage);
-							System.out.println( "health->" + Wave.getCritterList().get(0).getHealth());
-							if(Wave.getCritterList().get(0).getHealth() <= 0)
-							{
-								System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
-							}
-						}
-					}
-
-					for(TowerBomb bombTower : TileGrid.bombList )
-					{
-						if(bombTower.getX() == towerCordinates.getX() && bombTower.getY() == towerCordinates.getY())
-						{
-							Wave.getCritterList().get(0).reduceHealth(bombTower.damage);
-							System.out.println( "health->" + Wave.getCritterList().get(0).getHealth());
-							if(Wave.getCritterList().get(0).getHealth() <= 0)
-							{
-								System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
-							}
-						}
-					}
-					
-					for(TowerFreez freezTower : TileGrid.freezList )
-					{
-						if(freezTower.getX() == towerCordinates.getX() && freezTower.getY() == towerCordinates.getY())
-						{
-							Wave.getCritterList().get(0).reduceHealth(freezTower.damage);
-							System.out.println( "health->" + Wave.getCritterList().get(0).getHealth());
-							if(Wave.getCritterList().get(0).getHealth() <= 0)
-							{
-								System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
-							}
-						}
-					}
-				}
-				draw();
-			}
-		}
-	}
-	
-	public void update1()
-	{
-		if(alive && Clock.delta() < 1 && Clock.delta() > 0)
-		{
-			x += Clock.delta() * speed * xVelocity;
-			y += Clock.delta() * speed * yVelocity;
-
-			if(Wave.getCritterList().size()!= 0)
-			{
-				Critter critter = getTargetCritterOnTargetTile();
+				ArrayList<Critter> critterTargets = getTargetCritterOnTargetTile();
 				
-				if (critter != null)
+				if (critterTargets.size() > 0)
 				{
-					if(Designer.chechCollision(x, y, 32, 32, critter.getX(), critter.getY(), critter.getWidth(), critter.getHeight()))
+					
+					Critter targetCritter = critterTargets.get(0);
+					if(Designer.chechCollision(x, y, 32, 32, targetCritter.getX(), targetCritter.getY(), targetCritter.getWidth(), targetCritter.getHeight()))
 					{
 						alive = false;
-						
-						critter.reduceHealth(this.damage);
-						System.out.println( "health->" + critter.getHealth());
-						if(critter.getHealth() <= 0)
+		
+						for(TowerCannon cannonTower : TileGrid.cannonList )
 						{
-							System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+								critterTargets.get(0).reduceHealth(cannonTower.damage);
+								System.out.println( "health->" + critterTargets.get(0).getHealth());
+								if(critterTargets.get(0).getHealth() <= 0)
+								{
+									System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+								}
+						}
+						
+						for(TowerBomb bombTower : TileGrid.bombList )
+						{
+							for(int i = 0; i <= critterTargets.size(); i++)
+							{
+								Critter c = critterTargets.get(0);
+								Critter	nextCritter = null;
+								Critter	previousCritter = null;
+								
+								if(i > 0)
+								{
+									if(i+1 < critterTargets.size())
+									{
+										nextCritter = critterTargets.get(i+1);
+										nextCritter.reduceHealth(bombTower.damage-10);
+										System.out.println( "health->" + nextCritter.getHealth());
+										if(nextCritter.getHealth() <= 0)
+										{
+											System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+										}
+									}
+									if(i-1 >= 0)
+									{
+										previousCritter = critterTargets.get(i-1);
+										previousCritter.reduceHealth(bombTower.damage-10);
+										System.out.println( "health->" + previousCritter.getHealth());
+										if(previousCritter.getHealth() <= 0)
+										{
+										System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+										}
+									}
+									c.reduceHealth(bombTower.damage);
+									System.out.println( "health->" + c.getHealth());
+									if(c.getHealth() <= 0)
+									{
+										System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+									}
+								}
+								
+								else
+								{
+									if(i+1 < critterTargets.size())
+									{
+										previousCritter = critterTargets.get(i+1);
+										previousCritter.reduceHealth(bombTower.damage-10);
+										System.out.println( "health->" + previousCritter.getHealth());
+										if(previousCritter.getHealth() <= 0)
+										{
+											System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+										}
+									}
+									c.reduceHealth(bombTower.damage);
+									System.out.println( "health->" + critterTargets.get(0).getHealth());
+									if(critterTargets.get(0).getHealth() <= 0)
+									{
+										System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+									}
+								}
+							}
+						}
+						
+						for(TowerFreez freezTower : TileGrid.freezList )
+						{
+							Wave.setFrozen(true);
+							setFreezeTimer();
 						}
 					}
 				}
@@ -203,7 +223,7 @@ public class ShootTile extends Tower
 		}
 	}
 	
-	public Critter getTargetCritterOnTargetTile()
+	public ArrayList<Critter> getTargetCritterOnTargetTile()
 	{
 		ArrayList<Critter> targetCritters = new ArrayList<Critter>();
 		for (Critter critter: Wave.getCritterList())
@@ -214,9 +234,26 @@ public class ShootTile extends Tower
 			}
 		}
 		
-		if(targetCritters.size() == 0)
-			return null;
+		return targetCritters;
+	}
+	
+	public void setFreezeTimer()
+	{
+		if(isFreezeInProgress)
+		{
+			freezeTimer.cancel();
+		}
 		
-		return targetCritters.get(0);
+		isFreezeInProgress = true;
+		System.out.println("Critter wave is frozen");
+		
+		freezeTimer.schedule(new TimerTask() {
+	        @Override
+	        public void run() {
+	            Wave.setFrozen(false);
+	            isFreezeInProgress = false;
+	            System.out.println("critter wave is moving");
+	        }
+	    },1000);
 	}
 }

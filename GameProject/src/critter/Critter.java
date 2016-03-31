@@ -3,6 +3,7 @@
  */
 package critter;
 
+import static graphics.Designer.quickTexture;
 import map.Tile;
 
 import java.util.Observable;
@@ -15,6 +16,7 @@ import main.View;
 import main.Controller;
 import utility.Clock;
 import utility.CoordinateConverter;
+import utility.Wave;
 /**
  * This class is the base for critter
  * 
@@ -123,75 +125,83 @@ public abstract class Critter
 		}
 		else
 		{
-			//Critter move right
-			if(x<(nextTile.getX()) && y==nextTile.getY() && critterMovedOneTile==false)
-			{	
-				x = x+Clock.delta() * speed;
-
-				if(x>=endTile.getX() && y==endTile.getY())
-				{
-					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
-					Controller.getInstance().money-=100;
-					System.out.println("Player money reduced by 100! Current Credits="+Controller.getInstance().money);
-					this.isCriterAlive=false;
-				}
-				
-				if(x>=nextTile.getX())
-				{
-					critterMovedOneTile=true;
-				}
-			}
-			//Move critter down
-			if(y<(nextTile.getY()) && x==nextTile.getX() && critterMovedOneTile==false)
+			if(!Wave.isFrozen())
 			{
-				y += Clock.delta() * speed;
-				
-				if(x==endTile.getX() && y>=endTile.getY())
-				{
-					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
-					this.isCriterAlive=false;
+				//Critter move right
+				if(x<(nextTile.getX()) && y==nextTile.getY() && critterMovedOneTile==false)
+				{	
+					x = x+Clock.delta() * speed;
+
+					if(x>=endTile.getX() && y==endTile.getY())
+					{
+						System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
+						Controller.getInstance().money-=100;
+						System.out.println("Player money reduced by 100! Current Credits="+Controller.getInstance().money);
+						this.isCriterAlive=false;
+					}
+					
+					if(x>=nextTile.getX())
+					{
+						critterMovedOneTile=true;
+					}
 				}
-				
-				if(y>=nextTile.getY())
+				//Move critter down
+				if(y<(nextTile.getY()) && x==nextTile.getX() && critterMovedOneTile==false)
 				{
-					critterMovedOneTile=true;
+					y += Clock.delta() * speed;
+					
+					if(x==endTile.getX() && y>=endTile.getY())
+					{
+						System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
+						this.isCriterAlive=false;
+					}
+					
+					if(y>=nextTile.getY())
+					{
+						critterMovedOneTile=true;
+					}
+				}
+
+				//Move Critter left
+				if(x>(nextTile.getX()) && y==nextTile.getY() && critterMovedOneTile==false)
+				{	
+					x -= Clock.delta() * speed;
+					
+					if(x<=endTile.getX() && y==endTile.getY())
+					{
+						System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
+						this.isCriterAlive=false;
+					}
+					
+					if(x<=nextTile.getX())
+					{
+						critterMovedOneTile=true;
+					}
+				}
+
+				//Move Critter up
+				if(y>(nextTile.getY()) && x==nextTile.getX() && critterMovedOneTile==false)
+				{	
+					y -= Clock.delta() * speed;
+
+					if(x==endTile.getX() && y<=endTile.getY())
+					{
+						System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
+						this.isCriterAlive=false;
+					}
+					
+					if(y<=nextTile.getY())
+					{
+						critterMovedOneTile=true;
+					}
 				}
 			}
-
-			//Move Critter left
-			if(x>(nextTile.getX()) && y==nextTile.getY() && critterMovedOneTile==false)
-			{	
-				x -= Clock.delta() * speed;
-				
-				if(x<=endTile.getX() && y==endTile.getY())
-				{
-					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
-					this.isCriterAlive=false;
-				}
-				
-				if(x<=nextTile.getX())
-				{
-					critterMovedOneTile=true;
-				}
+			
+			if(health <= 25)
+			{
+				tex = quickTexture("critter_A_pink");
 			}
-
-			//Move Critter up
-			if(y>(nextTile.getY()) && x==nextTile.getX() && critterMovedOneTile==false)
-			{	
-				y -= Clock.delta() * speed;
-
-				if(x==endTile.getX() && y<=endTile.getY())
-				{
-					System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
-					this.isCriterAlive=false;
-				}
-				
-				if(y<=nextTile.getY())
-				{
-					critterMovedOneTile=true;
-				}
-			}
-
+			
 			//Critter moved to the next tile so change the start tile and next tile for it
 			if(critterMovedOneTile)
 			{	

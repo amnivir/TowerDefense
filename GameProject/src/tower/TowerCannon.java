@@ -38,5 +38,4 @@ public class TowerCannon extends Tower
 		this.lastShootTime = 0;			 //the time for last shooted bullet
 		this.shootTiles = new ArrayList<ShootTile>(); //list of bullets
 	}
-	
 }
