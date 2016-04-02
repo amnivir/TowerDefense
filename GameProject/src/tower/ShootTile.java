@@ -26,17 +26,17 @@ import utility.Wave;
 public class ShootTile extends Tower
 {
 	//TODO Fix this multiple types
-	private Critter targetTile;
-	public String effects= "";
+	private Critter shootingCritter;
 	private Tile startEndTile;
 	private float xVelocity, yVelocity;
 	private boolean alive;
 	private Tile towerCordinates;
 	private boolean isFreezeInProgress = false;
 	private final Timer freezeTimer = new Timer();
-	
+	ShootStrategyEnum shootingStrategy;
+	EffectType effectType;
 
-	public ShootTile(Texture texture,float x, float y,float speed, int damage, Critter targetTile)
+	public ShootTile(Texture texture,float x, float y,float speed, int damage, EffectType effect, ShootStrategyEnum strategy, Critter shootingCritter)
 	{
 		//super();
 		this.texture = texture;
@@ -44,19 +44,21 @@ public class ShootTile extends Tower
 		this.y = y;
 		this.speed = speed;
 		this.damage = damage;
+		this.effectType = effect;
+		this.shootingStrategy = strategy;
 		this.width = 32;
 		this.height = 32;
 		this.angle = 0;
-		this.targetTile = targetTile;
+		this.shootingCritter = shootingCritter;
 		this.xVelocity = 0f;
 		this.yVelocity = 0f;
 		alive = true;
 		towerCordinates = new Tile(x, y, width, height, TileType.Grass);
-		if(targetTile != null)
+		if(shootingCritter != null)
 			calculateDirectionTargetTile();
 	}
 
-	public ShootTile(Texture texture,float x, float y,float speed, int damage, Tile endTile)
+	public ShootTile(Texture texture,float x, float y,float speed, int damage, EffectType effect, ShootStrategyEnum strategy, Tile endTile)
 	{
 		//super();
 		this.texture = texture;
@@ -64,6 +66,8 @@ public class ShootTile extends Tower
 		this.y = y;
 		this.speed = speed;
 		this.damage = damage;
+		this.effectType = effect;
+		this.shootingStrategy = strategy;
 		this.width = 32;
 		this.height = 32;
 		this.angle = 0;
@@ -105,17 +109,17 @@ public class ShootTile extends Tower
 	private void calculateDirectionTargetTile()
 	{	
 		float totalAllowedMovement = 1.0f;
-		float xDistancefromTile = Math.abs(targetTile.getX() - x)-1;
-		float yDistancefromTile = Math.abs(targetTile.getY() - y)-1;
+		float xDistancefromTile = Math.abs(shootingCritter.getX() - x)-1;
+		float yDistancefromTile = Math.abs(shootingCritter.getY() - y)-1;
 		float totalDistanceFromTarget = (xDistancefromTile + yDistancefromTile);
 		float xPercentofMovement = xDistancefromTile / totalDistanceFromTarget;
 		xVelocity = xPercentofMovement;
 		yVelocity = totalAllowedMovement - xPercentofMovement;
-		if(targetTile.getX()<x)
+		if(shootingCritter.getX()<x)
 		{
 			xVelocity *= -1;
 		}
-		if(targetTile.getY()<y)
+		if(shootingCritter.getY()<y)
 		{
 			yVelocity *= -1;
 		}
@@ -130,8 +134,19 @@ public class ShootTile extends Tower
 
 			if(Wave.getCritterList().size()!= 0)
 			{
-				ArrayList<Critter> critterTargets = getTargetCritterOnTargetTile();
+				// select Target critters by strategy
+				ArrayList<Critter> critterTargets = null;
+				if(shootingStrategy == ShootStrategyEnum.closestCritter)
+				{
+					critterTargets = getTargetCritterOnTargetTile();
+				}
+				else if(shootingStrategy == ShootStrategyEnum.weakestCritter || shootingStrategy == ShootStrategyEnum.strongestCritter || shootingStrategy == ShootStrategyEnum.nearToEndCritter)
+				{
+					critterTargets = new ArrayList<Critter>();
+					critterTargets.add(shootingCritter);
+				}
 				
+				// apply desired effect on targeted critters
 				if (critterTargets.size() > 0)
 				{
 					
@@ -139,10 +154,10 @@ public class ShootTile extends Tower
 					if(Designer.chechCollision(x, y, 32, 32, targetCritter.getX(), targetCritter.getY(), targetCritter.getWidth(), targetCritter.getHeight()))
 					{
 						alive = false;
-		
-						for(TowerCannon cannonTower : TileGrid.cannonList )
+						
+						if(effectType == EffectType.cannon )
 						{
-								critterTargets.get(0).reduceHealth(cannonTower.damage);
+								critterTargets.get(0).reduceHealth(this.damage);
 								System.out.println( "health->" + critterTargets.get(0).getHealth());
 								if(critterTargets.get(0).getHealth() <= 0)
 								{
@@ -150,67 +165,51 @@ public class ShootTile extends Tower
 								}
 						}
 						
-						for(TowerBomb bombTower : TileGrid.bombList )
+						else if(effectType == EffectType.bomb)
 						{
-							for(int i = 0; i <= critterTargets.size(); i++)
+							Critter middleCritter = critterTargets.get(0);
+							Critter	nextCritter = null;
+							Critter	previousCritter = null;
+							int indexOfMiddleCritter = Wave.getCritterList().indexOf(middleCritter);
+							
+							if(indexOfMiddleCritter > 0)
+								previousCritter = Wave.getCritterList().get(indexOfMiddleCritter - 1);
+							
+							if(indexOfMiddleCritter < Wave.getCritterList().size()-1)
+								nextCritter = Wave.getCritterList().get(indexOfMiddleCritter + 1);
+						
+							// effect middle critter
+							middleCritter.reduceHealth(damage);
+							System.out.println( "health->" + middleCritter.getHealth());
+							if(middleCritter.getHealth() <= 0)
 							{
-								Critter c = critterTargets.get(0);
-								Critter	nextCritter = null;
-								Critter	previousCritter = null;
-								
-								if(i > 0)
+								System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
+							}
+							
+							// effect previous critter if any
+							if(previousCritter != null)
+							{
+								previousCritter.reduceHealth(damage-5);
+								System.out.println( "health->" + previousCritter.getHealth());
+								if(previousCritter.getHealth() <= 0)
 								{
-									if(i+1 < critterTargets.size())
-									{
-										nextCritter = critterTargets.get(i+1);
-										nextCritter.reduceHealth(bombTower.damage-10);
-										System.out.println( "health->" + nextCritter.getHealth());
-										if(nextCritter.getHealth() <= 0)
-										{
-											System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
-										}
-									}
-									if(i-1 >= 0)
-									{
-										previousCritter = critterTargets.get(i-1);
-										previousCritter.reduceHealth(bombTower.damage-10);
-										System.out.println( "health->" + previousCritter.getHealth());
-										if(previousCritter.getHealth() <= 0)
-										{
-										System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
-										}
-									}
-									c.reduceHealth(bombTower.damage);
-									System.out.println( "health->" + c.getHealth());
-									if(c.getHealth() <= 0)
-									{
-										System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
-									}
+									System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
 								}
-								
-								else
+							}
+							
+							// effect next critter if any
+							if(nextCritter != null)
+							{
+								nextCritter.reduceHealth(damage-5);
+								System.out.println( "health->" + nextCritter.getHealth());
+								if(nextCritter.getHealth() <= 0)
 								{
-									if(i+1 < critterTargets.size())
-									{
-										previousCritter = critterTargets.get(i+1);
-										previousCritter.reduceHealth(bombTower.damage-10);
-										System.out.println( "health->" + previousCritter.getHealth());
-										if(previousCritter.getHealth() <= 0)
-										{
-											System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
-										}
-									}
-									c.reduceHealth(bombTower.damage);
-									System.out.println( "health->" + critterTargets.get(0).getHealth());
-									if(critterTargets.get(0).getHealth() <= 0)
-									{
-										System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
-									}
+									System.out.println("Tower ->" + towerCordinates.getX() / 32 + " " + towerCordinates.getY() / 32 + " hits critter");
 								}
 							}
 						}
 						
-						for(TowerFreez freezTower : TileGrid.freezList )
+						else if(effectType == EffectType.freeze)
 						{
 							Wave.setFrozen(true);
 							setFreezeTimer();

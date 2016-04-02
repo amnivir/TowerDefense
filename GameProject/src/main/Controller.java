@@ -7,6 +7,7 @@ import ai.Path;
 import ai.PathValidationCode;
 import critter.CritterFactory;
 import main.GameStateManager.GameState;
+import tower.ShootStrategyEnum;
 import tower.Tower;
 import tower.TowerBomb;
 import tower.TowerCannon;
@@ -181,20 +182,28 @@ public class Controller extends Observable
                 {		
                     if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 1)
                     {	
-                        System.out.println("Shooting strategy changed");
-                        Tower.shootingStrategy = 1;
+                        System.out.println("Shooting strategy changed: shoot closet critter");
+                        Tower.shootingStrategy = ShootStrategyEnum.closestCritter;
                     }
 
-                    if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 2)
+                    else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 2)
                     {
-                        System.out.println("Shooting strategy changed");
-                        Tower.shootingStrategy = 2;
+                        System.out.println("Shooting strategy changed: shoot weakest critter");
+                        Tower.shootingStrategy = ShootStrategyEnum.weakestCritter;
                     }
-                    if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns()+3)
+                    
+                    else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns()+3)
                     {
-                        System.out.println("Shooting strategy changed");
-                        Tower.shootingStrategy = 3;
+                        System.out.println("Shooting strategy changed: shoot strongest critter");
+                        Tower.shootingStrategy = ShootStrategyEnum.strongestCritter;
                     }
+                    
+                    else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns()+4)
+                    {
+                        System.out.println("Shooting strategy changed: shoot critter near to end");
+                        Tower.shootingStrategy = ShootStrategyEnum.nearToEndCritter;
+                    }
+                    
                 }
 
                 else
