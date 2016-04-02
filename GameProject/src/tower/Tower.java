@@ -209,8 +209,8 @@ public abstract class Tower
 	}
 	
 	/**
-	 * This method finds and returns the first weakest critter in the critter wave if exists.
-	 * @return Critter: the first weakest critter in the critter wave, else returns null.
+	 * This method finds and returns the first weakest critter in the tower range if exists.
+	 * @return Critter: the first weakest critter in the tower range, else returns null.
 	*/
 	private Critter getWeakestCritter()
 	{
@@ -233,8 +233,8 @@ public abstract class Tower
 	}
 	
 	/**
-	 * This method finds and returns the first strongest critter in the critter wave if exists.
-	 * @return Critter: the first strongest critter in the critter wave, else returns null.
+	 * This method finds and returns the first strongest critter in the tower range if exists.
+	 * @return Critter: the first strongest critter in the tower range, else returns null.
 	*/
 	private Critter getStrongestCritter()
 	{
@@ -255,6 +255,11 @@ public abstract class Tower
 		return maxHealthCritter;	
 	}
 	
+	/**
+	 * checks if the critter is in tower range
+	 * @param critter
+	 * @return true if critter is in range else returns false
+	 */
 	private boolean isCritterInRange(Critter critter)
 	{
 		float distance = (this.getX() - critter.getX())*(this.getX() - critter.getX()) + (this.getY() - critter.getY())*(this.getY() - critter.getY());
