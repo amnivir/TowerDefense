@@ -58,49 +58,8 @@ public class ShootTile extends Tower
 			calculateDirectionTargetTile();
 	}
 
-	public ShootTile(Texture texture,float x, float y,float speed, int damage, EffectType effect, ShootStrategyEnum strategy, Tile endTile)
-	{
-		//super();
-		this.texture = texture;
-		this.x = x;
-		this.y = y;
-		this.speed = speed;
-		this.damage = damage;
-		this.effectType = effect;
-		this.shootingStrategy = strategy;
-		this.width = 32;
-		this.height = 32;
-		this.angle = 0;
-		this.startEndTile = endTile;
-		this.xVelocity = 0f;
-		this.yVelocity = 0f;
-		alive = true;
-		towerCordinates = new Tile(x, y, width, height, TileType.Grass);
-		calculateDirectionStartEndTile();
-	}
 
-	/**
-	 * Calculates the direction of the bullet
-	 * TODO needs to return a specific tile
-	 */
-	private void calculateDirectionStartEndTile()
-	{	
-		float totalAllowedMovement = 1.0f;
-		float xDistancefromTile = Math.abs(startEndTile.getX()- x);
-		float yDistancefromTile = Math.abs(startEndTile.getY()- y);
-		float totalDistanceFromTarget = xDistancefromTile + yDistancefromTile;
-		float xPercentofMovement = xDistancefromTile / totalDistanceFromTarget;
-		xVelocity = xPercentofMovement;
-		yVelocity = totalAllowedMovement-xPercentofMovement;
-		if(startEndTile.getX() < x)
-		{
-			xVelocity *= -1;
-		}
-		if(startEndTile.getY() < y)
-		{
-			yVelocity *= -1;
-		}
-	}
+	
 	
 	/**
 	 * Calculates the direction of the bullet
@@ -138,7 +97,8 @@ public class ShootTile extends Tower
 				ArrayList<Critter> critterTargets = null;
 				if(shootingStrategy == ShootStrategyEnum.closestCritter)
 				{
-					critterTargets = getTargetCritterOnTargetTile();
+					critterTargets = new ArrayList<Critter>();
+					critterTargets.add(shootingCritter);
 				}
 				else if(shootingStrategy == ShootStrategyEnum.weakestCritter || shootingStrategy == ShootStrategyEnum.strongestCritter || shootingStrategy == ShootStrategyEnum.nearToEndCritter)
 				{

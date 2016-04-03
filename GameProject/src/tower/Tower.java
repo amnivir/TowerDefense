@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.opengl.Texture;
 
 import ai.Path;
+import ai.Strategy;
 import critter.Critter;
 import main.View;
 import main.Controller;
@@ -26,13 +27,15 @@ public abstract class Tower
 	protected Tile startTile;
 	protected Texture texture, cannonTexture;
 	protected int price;
-	protected ArrayList<ShootTile> shootTiles;
+	protected static ArrayList<ShootTile> shootTiles;
 	protected float angle;
-	public static ShootStrategyEnum shootingStrategy = ShootStrategyEnum.closestCritter;
+	public static ShootStrategyEnum strategyTile = ShootStrategyEnum.closestCritter;
 	String name;
+	
 	/**
 	 * Draws the tower on the map
 	 */
+
 	
 	public void draw()
 		{
@@ -105,6 +108,8 @@ public abstract class Tower
 		}	
 	}
 
+	
+
 	/**
 	 * Method that starts shooting of there are critters in map
 	 * @return
@@ -118,46 +123,48 @@ public abstract class Tower
 		if(Wave.getCritterList().size() != 0)
 		{			
 			EffectType effectType = getTowerEffectType();
-			Tile targetTile = null;
 			
 			// shoot closest critter 
-			if(shootingStrategy == ShootStrategyEnum.closestCritter) 
+			if(strategyTile == ShootStrategyEnum.closestCritter) 
 			{
 				Critter closestCritter = getClosestCritter();
 				if(closestCritter != null)
 				{
-					targetTile = closestCritter.getStartTile();
-					shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, effectType, ShootStrategyEnum.closestCritter, targetTile));
+					Context context = new Context(new StrategyShootClosestCritter());
+					context.executeStrategy(x,y,40,this.damage,effectType,strategyTile,closestCritter);
 				}
 			}
 			
 			// shoot weakest critter
-			else if(shootingStrategy == ShootStrategyEnum.weakestCritter)
+			else if(strategyTile == ShootStrategyEnum.weakestCritter)
 			{
 				Critter weakestCritter = getWeakestCritter();
 				if(weakestCritter != null)
 				{
-					shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, effectType, ShootStrategyEnum.weakestCritter, weakestCritter));
+					Context context = new Context(new StrategyShootClosestCritter());
+					context.executeStrategy(x,y,40,this.damage,effectType,strategyTile,weakestCritter);
 				}
 			}
 			
 			// shoot strongest critter
-			else if(shootingStrategy == ShootStrategyEnum.strongestCritter)
+			else if(strategyTile == ShootStrategyEnum.strongestCritter)
 			{
 				Critter strongestCritter = getStrongestCritter();
 				if(strongestCritter != null) 
 				{
-					shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, effectType, ShootStrategyEnum.strongestCritter, strongestCritter));
+					Context context = new Context(new StrategyShootClosestCritter());
+					context.executeStrategy(x,y,40,this.damage,effectType,strategyTile,strongestCritter);
 				}
 			}	
 			
 			// shoot critter near to the end
-			else if(shootingStrategy == ShootStrategyEnum.nearToEndCritter)
+			else if(strategyTile == ShootStrategyEnum.nearToEndCritter)
 			{
 				Critter nearToEndCritter = getNearToEndCritter();
 				if(nearToEndCritter != null)
 				{
-					shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, 40, this.damage, effectType, ShootStrategyEnum.nearToEndCritter, nearToEndCritter));	
+					Context context = new Context(new StrategyShootClosestCritter());
+					context.executeStrategy(x,y,40,this.damage,effectType,strategyTile,nearToEndCritter);
 				}
 			}
 		}

@@ -25,7 +25,7 @@ public class Wave extends Observable
     private static float timeLastSpawn, spawnTime;
     private String critterType;
     private static ArrayList<Critter> critterList;
-    private static int numofCrittersInWave = 10;
+    private static int numofCrittersInWave = 5;
     private static int critterCounter = 0;	//No more than 3 counter in the wave
     private static boolean isFrozen = false;
     public TowerNotification test;

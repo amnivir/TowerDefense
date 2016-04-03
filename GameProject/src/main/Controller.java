@@ -36,9 +36,8 @@ public class Controller extends Observable
     private TileGrid grid;
     int  blockSize = 32;
     public TileType currentTile = TileType.Grass;
-    private ArrayList<Integer> intList = new ArrayList<Integer>();
     public static int towerX = 0, towerY = 0;
-    public static int money = 500;
+    public static int money = 50000;//TODO  original 500 to end game sooner
     
     String tower = "";		//for checking which tower it is in run time
     int x, y;//to get the current x coordinate and y coordinate of map
@@ -183,25 +182,25 @@ public class Controller extends Observable
                     if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 1)
                     {	
                         System.out.println("Shooting strategy changed: shoot closet critter");
-                        Tower.shootingStrategy = ShootStrategyEnum.closestCritter;
+                        Tower.strategyTile = ShootStrategyEnum.closestCritter;
                     }
 
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 2)
                     {
                         System.out.println("Shooting strategy changed: shoot weakest critter");
-                        Tower.shootingStrategy = ShootStrategyEnum.weakestCritter;
+                        Tower.strategyTile = ShootStrategyEnum.weakestCritter;
                     }
                     
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns()+3)
                     {
                         System.out.println("Shooting strategy changed: shoot strongest critter");
-                        Tower.shootingStrategy = ShootStrategyEnum.strongestCritter;
+                        Tower.strategyTile = ShootStrategyEnum.strongestCritter;
                     }
                     
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns()+4)
                     {
                         System.out.println("Shooting strategy changed: shoot critter near to end");
-                        Tower.shootingStrategy = ShootStrategyEnum.nearToEndCritter;
+                        Tower.strategyTile = ShootStrategyEnum.nearToEndCritter;
                     }
                     
                 }

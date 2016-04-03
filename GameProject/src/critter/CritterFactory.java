@@ -16,6 +16,7 @@ import utility.CoordinateConverter;
  */
 public class CritterFactory
 {
+	private static int critterHealth = 50;
 	static public Critter getCritter(String critterType)
 	{
 		if(critterType==null)
@@ -25,7 +26,7 @@ public class CritterFactory
 		
 		if(critterType.equalsIgnoreCase("Critter_A"))
 		{
-			return new Critter_A(quickTexture("critter_A_brown"), View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)),CoordinateConverter.getXCordinate(Path.continousPath.get(0))),32,32,2,50);
+			return new Critter_A(quickTexture("critter_A_brown"), View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)),CoordinateConverter.getXCordinate(Path.continousPath.get(0))),32,32,2,critterHealth);
 		}
 		return null;
 	}
