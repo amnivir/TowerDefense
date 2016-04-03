@@ -325,10 +325,10 @@ public class TileGrid
         {
             if(buttonMenu[0]==null)
             {
-                buttonMenu[0] =new Tile((View.getNoColumns() + 1) * 32, 5 * 32, 32, 32, TileType.Water);
-                buttonMenu[1] =new Tile((View.getNoColumns()+ 3) * 32, 5 * 32, 32, 32, TileType.Dirt);
-                buttonMenu[2] =new Tile((View.getNoColumns()+ 2) * 32, 4 * 32, 32, 32, TileType.StopButton);
-                buttonMenu[3] =new Tile((View.getNoColumns()+ 4) * 32, 5 * 32, 32, 32, TileType.Water);
+                buttonMenu[0] =new Tile((View.getNoColumns() + 1) * 32, 5 * 32, 32, 32, TileType.Closest);
+                buttonMenu[1] =new Tile((View.getNoColumns()+ 3) * 32, 5 * 32, 32, 32, TileType.Strongest);
+                buttonMenu[2] =new Tile((View.getNoColumns()+ 2) * 32, 5 * 32, 32, 32, TileType.Weakest);
+                buttonMenu[3] =new Tile((View.getNoColumns()+ 4) * 32, 5 * 32, 32, 32, TileType.Nearest);
 
             }
             for(int i = 0; i < buttonMenu.length; i++)

@@ -17,7 +17,7 @@ public class StrategyShootNearestEndPointCritter extends Tower implements Strate
 	public int execute(float x, float y, float speedOfBullet, int damage,
 			EffectType effectType, ShootStrategyEnum strategyTile,
 			Critter nearestCritter) {
-		System.out.println("shooting tower with strategy Closest tower");
+		System.out.println("shooting tower with strategy Nearest to End critter");
 
 		
 //		System.out.println(x+" "+y+" "+speedofBullet+" "+damage+" "+effectType.toString()+" "+strategyTile.name()+" "+targetTile.getX()+" "+targetTile.getY());

@@ -17,7 +17,7 @@ public class StrategyShootStrongestCritter extends Tower implements Strategy {
 	public int execute(float x, float y, float speedOfBullet, int damage,
 			EffectType effectType, ShootStrategyEnum strategyTile,
 			Critter strongestCritter) {
-		System.out.println("shooting tower with strategy Closest tower");
+		System.out.println("shooting tower with strategy Strongest critter");
 
 		
 //		System.out.println(x+" "+y+" "+speedofBullet+" "+damage+" "+effectType.toString()+" "+strategyTile.name()+" "+targetTile.getX()+" "+targetTile.getY());

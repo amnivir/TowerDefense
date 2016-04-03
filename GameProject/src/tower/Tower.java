@@ -1,10 +1,12 @@
 package tower;
 
+import static graphics.Designer.HEIGHT;
 import static graphics.Designer.drawQuadTex;
 import static graphics.Designer.quickTexture;
 
 import java.util.ArrayList;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
 import ai.Path;
@@ -13,6 +15,8 @@ import critter.Critter;
 import main.View;
 import main.Controller;
 import map.Tile;
+import map.TileGrid;
+import map.TileType;
 import utility.Clock;
 import utility.CoordinateConverter;
 import utility.Wave;
@@ -29,7 +33,7 @@ public abstract class Tower
 	protected int price;
 	protected static ArrayList<ShootTile> shootTiles;
 	protected float angle;
-	public static ShootStrategyEnum strategyTile = ShootStrategyEnum.closestCritter;
+	public ShootStrategyEnum strategyTile = ShootStrategyEnum.closestCritter;
 	String name;
 	
 	/**
@@ -117,54 +121,56 @@ public abstract class Tower
 	private void shoot()
 	{
 		lastShootTime = 0;
-		Tile startTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(0)), CoordinateConverter.getXCordinate(Path.continousPath.get(0)));
-		Tile endTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(Path.continousPath.size() - 1)), CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size() - 1)));
-		
 		if(Wave.getCritterList().size() != 0)
 		{			
 			EffectType effectType = getTowerEffectType();
 			
 			// shoot closest critter 
-			if(strategyTile == ShootStrategyEnum.closestCritter) 
+			if(this.strategyTile == ShootStrategyEnum.closestCritter) 
 			{
 				Critter closestCritter = getClosestCritter();
 				if(closestCritter != null)
 				{
+//					System.out.println("Calling closest....");
 					Context context = new Context(new StrategyShootClosestCritter());
-					context.executeStrategy(x,y,40,this.damage,effectType,strategyTile,closestCritter);
+					context.executeStrategy(x,y,30,this.damage,effectType,strategyTile,closestCritter);
 				}
 			}
 			
 			// shoot weakest critter
-			else if(strategyTile == ShootStrategyEnum.weakestCritter)
+			else if(this.strategyTile == ShootStrategyEnum.weakestCritter)
 			{
 				Critter weakestCritter = getWeakestCritter();
 				if(weakestCritter != null)
 				{
-					Context context = new Context(new StrategyShootClosestCritter());
-					context.executeStrategy(x,y,40,this.damage,effectType,strategyTile,weakestCritter);
+//					System.out.println("Calling weakest....");
+					Context context = new Context(new StrategyShootWeakestCritter());
+					context.executeStrategy(x,y,30,this.damage,effectType,strategyTile,weakestCritter);
 				}
 			}
 			
 			// shoot strongest critter
-			else if(strategyTile == ShootStrategyEnum.strongestCritter)
+			else if(this.strategyTile == ShootStrategyEnum.strongestCritter)
 			{
 				Critter strongestCritter = getStrongestCritter();
 				if(strongestCritter != null) 
 				{
-					Context context = new Context(new StrategyShootClosestCritter());
-					context.executeStrategy(x,y,40,this.damage,effectType,strategyTile,strongestCritter);
+//					System.out.println("Calling strongest....");
+					Context context = new Context(new StrategyShootStrongestCritter());
+					context.executeStrategy(x,y,30,this.damage,effectType,strategyTile,strongestCritter);
 				}
 			}	
 			
 			// shoot critter near to the end
-			else if(strategyTile == ShootStrategyEnum.nearToEndCritter)
+			else if(this.strategyTile == ShootStrategyEnum.nearToEndCritter)
 			{
+				
 				Critter nearToEndCritter = getNearToEndCritter();
 				if(nearToEndCritter != null)
 				{
-					Context context = new Context(new StrategyShootClosestCritter());
-					context.executeStrategy(x,y,40,this.damage,effectType,strategyTile,nearToEndCritter);
+//					System.out.println("Calling nearest....");
+					Context context = new Context(new StrategyShootNearestEndPointCritter());
+					context.executeStrategy(x,y,30,this.damage,effectType,strategyTile,nearToEndCritter);
 				}
 			}
 		}
@@ -408,5 +414,47 @@ public abstract class Tower
 	public Texture getTexture() 
 	{
 		return null;
+	}
+
+
+
+	public static void setStrategy(String tower, int x, int y,ShootStrategyEnum strategy) 
+	{
+		int blockSize=32;
+		if(tower.equals("cannon tower"))
+        {
+            for ( TowerCannon temp : TileGrid.cannonList) 
+            {	
+                if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
+                {
+                	temp.strategyTile=strategy;
+                	System.out.println("Shooting strategy changed: "+strategy+" of "+temp.name+" at "+temp.getX()/32+" "+temp.getY()/32);
+                    break;
+                }
+            }
+        }
+
+        else if(tower.equals("bomb tower"))
+        {
+            for ( TowerBomb temp : TileGrid.bombList) 
+            {	
+                if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
+                {
+                	temp.strategyTile=strategy;
+                	System.out.println("Shooting strategy changed: "+strategy+" of "+temp.name+" at "+temp.getX()/32+" "+temp.getY()/32);
+                    break;
+                }
+            }
+        }
+        else if(tower.equals("freez tower"))
+        {
+            for ( TowerFreez temp : TileGrid.freezList) 
+            {	
+            	temp.strategyTile=strategy;
+            	System.out.println("Shooting strategy changed: "+strategy+" of "+temp.name+" at "+temp.getX()/32+" "+temp.getY()/32);
+                break;
+            }
+        }
+		
 	}
 }

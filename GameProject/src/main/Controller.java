@@ -41,6 +41,7 @@ public class Controller extends Observable
     
     String tower = "";		//for checking which tower it is in run time
     int x, y;//to get the current x coordinate and y coordinate of map
+    int globalX, globalY;//to get the current x coordinate and y coordinate of tower for strategy
     boolean playTilePressedFirstTime=false;
 
     private Controller()
@@ -106,7 +107,7 @@ public class Controller extends Observable
                         else if(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT - Mouse.getY() - 1) / blockSize)).getType().textureName == "freezBase")
                         {
                             tower = "freez tower";
-                            System.out.println("yesss->" + tower);
+//                            System.out.println("yesss->" + tower);
                             x = (int)Math.floor(Mouse.getX() / blockSize);
                             y = (int)Math.floor((HEIGHT - Mouse.getY() - 1) / blockSize);
                         }
@@ -177,30 +178,34 @@ public class Controller extends Observable
                     }
                 }
 
-                else if(((HEIGHT - Mouse.getY()) / blockSize == 4||((HEIGHT - Mouse.getY()) / blockSize == 5)))
+                else if(((HEIGHT - Mouse.getY()) / blockSize == 5))
                 {		
                     if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 1)
                     {	
-                        System.out.println("Shooting strategy changed: shoot closet critter");
-                        Tower.strategyTile = ShootStrategyEnum.closestCritter;
+//                        System.out.println("Shooting strategy changed: shoot closet critter");
+//                        Tower.strategyTile = ShootStrategyEnum.closestCritter;
+                        Tower.setStrategy(tower,x,y,ShootStrategyEnum.closestCritter);
                     }
 
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 2)
                     {
-                        System.out.println("Shooting strategy changed: shoot weakest critter");
-                        Tower.strategyTile = ShootStrategyEnum.weakestCritter;
+//                        System.out.println("Shooting strategy changed: shoot weakest critter");
+//                        Tower.strategyTile = ShootStrategyEnum.weakestCritter;
+                        Tower.setStrategy(tower,x,y,ShootStrategyEnum.weakestCritter);
                     }
                     
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns()+3)
                     {
-                        System.out.println("Shooting strategy changed: shoot strongest critter");
-                        Tower.strategyTile = ShootStrategyEnum.strongestCritter;
+//                        System.out.println("Shooting strategy changed: shoot strongest critter");
+//                        Tower.strategyTile = ShootStrategyEnum.strongestCritter;
+                        Tower.setStrategy(tower,x,y,ShootStrategyEnum.strongestCritter);
                     }
                     
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns()+4)
                     {
-                        System.out.println("Shooting strategy changed: shoot critter near to end");
-                        Tower.strategyTile = ShootStrategyEnum.nearToEndCritter;
+//                        System.out.println("Shooting strategy changed: shoot critter near to end");
+//                        Tower.strategyTile = ShootStrategyEnum.nearToEndCritter;
+                        Tower.setStrategy(tower,x,y,ShootStrategyEnum.nearToEndCritter);
                     }
                     
                 }

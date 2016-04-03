@@ -6,7 +6,8 @@ package map;
 public enum TileType 
 {
 	Grass("grass",true),Dirt("dirt",false),Water("water",false),TowerCannon("cannonBase",false),
-	TowerBomb("bombBase",false),PlayButton("playButton",false),StopButton("stopButton",false),TowerFreez("freezBase",false);
+	TowerBomb("bombBase",false),PlayButton("playButton",false),StopButton("stopButton",false),TowerFreez("freezBase",false),
+	Closest("closest",false), Strongest("strongest",false), Weakest("weakest",false), Nearest("nearest",false);
 
 	public String textureName;
 	boolean buildable;
