@@ -19,6 +19,7 @@ import org.lwjgl.Sys;
 
 import ai.Path;
 import ai.PathValidationCode;
+import main.GameStateManager;
 import main.View;
 
 /**
@@ -42,6 +43,9 @@ public class GameScreenManager
 	
 	@XmlElement
 	private static ArrayList<Integer> pathCordinates= new ArrayList<Integer>();
+	
+	@XmlElement
+	private String gameState;
 	
 	public GameScreenManager()
 	{
@@ -83,6 +87,8 @@ public class GameScreenManager
 		for(Integer coordinate : TileGrid.pathCordinate)
 			pathCordinates.add(coordinate);
 		
+		gameState = GameStateManager.getGameState().toString();
+		
 		System.out.println(pathCordinates);
 		System.out.println((this.noRows) + (this.noColumns));
 		
@@ -112,7 +118,7 @@ public class GameScreenManager
 	 */
 	public int[][]  loadMap(String mapFileName)
 	{	
-		GameScreenManager readCoordinates = null;
+		GameScreenManager readSavedGame = null;
 		System.out.println("Loading Game..  " + mapFileName);
 		File file = new File(mapFileName);
 		JAXBContext jaxbContext;
@@ -120,15 +126,17 @@ public class GameScreenManager
 		{
 			jaxbContext = JAXBContext.newInstance(GameScreenManager.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			readCoordinates = (GameScreenManager) jaxbUnmarshaller.unmarshal(file);
-			System.out.println("readCoordinates.noRows" + readCoordinates.noRows);
-			this.noRows = readCoordinates.noRows;
-			this.noColumns = readCoordinates.noColumns;
-			for(int i = 0; i < readCoordinates.noRows; i++)
+			readSavedGame = (GameScreenManager) jaxbUnmarshaller.unmarshal(file);
+			System.out.println("readCoordinates.noRows" + readSavedGame.noRows);
+			this.noRows = readSavedGame.noRows;
+			this.noColumns = readSavedGame.noColumns;
+			GameStateManager.setGameState(readSavedGame.gameState);
+			
+			for(int i = 0; i < readSavedGame.noRows; i++)
 			{	
-				for(int j = 0;j < readCoordinates.noColumns; j++) 
+				for(int j = 0;j < readSavedGame.noColumns; j++) 
 				{	
-					System.out.print((i) + "," + (j) + "-->" + readCoordinates.tileCoordinates[i][j] + "  ");
+					System.out.print((i) + "," + (j) + "-->" + readSavedGame.tileCoordinates[i][j] + "  ");
 				}
 				System.out.println("");
 			}
@@ -138,11 +146,11 @@ public class GameScreenManager
 			e.printStackTrace();
 		}
 		
-		for(Integer coordinate:readCoordinates.pathCordinates)
+		for(Integer coordinate:readSavedGame.pathCordinates)
 		{
 			TileGrid.pathCordinate.add(coordinate);
 		}
-		return readCoordinates.tileCoordinates;
+		return readSavedGame.tileCoordinates;
 	}
 	
 	public int getNoColumns() 

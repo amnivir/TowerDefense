@@ -102,11 +102,7 @@ public class View
 		
 		wave.addObserver(testTowerNotif);
 		
-		//demo Tower TODO @Rashpal remove it?
-		TowerCannon demoTower = new TowerCannon(quickTexture("cannonBase"), new Tile(1 * 32, 1 * 32, 32, 32, TileType.TowerCannon));
-		
-		// Game starts in EDIT mode
-		GameStateManager.setGameState("EDIT");
+	
 		
 		while(!Display.isCloseRequested())
 		{
@@ -147,6 +143,9 @@ public class View
 		noColumns = keyboard.nextInt();
 		map  = new int[noRows][noColumns];
 
+		// Game starts in EDIT mode
+		GameStateManager.setGameState("EDIT");
+		
 		if(noRows == noColumns)
 			return 0;
 		else 
@@ -168,6 +167,7 @@ public class View
 		map = temp.loadMap(fileExplorer.getFileName(mapToLoad));
 		noRows = temp.getNoRows();
 		noColumns = temp.getNoColumns();
+		
 	}
 
 	/**
