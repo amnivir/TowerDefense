@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.lwjgl.input.Mouse;
@@ -27,7 +28,8 @@ import utility.Wave;
 /**
  * This is abstract Tower class 
  */
-@XmlRootElement
+@XmlTransient
+@XmlSeeAlso({TowerCannon.class,TowerBomb.class,TowerFreez.class})
 public abstract class Tower 
 {	
 	@XmlElement

@@ -142,6 +142,7 @@ public class View
 			Display.sync(60);
 		}
 		Display.destroy();
+		
 	}
 
 	/**
