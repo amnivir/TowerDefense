@@ -24,7 +24,7 @@ public class TowerFreez extends Tower
 	public TowerFreez(Texture texture, Tile startTile)
 	{
 		super();
-		this.name="Cannon Freez";
+		this.name="Tower Freez";
 		this.x = startTile.getX();
 		this.y = startTile.getY();
 		this.width = startTile.getWidth();
@@ -36,5 +36,10 @@ public class TowerFreez extends Tower
 		this.speedOfFire = 30; 			//speed of firing the bullets
 		this.lastShootTime = 0; 		//the time for last shooted bullet
 		this.shootTiles = new ArrayList<ShootTile>(); //list of bullets
+	}
+	public TowerFreez()
+	{
+
+	
 	}
 }

@@ -116,11 +116,12 @@ public class TileGrid
          * During edit mode draw only play button, rest of the button are place holder
          */
 
-        buttonMenu = new Tile[4];
+        buttonMenu = new Tile[5];
         buttonMenu[0] =null;
         buttonMenu[1] =null;
         buttonMenu[2] =null;
-        buttonMenu[3] =new Tile((View.getNoColumns()) * 32, 2 * 32, 32, 32, TileType.PlayButton);
+        buttonMenu[3] =null;
+        buttonMenu[4] =new Tile((View.getNoColumns()) * 32, 2 * 32, 32, 32, TileType.PlayButton);
         /*
          * Draw the Tower Icons on the right side of the map for choosing
          */
@@ -332,7 +333,7 @@ public class TileGrid
         /*
          * Draw Play button regardless of state
          */
-        drawQuadTex(buttonMenu[3].getTexture(), buttonMenu[3].getX(), buttonMenu[3].getY(), buttonMenu[3].getWidth(), buttonMenu[3].getHeight());
+        drawQuadTex(buttonMenu[4].getTexture(), buttonMenu[4].getX(), buttonMenu[4].getY(), buttonMenu[4].getWidth(), buttonMenu[4].getHeight());
 
         /*
          * Draw the button if GameState is Play
@@ -358,4 +359,39 @@ public class TileGrid
             towerFreez.draw();
         }
     }
+
+	public static int loadSavedTowers() {
+		
+		for ( TowerCannon temp : GameScreenManager.readSavedGame.towerCannonList ) 
+        {
+			{
+				TowerCannon ref=(TowerCannon) TowerFactory.getTower("cannon", quickTexture("cannonBase"), new Tile(temp.getX(), temp.getY(), 32, 32, TileType.TowerCannon));
+				ref.setDamage(temp.getDamage());
+				ref.setRange(temp.getRange());
+				TileGrid.cannonList.add(ref);
+			}
+        }
+		
+		for ( TowerBomb temp : GameScreenManager.readSavedGame.towerBombList ) 
+        {
+			{
+				TowerBomb ref=(TowerBomb) TowerFactory.getTower("bomb", quickTexture("cannonBase"), new Tile(temp.getX(), temp.getY(), 32, 32, TileType.TowerBomb));
+				ref.setDamage(temp.getDamage());
+				ref.setRange(temp.getRange());
+				TileGrid.bombList.add(ref);
+			}
+        }
+		
+		for ( TowerFreez temp : GameScreenManager.readSavedGame.towerFreezList ) 
+        {
+			{
+				TowerFreez ref=(TowerFreez) TowerFactory.getTower("freez", quickTexture("cannonBase"), new Tile(temp.getX(), temp.getY(), 32, 32, TileType.TowerFreez));
+				ref.setDamage(temp.getDamage());
+				ref.setRange(temp.getRange());
+				TileGrid.freezList.add(ref);
+			}
+        }
+	return 0;
+	}
+
 }

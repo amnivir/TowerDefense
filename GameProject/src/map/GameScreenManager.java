@@ -59,12 +59,11 @@ public class GameScreenManager
 	@XmlElement
 	public List<TowerCannon> towerCannonList = new ArrayList<TowerCannon>();
 	
-	/*@XmlElement
-	private List<TowerBomb> towerBombList = new ArrayList<TowerBomb>();
+	@XmlElement
+	public List<TowerBomb> towerBombList = new ArrayList<TowerBomb>();
 	
 	@XmlElement
-	private List<TowerFreez> towerFreezList = new ArrayList<TowerFreez>();
-	*/
+	public List<TowerFreez> towerFreezList = new ArrayList<TowerFreez>();
 	
 	public static GameScreenManager readSavedGame = null;
 	
@@ -122,7 +121,7 @@ public class GameScreenManager
             }
         }
 		
-/*		for ( TowerFreez temp : TileGrid.freezList) 
+		for ( TowerFreez temp : TileGrid.freezList) 
         {	
            
             {
@@ -140,7 +139,7 @@ public class GameScreenManager
             	gs.towerBombList.add(temp);
             	
             }
-        }*/
+        }
 		
 		System.out.println(pathCordinates);
 		System.out.println((this.noRows) + (this.noColumns));

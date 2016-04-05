@@ -47,6 +47,7 @@ public class View
 	public static int[][] map  = null;
 	public static TileGrid grid;
 	public static Critter critter = null;
+	boolean flag=false;
 	
 	/**
 	 * This constructor initializes openGL library , accepts user input to either start 
@@ -56,6 +57,7 @@ public class View
 	public View()
 	{	
 		int choice;
+		
 		GameStateManager gameState = new GameStateManager();
 		System.out.println("Enter '1' for New Game or '2' to load Saved game");
 		choice = keyboard.nextInt();
@@ -68,7 +70,7 @@ public class View
 			}
 			case 2:
 			{
-				
+				flag=true;				
 				this.loadGame();
 				break;
 			}
@@ -93,9 +95,13 @@ public class View
 		grid = new TileGrid(map, noRows, noColumns);//draws the green tiles
 		
 
-        TowerCannon temp=(TowerCannon) TowerFactory.getTower("cannon", quickTexture("cannonBase"), new Tile(GameScreenManager.readSavedGame.towerCannonList.get(0).getX(), GameScreenManager.readSavedGame.towerCannonList.get(0).getY(), 32, 32, TileType.TowerCannon));
+		if(flag==true)
+		{
+			TileGrid.loadSavedTowers();
+		}
+        //TowerCannon temp=(TowerCannon) TowerFactory.getTower("cannon", quickTexture("cannonBase"), new Tile(GameScreenManager.readSavedGame.towerCannonList.get(0).getX(), GameScreenManager.readSavedGame.towerCannonList.get(0).getY(), 32, 32, TileType.TowerCannon));
         
-        TileGrid.cannonList.add(temp);
+//        TileGrid.cannonList.add(temp);
 		gameScreen = new GameScreenManager(grid);
 
 		//Add obervers to player

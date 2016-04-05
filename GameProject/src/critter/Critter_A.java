@@ -24,7 +24,6 @@ public class Critter_A extends Critter
 		this.speed=speed;
 		this.startTile=StartTile;
 		this.health=health;
-	
 	}
 	
 	/**

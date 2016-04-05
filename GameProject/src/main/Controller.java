@@ -36,7 +36,6 @@ public class Controller extends Observable
     private TileGrid grid;
     int  blockSize = 32;
     public TileType currentTile = TileType.Grass;
-    public static int towerX = 0, towerY = 0;
     public static int money = 50000;//TODO  original 500 to end game sooner
     
     String tower = "";		//for checking which tower it is in run time

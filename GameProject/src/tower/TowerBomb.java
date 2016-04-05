@@ -22,7 +22,7 @@ public class TowerBomb extends Tower
 	public TowerBomb(Texture texture, Tile startTile) 
 	{
 		super();
-		this.name="Cannon Bomb";
+		this.name="Tower Bomb";
 		this.x = startTile.getX();
 		this.y = startTile.getY();
 		this.width = startTile.getWidth();
@@ -35,5 +35,9 @@ public class TowerBomb extends Tower
 		this.lastShootTime = 0; 		//the time for last shooted bullet
 		this.shootTiles = new ArrayList<ShootTile>(); 	//list of bullets
 	}
+	public TowerBomb()
+	{
 
+	
+	}
 }
