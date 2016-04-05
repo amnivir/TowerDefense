@@ -7,6 +7,7 @@ import static graphics.Designer.quickTexture;
 import map.Tile;
 
 import java.util.Observable;
+import java.util.TimerTask;
 
 import org.lwjgl.Sys;
 import org.newdawn.slick.opengl.Texture;
@@ -33,6 +34,8 @@ public abstract class Critter
 	public int pathStepIndex=0;
 	protected boolean first = true;
 	public boolean isCriterAlive;
+	public boolean isStopped = false;
+	int stopCounter = 0;
 	
 	/**
 	 * THis constructor initializes the next tile and last tile to the critter
@@ -52,11 +55,22 @@ public abstract class Critter
 		if(health<=0)
 		{
 			this.isCriterAlive=false;
+			this.health = 0;
 			Controller.money+=10;
 			System.out.println("$10 added->"+Controller.money);
 		}
 	}
 
+	public float getSpeed()
+	{
+		return speed;
+	}
+
+	public void setSpeed(float speed)
+	{
+		this.speed = speed;
+	}
+	
 	public int getHeight()
 	{
 		return height;
@@ -125,13 +139,17 @@ public abstract class Critter
 		}
 		else
 		{
-			if(!Wave.isFrozen())
+			if(isStopped)
+			{
+				stopCounter--;
+			}
+			else
 			{
 				//Critter move right
 				if(x<(nextTile.getX()) && y==nextTile.getY() && critterMovedOneTile==false)
 				{	
 					x = x+Clock.delta() * speed;
-
+	
 					if(x>=endTile.getX() && y==endTile.getY())
 					{
 						System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
@@ -161,7 +179,7 @@ public abstract class Critter
 						critterMovedOneTile=true;
 					}
 				}
-
+	
 				//Move Critter left
 				if(x>(nextTile.getX()) && y==nextTile.getY() && critterMovedOneTile==false)
 				{	
@@ -178,12 +196,12 @@ public abstract class Critter
 						critterMovedOneTile=true;
 					}
 				}
-
+	
 				//Move Critter up
 				if(y>(nextTile.getY()) && x==nextTile.getX() && critterMovedOneTile==false)
 				{	
 					y -= Clock.delta() * speed;
-
+	
 					if(x==endTile.getX() && y<=endTile.getY())
 					{
 						System.out.println("Critter reached Exit point=" +Path.continousPath.get(Path.continousPath.size()-1));
@@ -195,30 +213,43 @@ public abstract class Critter
 						critterMovedOneTile=true;
 					}
 				}
-			}
-			
-			if(health <= 25)
-			{
-				tex = quickTexture("critter_A_pink");
-			}
-			
-			//Critter moved to the next tile so change the start tile and next tile for it
-			if(critterMovedOneTile)
-			{	
-				if(pathStepIndex<Path.continousPath.size()-2)
+				if(health <= 20)
+				{
+					tex = quickTexture("critter_A_green");
+				}
+				else if(health <= 35)
+				{
+					tex = quickTexture("critter_A_pink");
+				}
+				
+				
+				//Critter moved to the next tile so change the start tile and next tile for it
+				if(critterMovedOneTile)
 				{	
-					startTile=nextTile;
-					x=startTile.getX();
-					y=startTile.getY();
-					pathStepIndex++;
-					this.nextTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(pathStepIndex+1)), 
-							CoordinateConverter.getXCordinate(Path.continousPath.get(pathStepIndex+1)));
-					critterMovedOneTile=false;
+					if(pathStepIndex<Path.continousPath.size()-2)
+					{	
+						startTile=nextTile;
+						x=startTile.getX();
+						y=startTile.getY();
+						pathStepIndex++;
+						this.nextTile = View.grid.getTile(CoordinateConverter.getYCordinate(Path.continousPath.get(pathStepIndex+1)), 
+								CoordinateConverter.getXCordinate(Path.continousPath.get(pathStepIndex+1)));
+						critterMovedOneTile=false;
+					}
 				}
 			}
+			if(stopCounter == 0)
+			{
+				isStopped = false;
+				setSpeed(2);
+			}
 		}
-		/*
-		 * notify the tower about criter movement
-		 */
+	}
+	
+	public void setFreezeTimer()
+	{
+		setSpeed(0);
+		stopCounter = 30;
+		isStopped = true;
 	}
 }

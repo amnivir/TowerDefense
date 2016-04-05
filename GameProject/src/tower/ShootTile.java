@@ -171,7 +171,6 @@ public class ShootTile extends Tower
 						
 						else if(effectType == EffectType.freeze)
 						{
-							Wave.setFrozen(true);
 							setFreezeTimer();
 						}
 					}
@@ -198,21 +197,9 @@ public class ShootTile extends Tower
 	
 	public void setFreezeTimer()
 	{
-		if(isFreezeInProgress)
+		for(Critter critter : Wave.getCritterList())
 		{
-			freezeTimer.cancel();
+			 critter.setFreezeTimer();
 		}
-		
-		isFreezeInProgress = true;
-		System.out.println("Critter wave is frozen");
-		
-		freezeTimer.schedule(new TimerTask() {
-	        @Override
-	        public void run() {
-	            Wave.setFrozen(false);
-	            isFreezeInProgress = false;
-	            System.out.println("critter wave is moving");
-	        }
-	    },1000);
 	}
 }
