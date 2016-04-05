@@ -3,10 +3,13 @@
  */
 package map;
 
+import static graphics.Designer.quickTexture;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,6 +20,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.lwjgl.Sys;
 
+import tower.Tower;
+import tower.TowerBomb;
+import tower.TowerCannon;
+import tower.TowerFactory;
+import tower.TowerFreez;
 import ai.Path;
 import ai.PathValidationCode;
 import main.GameStateManager;
@@ -46,6 +54,19 @@ public class GameScreenManager
 	
 	@XmlElement
 	private String gameState;
+
+	
+	@XmlElement
+	public List<TowerCannon> towerCannonList = new ArrayList<TowerCannon>();
+	
+	/*@XmlElement
+	private List<TowerBomb> towerBombList = new ArrayList<TowerBomb>();
+	
+	@XmlElement
+	private List<TowerFreez> towerFreezList = new ArrayList<TowerFreez>();
+	*/
+	
+	public static GameScreenManager readSavedGame = null;
 	
 	public GameScreenManager()
 	{
@@ -89,6 +110,38 @@ public class GameScreenManager
 		
 		gameState = GameStateManager.getGameState().toString();
 		
+
+		
+		for ( TowerCannon temp : TileGrid.cannonList) 
+        {	
+           
+            {
+            	System.out.println("Tower Found! "+temp.getX()+" "+temp.getY());
+            	gs.towerCannonList.add(temp);
+            	
+            }
+        }
+		
+/*		for ( TowerFreez temp : TileGrid.freezList) 
+        {	
+           
+            {
+            	System.out.println("Tower Found! "+temp.getX()+" "+temp.getY());
+            	gs.towerFreezList.add(temp);
+            	
+            }
+        }
+		
+		for ( TowerBomb temp : TileGrid.bombList) 
+        {	
+           
+            {
+            	System.out.println("Tower Found! "+temp.getX()+" "+temp.getY());
+            	gs.towerBombList.add(temp);
+            	
+            }
+        }*/
+		
 		System.out.println(pathCordinates);
 		System.out.println((this.noRows) + (this.noColumns));
 		
@@ -118,7 +171,7 @@ public class GameScreenManager
 	 */
 	public int[][]  loadMap(String mapFileName)
 	{	
-		GameScreenManager readSavedGame = null;
+		
 		System.out.println("Loading Game..  " + mapFileName);
 		File file = new File(mapFileName);
 		JAXBContext jaxbContext;
@@ -150,6 +203,12 @@ public class GameScreenManager
 		{
 			TileGrid.pathCordinate.add(coordinate);
 		}
+		
+		
+		
+		//System.out.println("Value from saved map="+readSavedGame.towerCannonList.get(0).getX()+" "+readSavedGame.towerCannonList.get(0).getY());
+        
+		
 		return readSavedGame.tileCoordinates;
 	}
 	

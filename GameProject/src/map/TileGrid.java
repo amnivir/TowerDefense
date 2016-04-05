@@ -74,15 +74,31 @@ public class TileGrid
                 switch(newMap[j][i])
                 {
                 case 0:
-                    System.out.println((i) + " " + (j));
                     map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.Grass);
                     break;
+                
                 case 1:
                     map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.Dirt);
                     break;
+                
                 case 2:
                     map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.Water);
                     break;	
+                
+                case 3:
+                	map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.TowerCannon);
+                    break;
+                
+                case 4:
+                	map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.TowerBomb);
+                    break;
+                    
+                case 7:
+                	map[i][j] = new Tile(i * blockSize, j * blockSize, blockSize, blockSize, TileType.TowerFreez);
+                    break;
+                    
+                
+                
                 }
             }
         }

@@ -6,6 +6,10 @@ import static graphics.Designer.quickTexture;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
@@ -23,17 +27,40 @@ import utility.Wave;
 /**
  * This is abstract Tower class 
  */
+@XmlRootElement
 public abstract class Tower 
-{
-	protected float x, y, width, height, speed, lastShootTime, speedOfFire;
+{	
+	@XmlElement
+	protected float x;
+    @XmlElement
+	protected float y;
+    @XmlTransient
+    protected float width;
+    @XmlTransient
+    protected float height;
+    @XmlTransient
+    protected float speed;
+    @XmlTransient
+    protected float lastShootTime;
+    @XmlTransient
+    protected float speedOfFire;
+    @XmlTransient
 	protected int damage;
+    @XmlTransient
 	protected int range;
+    @XmlTransient
 	protected Tile startTile;
+    @XmlTransient
 	protected Texture texture, cannonTexture;
-	protected int price;
+    @XmlTransient
+    protected int price;
+    @XmlTransient
 	protected static ArrayList<ShootTile> shootTiles;
-	protected float angle;
+    @XmlTransient
+    protected float angle;
+    @XmlTransient
 	public ShootStrategyEnum strategyTile = ShootStrategyEnum.closestCritter;
+    @XmlTransient
 	String name;
 	
 	/**
@@ -327,6 +354,7 @@ public abstract class Tower
 	 * @return
 	 */
 	
+	@XmlTransient
 	public float getX()
 	{
 		return x;
@@ -337,6 +365,7 @@ public abstract class Tower
 		this.x = x;
 	}
 	
+	@XmlTransient
 	public float getY() 
 	{
 		return y;
@@ -346,7 +375,7 @@ public abstract class Tower
 	{
 		this.y = y;
 	}
-	
+	@XmlTransient
 	public float getWidth()
 	{
 		return width;
@@ -356,6 +385,8 @@ public abstract class Tower
 	{
 		this.width = width;
 	}
+	
+	@XmlTransient
 	public float getHeight()
 	{
 		return height;
@@ -386,6 +417,7 @@ public abstract class Tower
 		this.range = range;
 	}
 	
+	@XmlTransient
 	public Tile getStartTile() 
 	{
 		return startTile;
@@ -396,6 +428,7 @@ public abstract class Tower
 		this.startTile = startTile;
 	}
 	
+	@XmlTransient
 	public int getPrice() 
 	{
 		return price;
@@ -411,6 +444,7 @@ public abstract class Tower
 		this.texture = texture;
 	}
 	
+	@XmlTransient
 	public Texture getTexture() 
 	{
 		return null;

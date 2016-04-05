@@ -15,6 +15,7 @@ import map.TileType;
 
 
 
+
 //import org.hamcrest.CoreMatchers;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -67,6 +68,7 @@ public class View
 			}
 			case 2:
 			{
+				
 				this.loadGame();
 				break;
 			}
@@ -89,6 +91,11 @@ public class View
 		 * Create singleton for grid
 		 */
 		grid = new TileGrid(map, noRows, noColumns);//draws the green tiles
+		
+
+        TowerCannon temp=(TowerCannon) TowerFactory.getTower("cannon", quickTexture("cannonBase"), new Tile(GameScreenManager.readSavedGame.towerCannonList.get(0).getX(), GameScreenManager.readSavedGame.towerCannonList.get(0).getY(), 32, 32, TileType.TowerCannon));
+        
+        TileGrid.cannonList.add(temp);
 		gameScreen = new GameScreenManager(grid);
 
 		//Add obervers to player

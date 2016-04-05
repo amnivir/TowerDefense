@@ -2,10 +2,12 @@ package tower;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import main.Controller;
 import map.Tile;
 import utility.Clock;
-
 import static graphics.Designer.*;
 
 import org.newdawn.slick.opengl.Texture;
@@ -15,6 +17,7 @@ import org.newdawn.slick.opengl.Texture;
  * @author Rashpal
  *
  */
+
 public class TowerCannon extends Tower 
 {
 	/**
@@ -37,5 +40,11 @@ public class TowerCannon extends Tower
 		this.speedOfFire = 30; 			//speed of firing the bullets
 		this.lastShootTime = 0;			 //the time for last shooted bullet
 		this.shootTiles = new ArrayList<ShootTile>(); //list of bullets
+	}
+	
+	public TowerCannon()
+	{
+
+	
 	}
 }
