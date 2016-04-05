@@ -17,7 +17,7 @@ import org.newdawn.slick.opengl.Texture;
  * @author Rashpal
  *
  */
-
+@XmlRootElement(name="TowerCannon")
 public class TowerCannon extends Tower 
 {
 	/**

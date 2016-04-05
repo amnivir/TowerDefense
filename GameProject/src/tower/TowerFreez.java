@@ -6,6 +6,8 @@ import static graphics.Designer.*;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -13,6 +15,7 @@ import org.newdawn.slick.opengl.Texture;
  * @author Rashpal
  *
  */
+@XmlRootElement(name="TowerFreeze")
 public class TowerFreez extends Tower 
 {
 

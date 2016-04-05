@@ -55,15 +55,8 @@ public class GameScreenManager
 	@XmlElement
 	private String gameState;
 
-	
 	@XmlElement
-	public List<TowerCannon> towerCannonList = new ArrayList<TowerCannon>();
-	
-	@XmlElement
-	public List<TowerBomb> towerBombList = new ArrayList<TowerBomb>();
-	
-	@XmlElement
-	public List<TowerFreez> towerFreezList = new ArrayList<TowerFreez>();
+	public List<Tower> towerList = new ArrayList<Tower>();
 	
 	public static GameScreenManager readSavedGame = null;
 	
@@ -116,7 +109,7 @@ public class GameScreenManager
            
             {
             	System.out.println("Tower Found! "+temp.getX()+" "+temp.getY());
-            	gs.towerCannonList.add(temp);
+            	gs.towerList.add(temp);
             	
             }
         }
@@ -126,7 +119,7 @@ public class GameScreenManager
            
             {
             	System.out.println("Tower Found! "+temp.getX()+" "+temp.getY());
-            	gs.towerFreezList.add(temp);
+            	gs.towerList.add(temp);
             	
             }
         }
@@ -136,7 +129,7 @@ public class GameScreenManager
            
             {
             	System.out.println("Tower Found! "+temp.getX()+" "+temp.getY());
-            	gs.towerBombList.add(temp);
+            	gs.towerList.add(temp);
             	
             }
         }
@@ -202,11 +195,7 @@ public class GameScreenManager
 		{
 			TileGrid.pathCordinate.add(coordinate);
 		}
-		
-		
-		
-		//System.out.println("Value from saved map="+readSavedGame.towerCannonList.get(0).getX()+" "+readSavedGame.towerCannonList.get(0).getY());
-        
+		        
 		
 		return readSavedGame.tileCoordinates;
 	}

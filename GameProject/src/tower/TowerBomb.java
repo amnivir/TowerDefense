@@ -6,12 +6,15 @@ import static graphics.Designer.*;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.newdawn.slick.opengl.Texture;
 /**
  * This class is a sub class of Tower with more specific characteristic
  * @author Rashpal
  *
  */
+@XmlRootElement(name="TowerBonb")
 public class TowerBomb extends Tower 
 {
 	/**
