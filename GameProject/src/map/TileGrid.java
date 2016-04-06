@@ -210,6 +210,9 @@ public class TileGrid
                     bombList.add((TowerBomb) TowerFactory.getTower("bomb", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
 
                     System.out.println("Your current money is " + Controller.money);
+                    
+                    //Logging
+                    System.out.println("save bomb tower in log");
                 }
                 else
                 {
@@ -237,6 +240,9 @@ public class TileGrid
                     //calling factory method to make the object of
                     freezList.add((TowerFreez) TowerFactory.getTower("freez", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
                     System.out.println("Your current money is " + Controller.money);
+                    //Logging
+                    System.out.println("save Freez tower in log");
+                
                 }
                 else
                 {
@@ -262,6 +268,9 @@ public class TileGrid
                     map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
                     cannonList.add( (TowerCannon) TowerFactory.getTower("cannon", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
                     System.out.println("Your current money is " + Controller.money);
+                    //Logging
+                    System.out.println("save cannon tower in log");
+                
                 }
                 else
                 {

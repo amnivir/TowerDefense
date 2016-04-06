@@ -88,10 +88,11 @@ public class Controller extends Observable
 
                     else if(Mouse.isButtonDown(1)) // if right mouse key is pressed
                     {
-                        System.out.println("press 'X' to sell the tower");// or press 'U' to update its Range or 'D' to see its description");
-                        System.out.println("press 'U' to upgrade its Damage);// or 'D' to see its description");
-                        System.out.println("press 'R' to upgrade its Range");// or 'D' to see its description");
+                        System.out.println("press 'X' to sell the tower");
+                        System.out.println("press 'U' to upgrade its Damage");
+                        System.out.println("press 'R' to upgrade its Range");
                         System.out.println("press 'D' to see its description");
+                        System.out.println("press 'L' to see its Log");
 
                         if(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT - Mouse.getY() - 1) / blockSize)).getType().textureName == "cannonBase")
                         {
@@ -135,19 +136,21 @@ public class Controller extends Observable
                     {
                         currentTile = TileType.TowerCannon;
                         TileGrid.towerCannon.description();
-                        //TileGrid.towerCannon.preaperShoot();
+                        System.out.println("Log for all Cannon towers");
                     }
 
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 1)
                     {
                         currentTile = TileType.TowerBomb;
                         TileGrid.towerBomb.description();
+                        System.out.println("Log for all Bomb towers");
                     }
 
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 2)
                     {
                         currentTile = TileType.TowerFreez;
                         TileGrid.towerFreez.description();
+                        System.out.println("Log for all Freez towers");
                     }
                 }
 
@@ -173,7 +176,6 @@ public class Controller extends Observable
                                 }
                             GameStateManager.setGameState("PLAY");
                             Wave.resetCritterCounter();
-//                            TileGrid.upGradeTowers();
                         }
                         else
                         {
@@ -186,30 +188,22 @@ public class Controller extends Observable
                 {		
                     if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 1)
                     {	
-//                        System.out.println("Shooting strategy changed: shoot closet critter");
-//                        Tower.strategyTile = ShootStrategyEnum.closestCritter;
                         Tower.setStrategy(tower,x,y,ShootStrategyEnum.closestCritter);
                     }
 
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 2)
                     {
-//                        System.out.println("Shooting strategy changed: shoot weakest critter");
-//                        Tower.strategyTile = ShootStrategyEnum.weakestCritter;
-                        Tower.setStrategy(tower,x,y,ShootStrategyEnum.weakestCritter);
+                    	Tower.setStrategy(tower,x,y,ShootStrategyEnum.weakestCritter);
                     }
                     
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns()+3)
                     {
-//                        System.out.println("Shooting strategy changed: shoot strongest critter");
-//                        Tower.strategyTile = ShootStrategyEnum.strongestCritter;
-                        Tower.setStrategy(tower,x,y,ShootStrategyEnum.strongestCritter);
+                    	Tower.setStrategy(tower,x,y,ShootStrategyEnum.strongestCritter);
                     }
                     
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns()+4)
                     {
-//                        System.out.println("Shooting strategy changed: shoot critter near to end");
-//                        Tower.strategyTile = ShootStrategyEnum.nearToEndCritter;
-                        Tower.setStrategy(tower,x,y,ShootStrategyEnum.nearToEndCritter);
+                    	Tower.setStrategy(tower,x,y,ShootStrategyEnum.nearToEndCritter);
                     }
                     
                 }
@@ -230,11 +224,14 @@ public class Controller extends Observable
                 {
                     View.gameScreen.saveMap(grid.getTileMatrix(), View.gameScreen);
                 }
-                if (Keyboard.getEventKey() == Keyboard.KEY_L) 
+//                if (Keyboard.getEventKey() == Keyboard.KEY_L) 
+//                {
+//                    System.out.println("Loading the map");
+//                }
+                if (Keyboard.getEventKey() == Keyboard.KEY_G)
                 {
-                    System.out.println("Loading the map");
+                    System.out.println("log for all towers");
                 }
-
 
                 if(tower.equals("cannon tower") || tower.equals("bomb tower") || tower.equals("freez tower")) // all operation will perform on third click
                 {
@@ -285,14 +282,9 @@ public class Controller extends Observable
                         }
                     }
 
-                    if (Keyboard.getEventKey() == Keyboard.KEY_U) 
+                    if (Keyboard.getEventKey() == Keyboard.KEY_U)
                     {
-                        System.out.println("For increasing the range you will be charged $10");
-                        System.out.println("Press 'SPACE' to enhance the range or e for exit");
-                    }
-
-                    if (Keyboard.getEventKey() == Keyboard.KEY_SPACE)
-                    {
+                    	System.out.println("For increasing the damage you will be charged $10");
                         if(tower.equals("cannon tower"))
                         {					
                             for ( TowerCannon temp : TileGrid.cannonList)
@@ -332,6 +324,7 @@ public class Controller extends Observable
 
                     if (Keyboard.getEventKey() == Keyboard.KEY_R)
                     {
+                    	System.out.println("For increasing the range you will be charged $10");
                         if(tower.equals("cannon tower"))
                         {					
                             for ( TowerCannon temp : TileGrid.cannonList)
@@ -397,6 +390,35 @@ public class Controller extends Observable
                             }
                         }
                     }
+                    if (Keyboard.getEventKey() == Keyboard.KEY_L) 
+                    {
+                        {
+                            for(TowerBomb cannonBomb : TileGrid.bombList )
+                            {
+                                if(x==cannonBomb.getX()/ blockSize && y== cannonBomb.getY()/ blockSize)
+                                    System.out.println("Log of perticular tower");
+                            }
+
+                        }
+                        if(tower.equals("freez tower"))
+                        {
+                            for(TowerFreez freezTower : TileGrid.freezList )
+                            {
+                                if(x==freezTower.getX()/ blockSize && y== freezTower.getY()/ blockSize)
+                                	System.out.println("Log of perticular tower");
+                            }
+
+                        }
+                        if(tower.equals("cannon tower"))
+                        {
+                            for(TowerCannon cannonTower : TileGrid.cannonList )
+                            {
+                                if(x==cannonTower.getX()/ blockSize && y== cannonTower.getY()/ blockSize)
+                                	System.out.println("Log of perticular tower");
+                            }
+                        }
+                    }
+                    
                 }
             }
         }

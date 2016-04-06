@@ -265,11 +265,11 @@ public abstract class Critter
 	
 	public void drawTex()
 	{
-		if(health < 50)
+		if(this.health < 50 && this.health > 25)
 		{
 			tex = quickTexture("critter_A_green");
 		}
-		else if(health <= health/2)
+		else if(this.health <= 25)
 		{
 			tex = quickTexture("critter_A_pink");
 		}
