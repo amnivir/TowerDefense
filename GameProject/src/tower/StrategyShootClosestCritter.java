@@ -22,7 +22,7 @@ public class StrategyShootClosestCritter extends Tower implements Strategy {
 		
 //		System.out.println(x+" "+y+" "+speedofBullet+" "+damage+" "+effectType.toString()+" "+strategyTile.name()+" "+targetTile.getX()+" "+targetTile.getY());
 		
-		shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, speedofBullet, damage, effectType, strategyTile, closestCritter));
+		Tower.shootTiles.add(new ShootTile(quickTexture("bullet"), x, y, speedofBullet, damage, effectType, strategyTile, closestCritter));
 		return 0;
 	}
 

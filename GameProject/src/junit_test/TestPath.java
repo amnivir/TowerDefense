@@ -64,7 +64,7 @@ public class TestPath extends TestCase
 		TileGrid.pathCordinate.addAll(Arrays.asList(pathList));
 		assertEquals(PathValidationCode.PATH_MANY_EXIT_ENTRY, Path.isPathValid());
 	}
-	
+	@Test
 	public void testIsPathValid_PathManyRoutesFound()
 	{
 		TileGrid.pathCordinate.add(1);
