@@ -58,12 +58,12 @@ public class TestGameScreenManager
 	/**
 	 * Test method for {@link map.GameScreenManager#saveMap()}.
 	 */
-	@Test
-	public void testSaveMap()
-	{
-		gamescreen = new GameScreenManager();
-		assertTrue("Map not saved", gamescreen.saveMap(tileArray,gamescreen));
-	}
+//	@Test
+//	public void testSaveMap()
+//	{
+//		gamescreen = new GameScreenManager();
+//		assertTrue("Map not saved", gamescreen.saveMap(tileArray,gamescreen));
+//	}
 
 	@Test
 	public void testGetGameState()

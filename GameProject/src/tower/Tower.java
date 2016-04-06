@@ -125,7 +125,7 @@ public abstract class Tower
 	 * Method that increases the damage the tower
 	 * @return
 	 */
-	public void upgrade()
+	public boolean upgrade()
 	{
 		if(Controller.money >= 10)
 		{
@@ -133,18 +133,20 @@ public abstract class Tower
 			this.damage += 10;
 			System.out.println(this.name+"'s updated damage power:" + this.damage);
 			System.out.println("Your Current Money: &" + Controller.money);
+			return true;
 		}
 		else
 		{
 			System.out.println("Sorry your money is less the price to update the tower");
-			System.out.println("Your Current Money: &" + Controller.money);	
+			System.out.println("Your Current Money: &" + Controller.money);
+			return false;
 		}	
 	}
 	/**
 	 * Method that increases the range the tower
 	 * @return
 	 */
-	public int upgradeRange()
+	public boolean upgradeRange()
 	{
 		if(Controller.money >= 10)
 		{
@@ -152,14 +154,14 @@ public abstract class Tower
 			this.range +=1;
 			System.out.println("Upgraded Range "+(this.range-1));
 			System.out.println("Your Current Money: &" + Controller.money);
+			return true;
 		}
 		else
 		{
 			System.out.println("Sorry your money is less the price to update the tower");
-			System.out.println("Your Current Money: &" + Controller.money);	
+			System.out.println("Your Current Money: &" + Controller.money);
+			return false;
 		}
-		
-		return 0;
 	}
 
 	
@@ -475,7 +477,7 @@ public abstract class Tower
 
 
 
-	public static void setStrategy(String tower, int x, int y,ShootStrategyEnum strategy) 
+	public static String setStrategy(String tower, int x, int y,ShootStrategyEnum strategy) 
 	{
 		int blockSize=32;
 		if(tower.equals("cannon tower"))
@@ -512,5 +514,6 @@ public abstract class Tower
                 break;
             }
         }
+		return tower;
 	}
 }

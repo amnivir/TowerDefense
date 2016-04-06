@@ -22,6 +22,8 @@ import graphics.Designer;
 import graphics.Designer.*;
 import ai.Path;
 import ai.PathValidationCode;
+import tower.EffectType;
+import tower.ShootStrategyEnum;
 import tower.Tower;
 import tower.TowerBomb;
 import tower.TowerCannon;
@@ -57,9 +59,9 @@ public class TestTower extends TestCase
 	public void setUp() throws Exception 
 	{
 		beginSession(5,5);
-		t1=new TowerFactory().getTower("freez", Designer.quickTexture("freezBase"),new Tile(0, 0, 32, 32, TileType.TowerFreez));
-		t2=new TowerFactory().getTower("bomb", Designer.quickTexture("bombBase"),new Tile(0, 0, 32, 32, TileType.TowerBomb));
-		t3=new TowerFactory().getTower("cannon", Designer.quickTexture("cannonBase"),new Tile(0, 0, 32, 32, TileType.TowerCannon));
+		t1=TowerFactory.getTower("freez", Designer.quickTexture("freezBase"),new Tile(0, 0, 32, 32, TileType.TowerFreez));
+		t2=TowerFactory.getTower("bomb", Designer.quickTexture("bombBase"),new Tile(0, 0, 32, 32, TileType.TowerBomb));
+		t3=TowerFactory.getTower("cannon", Designer.quickTexture("cannonBase"),new Tile(0, 0, 32, 32, TileType.TowerCannon));
 		Controller.money=100;
 	}
 
@@ -115,7 +117,7 @@ public class TestTower extends TestCase
 	@Test
 	public void testFreezRange()
 	{
-		assertEquals(t1.getDamage(),30);
+		assertEquals(t1.getRange(),5);
 		Display.destroy();
 	}
 	
@@ -129,7 +131,7 @@ public class TestTower extends TestCase
 	@Test
 	public void testBombRange() 
 	{
-		assertEquals(t2.getDamage(),20);
+		assertEquals(t2.getRange(),4);
 		Display.destroy();
 	}
 	
@@ -143,14 +145,13 @@ public class TestTower extends TestCase
 	@Test
 	public void testCannonRange() 
 	{
-		assertEquals(t3.getDamage(),10);
+		assertEquals(t3.getRange(),3);
 		Display.destroy();
 	}
 	
 	@Test
-	public void testSell() 
+	public void testFreezSell() 
 	{
-		t1 = new TowerFactory().getTower("freez", Designer.quickTexture("freezBase"),new Tile(0, 0, 32, 32, TileType.TowerFreez));
 		int originalMoney = Controller.money;
 		int towerPrice = t1.getPrice();
 		int expectedValue = originalMoney + towerPrice;
@@ -158,6 +159,102 @@ public class TestTower extends TestCase
 		t1.sell();
 		int actualValue = Controller.money;
 		assertEquals(expectedValue, actualValue);
+		Display.destroy();
+	}
+	@Test
+	public void testCannonSell() 
+	{
+		int originalMoney = Controller.money;
+		int towerPrice = t3.getPrice();
+		int expectedValue = originalMoney + towerPrice;
+		
+		t3.sell();
+		int actualValue = Controller.money;
+		assertEquals(expectedValue, actualValue);
+		Display.destroy();
+	}
+	@Test
+	public void testBombSell() 
+	{
+		int originalMoney = Controller.money;
+		int towerPrice = t2.getPrice();
+		int expectedValue = originalMoney + towerPrice;
+		
+		t2.sell();
+		int actualValue = Controller.money;
+		assertEquals(expectedValue, actualValue);
+		Display.destroy();
+	}
+	@Test
+	public void testBombSetStrategy() 
+	{
+		assertEquals("bomb tower",Tower.setStrategy("bomb tower", 0, 0, ShootStrategyEnum.closestCritter));
+		Display.destroy();
+	}
+	@Test
+	public void testFreezSetStrategy() 
+	{
+		assertEquals("freez tower",Tower.setStrategy("freez tower", 0, 0, ShootStrategyEnum.closestCritter));
+		Display.destroy();
+	}
+	@Test
+	public void testCannonSetStrategy() 
+	{
+		assertEquals("cannon tower",Tower.setStrategy("cannon tower", 0, 0, ShootStrategyEnum.closestCritter));
+		Display.destroy();
+	}
+	@Test
+	public void testCannonEffect() 
+	{
+		assertEquals(EffectType.cannon,t3.getTowerEffectType());
+		Display.destroy();
+	}
+	@Test
+	public void testBombEffect() 
+	{
+		assertEquals(EffectType.bomb,t2.getTowerEffectType());
+		Display.destroy();
+	}
+	@Test
+	public void testFreezEffect() 
+	{
+		assertEquals(EffectType.freeze,t1.getTowerEffectType());
+		Display.destroy();
+	}
+	@Test
+	public void testFreezUpgrade() 
+	{
+		assertEquals(true,t1.upgrade());
+		Display.destroy();
+	}
+	@Test
+	public void testCannonUpgrade() 
+	{
+		assertEquals(true,t3.upgrade());
+		Display.destroy();
+	}
+	@Test
+	public void testBombUpgrade() 
+	{
+		assertEquals(true,t2.upgrade());
+		Display.destroy();
+	}
+	@Test
+	public void testFreezUpgradeRange() 
+	{
+		assertEquals(true,t1.upgradeRange());
+		Display.destroy();
+	}
+	@Test
+	public void testCannonUpgradeRange() 
+	{
+		assertEquals(true,t3.upgradeRange());
+		Display.destroy();
+	}
+	@Test
+	public void testBombUpgradeRange() 
+	{
+		assertEquals(true,t2.upgradeRange());
 		Display.destroy();
 	}
 }
