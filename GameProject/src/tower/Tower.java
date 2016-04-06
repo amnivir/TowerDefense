@@ -98,7 +98,7 @@ public abstract class Tower
 	{
 		System.out.println("-----Discription of "+this.name+"-----");
 		System.out.println("Tower's damage power " + this.damage);
-		System.out.println("Tower range " + this.range);
+		System.out.println("Tower range " + (this.range-1));
 		System.out.println("Price of tower $" + this.price);
 		System.out.println();
 	}
@@ -122,7 +122,7 @@ public abstract class Tower
 	}
 	
 	/**
-	 * Method that increases the range the tower
+	 * Method that increases the damage the tower
 	 * @return
 	 */
 	public void upgrade()
@@ -139,6 +139,27 @@ public abstract class Tower
 			System.out.println("Sorry your money is less the price to update the tower");
 			System.out.println("Your Current Money: &" + Controller.money);	
 		}	
+	}
+	/**
+	 * Method that increases the range the tower
+	 * @return
+	 */
+	public int upgradeRange()
+	{
+		if(Controller.money >= 10)
+		{
+			Controller.money = Controller.money - 10;
+			this.range +=1;
+			System.out.println("Upgraded Range "+(this.range-1));
+			System.out.println("Your Current Money: &" + Controller.money);
+		}
+		else
+		{
+			System.out.println("Sorry your money is less the price to update the tower");
+			System.out.println("Your Current Money: &" + Controller.money);	
+		}
+		
+		return 0;
 	}
 
 	

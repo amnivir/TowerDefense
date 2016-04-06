@@ -88,7 +88,10 @@ public class Controller extends Observable
 
                     else if(Mouse.isButtonDown(1)) // if right mouse key is pressed
                     {
-                        System.out.println("press 'X' to sell the tower or press 'U' to update its Range or 'D' to see its description");
+                        System.out.println("press 'X' to sell the tower");// or press 'U' to update its Range or 'D' to see its description");
+                        System.out.println("press 'U' to upgrade its Damage);// or 'D' to see its description");
+                        System.out.println("press 'R' to upgrade its Range");// or 'D' to see its description");
+                        System.out.println("press 'D' to see its description");
 
                         if(grid.getTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT - Mouse.getY() - 1) / blockSize)).getType().textureName == "cannonBase")
                         {
@@ -170,7 +173,7 @@ public class Controller extends Observable
                                 }
                             GameStateManager.setGameState("PLAY");
                             Wave.resetCritterCounter();
-                            TileGrid.upGradeTowers();
+//                            TileGrid.upGradeTowers();
                         }
                         else
                         {
@@ -327,6 +330,45 @@ public class Controller extends Observable
                         }
                     }
 
+                    if (Keyboard.getEventKey() == Keyboard.KEY_R)
+                    {
+                        if(tower.equals("cannon tower"))
+                        {					
+                            for ( TowerCannon temp : TileGrid.cannonList)
+                            {
+                                if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
+                                {
+                                    temp.upgradeRange();
+                                    break;
+                                }
+                            }
+                        }
+
+                        else if(tower.equals("bomb tower"))
+                        {
+                            for ( TowerBomb temp : TileGrid.bombList)
+                            {
+                                if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
+                                {
+                                	temp.upgradeRange();
+                                    break;
+                                }
+                            }
+                        }
+
+                        else if(tower.equals("freez tower"))
+                        {
+                            for ( TowerFreez temp : TileGrid.freezList) 
+                            {
+                                if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
+                                {
+                                	temp.upgradeRange();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
                     if (Keyboard.getEventKey() == Keyboard.KEY_D) 
                     {
                         {

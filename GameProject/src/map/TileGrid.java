@@ -399,24 +399,24 @@ public class TileGrid
 	/**
 	 * This method increases the range of towers by 1 tile
 	 */
-	public static void upGradeTowers()
-	{
-		if(Wave.numWavesCompleted > 0)
-		{
-			for(TowerCannon cannon: cannonList)
-			{
-				cannon.setRange(cannon.getRange()+1);
-			}
-			
-			for(TowerBomb towerBomb: bombList)
-			{
-				towerBomb.setRange(towerBomb.getRange()+1);
-			}
-			
-			for(TowerFreez towerFreeze: freezList)
-			{
-				towerFreeze.setRange(towerFreeze.getRange()+1);
-			}
-		}
-	}
+//	public static void upGradeTowers()
+//	{
+//		if(Wave.numWavesCompleted > 0)
+//		{
+//			for(TowerCannon cannon: cannonList)
+//			{
+//				cannon.setRange(cannon.getRange()+1);
+//			}
+//			
+//			for(TowerBomb towerBomb: bombList)
+//			{
+//				towerBomb.setRange(towerBomb.getRange()+1);
+//			}
+//			
+//			for(TowerFreez towerFreeze: freezList)
+//			{
+//				towerFreeze.setRange(towerFreeze.getRange()+1);
+//			}
+//		}
+//	}
 }
