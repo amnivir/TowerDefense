@@ -34,7 +34,7 @@ public class TowerCannon extends Tower
 		this.width = startTile.getWidth();
 		this.height = startTile.getHeight();
 		this.damage = 10;
-		this.range = 25000;
+		this.range = 2; // upto 2 tiles
 		this.texture = texture;
 		this.price = 30;
 		this.speedOfFire = 30; 			//speed of firing the bullets

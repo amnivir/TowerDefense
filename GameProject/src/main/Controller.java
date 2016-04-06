@@ -42,6 +42,7 @@ public class Controller extends Observable
     int x, y;//to get the current x coordinate and y coordinate of map
     int globalX, globalY;//to get the current x coordinate and y coordinate of tower for strategy
     boolean playTilePressedFirstTime=false;
+    
 
     private Controller()
     {
@@ -168,7 +169,8 @@ public class Controller extends Observable
                                  return;
                                 }
                             GameStateManager.setGameState("PLAY");
-                            Wave.resetCritterCounter();;
+                            Wave.resetCritterCounter();
+                            TileGrid.upGradeTowers();
                         }
                         else
                         {

@@ -117,7 +117,7 @@ public class ShootTile extends Tower
 						
 						if(effectType == EffectType.cannon )
 						{
-								critterTargets.get(0).reduceHealth(this.damage);
+								critterTargets.get(0).burn(this.damage);
 								System.out.println( "health->" + critterTargets.get(0).getHealth());
 								if(critterTargets.get(0).getHealth() <= 0)
 								{

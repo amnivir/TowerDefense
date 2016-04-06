@@ -33,7 +33,7 @@ public class TowerFreez extends Tower
 		this.width = startTile.getWidth();
 		this.height = startTile.getHeight();
 		this.damage = 30;
-		this.range = 10000;
+		this.range = 4; // upto 4 tiles
 		this.texture = texture;
 		this.price = 70;
 		this.speedOfFire = 30; 			//speed of firing the bullets
@@ -42,7 +42,6 @@ public class TowerFreez extends Tower
 	}
 	public TowerFreez()
 	{
-
 	
 	}
 }

@@ -12,6 +12,10 @@ import critter.CritterFactory;
 import main.View;
 import main.GameStateManager;
 import main.GameStateManager.GameState;
+import tower.Tower;
+import tower.TowerBomb;
+import tower.TowerCannon;
+import tower.TowerFreez;
 import tower.TowerNotification;
 import main.Controller;
 
@@ -29,6 +33,7 @@ public class Wave extends Observable
     private static int critterCounter = 0;	//No more than 3 counter in the wave
     public TowerNotification test;
     private int numOfCrittersCreated = 0; // num of critters actually created in the wave
+    public static int numWavesCompleted = 0; // num of waves completed
 
     public Wave(float spawnTime, String critterType)
     {
@@ -82,6 +87,8 @@ public class Wave extends Observable
                         GameStateManager.setGameState("IDLE");
                         System.out.println("Game state changed to IDLE");
                         numOfCrittersCreated = 0;
+                        numWavesCompleted++;
+                        
                     }
                 }
                 else

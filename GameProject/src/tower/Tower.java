@@ -236,7 +236,7 @@ public abstract class Tower
 		Critter closestCritter = null;
 		for(Critter critter: Wave.getCritterList())
 		{
-			float distance = (this.getX() - critter.getX())*(this.getX() - critter.getX()) + (this.getY() - critter.getY())*(this.getY() - critter.getY());
+			float distance = (float)(Math.sqrt((this.getX() - critter.getX())*(this.getX() - critter.getX()) + (this.getY() - critter.getY())*(this.getY() - critter.getY())))/32;
 			if(distance < closestDistance)
 			{
 				closestDistance = distance;
@@ -304,7 +304,7 @@ public abstract class Tower
 	 */
 	private boolean isCritterInRange(Critter critter)
 	{
-		float distance = (this.getX() - critter.getX())*(this.getX() - critter.getX()) + (this.getY() - critter.getY())*(this.getY() - critter.getY());
+		float distance = (float)(Math.sqrt((this.getX() - critter.getX())*(this.getX() - critter.getX()) + (this.getY() - critter.getY())*(this.getY() - critter.getY())))/32;
 		if (distance < this.range)
 			return true;
 		else
@@ -491,6 +491,5 @@ public abstract class Tower
                 break;
             }
         }
-		
 	}
 }

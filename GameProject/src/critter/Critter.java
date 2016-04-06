@@ -36,6 +36,7 @@ public abstract class Critter
 	public boolean isCriterAlive;
 	public boolean isStopped = false;
 	int stopCounter = 0;
+	int burnCounter = 0;
 	
 	/**
 	 * THis constructor initializes the next tile and last tile to the critter
@@ -213,15 +214,8 @@ public abstract class Critter
 						critterMovedOneTile=true;
 					}
 				}
-				if(health <= 20)
-				{
-					tex = quickTexture("critter_A_green");
-				}
-				else if(health <= 35)
-				{
-					tex = quickTexture("critter_A_pink");
-				}
 				
+				drawTex();
 				
 				//Critter moved to the next tile so change the start tile and next tile for it
 				if(critterMovedOneTile)
@@ -243,6 +237,15 @@ public abstract class Critter
 				isStopped = false;
 				setSpeed(2);
 			}
+			if(burnCounter == 0)
+			{
+				drawTex();
+			}
+			else
+			{
+				tex = quickTexture("critter_A_brownFire");
+				burnCounter--;
+			}
 		}
 	}
 	
@@ -251,5 +254,28 @@ public abstract class Critter
 		setSpeed(0);
 		stopCounter = 30;
 		isStopped = true;
+	}
+	
+	public void burn(int damage)
+	{
+		burnCounter = 30;
+		reduceHealth(damage);
+		
+	}
+	
+	public void drawTex()
+	{
+		if(health <= 20)
+		{
+			tex = quickTexture("critter_A_green");
+		}
+		else if(health <= 35)
+		{
+			tex = quickTexture("critter_A_pink");
+		}
+		else if(health > 35)
+		{
+			tex = quickTexture("critter_A_brown");
+		}
 	}
 }
