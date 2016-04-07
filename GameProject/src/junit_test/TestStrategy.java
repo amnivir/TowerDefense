@@ -43,31 +43,31 @@ public class TestStrategy extends TestCase
 	}
 	
 	@Test
-	public void testExecute()
+	public void testExecuteShootClosestCritter()
 	{	
 		Context context = new Context(new StrategyShootClosestCritter());	
 		assertEquals(0,context.executeStrategy(0,0,30,0,EffectType.bomb,ShootStrategyEnum.closestCritter, null));
 		Display.destroy();
 	}
 	@Test
-	public void testExecute1()
+	public void testExecuteShootWeakestCritter()
 	{	
 		Context context = new Context(new StrategyShootWeakestCritter());	
-		assertEquals(0,context.executeStrategy(0,0,30,0,EffectType.bomb,ShootStrategyEnum.closestCritter, null));
+		assertEquals(0,context.executeStrategy(0,0,30,0,EffectType.bomb,ShootStrategyEnum.weakestCritter, null));
 		Display.destroy();
 	}
 	@Test
-	public void testExecute2()
+	public void testExecuteShootStrongestCritter()
 	{	
 		Context context = new Context(new StrategyShootStrongestCritter());	
-		assertEquals(0,context.executeStrategy(0,0,30,0,EffectType.bomb,ShootStrategyEnum.closestCritter, null));
+		assertEquals(0,context.executeStrategy(0,0,30,0,EffectType.bomb,ShootStrategyEnum.strongestCritter, null));
 		Display.destroy();
 	}
 	@Test
-	public void testExecute3()
+	public void testExecuteShootNearestEndPointCritter()
 	{	
 		Context context = new Context(new StrategyShootNearestEndPointCritter());	
-		assertEquals(0,context.executeStrategy(0,0,30,0,EffectType.bomb,ShootStrategyEnum.closestCritter, null));
+		assertEquals(0,context.executeStrategy(0,0,30,0,EffectType.bomb,ShootStrategyEnum.nearToEndCritter, null));
 		Display.destroy();
 	}
 }
