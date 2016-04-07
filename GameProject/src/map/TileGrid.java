@@ -56,6 +56,7 @@ public class TileGrid
                 map[i][j] = new Tile((i + width) * blockSize, j * blockSize, blockSize, blockSize, TileType.Water);
             }
         }
+        Log.addLogMessage(this.getClass().getSimpleName().toString() , "Map is initialized");
     }
 
     /**

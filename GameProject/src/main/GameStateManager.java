@@ -2,6 +2,8 @@ package main;
 
 import java.util.Observable;
 
+import utility.Log;
+
 /**
  * THis class maintains the state of the Game
  */
@@ -33,6 +35,7 @@ public class GameStateManager
 	{	
 		gameState = GameState.valueOf(state);
 		System.out.println("Game State changed to = " + GameStateManager.getGameState());
+		Log.addLogMessage("GameStateManager","State Changed to " +GameStateManager.getGameState() );
 		return gameState.ordinal();
 	}
 	

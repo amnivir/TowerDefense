@@ -25,6 +25,7 @@ import tower.TowerBomb;
 import tower.TowerCannon;
 import tower.TowerFactory;
 import tower.TowerFreez;
+import utility.Log;
 import ai.Path;
 import ai.PathValidationCode;
 import main.GameStateManager;
@@ -155,6 +156,7 @@ public class GameScreenManager
 			e.printStackTrace();
 			return false;
 		}
+		Log.addLogMessage("GameScreenManager" , "Game Saved");
 		return true;
 	}
 	
@@ -196,7 +198,7 @@ public class GameScreenManager
 			TileGrid.pathCordinate.add(coordinate);
 		}
 		        
-		
+		Log.addLogMessage("GameScreenManager" , "Game SLoaded");
 		return readSavedGame.tileCoordinates;
 	}
 	

@@ -54,12 +54,14 @@ public class Wave extends Observable
 
 		if(Clock.delta() < 1 && Clock.delta() > 0)
         {
+		    
             timeLastSpawn= timeLastSpawn + Clock.delta();
         }
 
         if(timeLastSpawn > spawnTime)
         {
             this.Spawn();
+            Log.addLogMessage(this.getClass().getSimpleName().toString(),"New Crritter created");
             timeLastSpawn = 0;
         }
 	
@@ -78,12 +80,14 @@ public class Wave extends Observable
                     if(Controller.money < 0)
                     {
                         GameStateManager.setGameState("END");
+                        Log.addLogMessage(this.getClass().getSimpleName().toString(),"Game Ends");
                         System.out.println("No Money left , Game END! " + GameStateManager.getGameState());
                         break;
                     }
 
                     if(critterList.size()==0 && numOfCrittersCreated >= numofCrittersInWave)
                     {
+                        Log.addLogMessage(this.getClass().getSimpleName().toString(),"All Critters Killed");
                         GameStateManager.setGameState("IDLE");
                         System.out.println("Game state changed to IDLE");
                         numOfCrittersCreated = 0;
