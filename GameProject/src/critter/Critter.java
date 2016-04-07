@@ -241,10 +241,16 @@ public abstract class Critter
 			{
 				drawTex();
 			}
+			//burning critter
 			else
 			{
 				tex = quickTexture("critter_A_brownFire");
 				burnCounter--;
+				if(burnCounter%6==0)
+				{
+					reduceHealth(1);
+					System.out.println("health->"+getHealth());
+				}
 			}
 		}
 	}
@@ -259,9 +265,8 @@ public abstract class Critter
 	
 	public void burn(int damage)
 	{
-		burnCounter = 30;
+		burnCounter = 30;	
 		reduceHealth(damage);
-		
 	}
 	
 	public void drawTex()
