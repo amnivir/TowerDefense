@@ -171,7 +171,9 @@ public class ShootTile extends Tower
 						
 						else if(effectType == EffectType.freeze)
 						{
-							setFreezeTimer();
+							
+							setFreezeTimer(critterTargets.get(0));
+							System.out.println( "health->" + critterTargets.get(0).getHealth());
 						}
 					}
 				}
@@ -195,11 +197,8 @@ public class ShootTile extends Tower
 		return targetCritters;
 	}
 	
-	public void setFreezeTimer()
+	public void setFreezeTimer(Critter critter)
 	{
-		for(Critter critter : Wave.getCritterList())
-		{
-			 critter.setFreezeTimer();
-		}
+		critter.setFreezeTimer(this.damage);
 	}
 }

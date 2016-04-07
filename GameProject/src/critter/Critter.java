@@ -249,8 +249,9 @@ public abstract class Critter
 		}
 	}
 	
-	public void setFreezeTimer()
+	public void setFreezeTimer(int damage)
 	{
+		reduceHealth(damage);
 		setSpeed(0);
 		stopCounter = 30;
 		isStopped = true;

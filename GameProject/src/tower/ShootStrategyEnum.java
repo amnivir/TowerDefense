@@ -1,5 +1,6 @@
 package tower;
 
-public enum ShootStrategyEnum {
+public enum ShootStrategyEnum 
+{
 	closestCritter, weakestCritter, strongestCritter, nearToEndCritter
 }

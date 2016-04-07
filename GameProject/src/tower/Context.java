@@ -27,6 +27,4 @@ public class Context {
 		strategy.execute(x,y,speedOfBullet,damage,effectType,strategyTile,Critter);
 		return 0;
 	}
-
-
 }
