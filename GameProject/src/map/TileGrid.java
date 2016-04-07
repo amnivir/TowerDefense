@@ -4,6 +4,7 @@ import static graphics.Designer.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -13,6 +14,7 @@ import tower.TowerBomb;
 import tower.TowerCannon;
 import tower.TowerFactory;
 import tower.TowerFreez;
+import utility.Log;
 import utility.Wave;
 import ai.Path;
 import main.View;
@@ -211,8 +213,9 @@ public class TileGrid
 
                     System.out.println("Your current money is " + Controller.money);
                     
-                    //Logging
-                    System.out.println("save bomb tower in log");
+                  //Logging the last created object
+                    String towerInfo = bombList.get(bombList.size()-1).getClass().getSimpleName().toString() + String.valueOf(xCoord) + String.valueOf(yCoord);
+                    Log.addLogMessage(towerInfo, "tower bought");
                 }
                 else
                 {
@@ -240,8 +243,9 @@ public class TileGrid
                     //calling factory method to make the object of
                     freezList.add((TowerFreez) TowerFactory.getTower("freez", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord]));
                     System.out.println("Your current money is " + Controller.money);
-                    //Logging
-                    System.out.println("save Freez tower in log");
+                  //Logging the last created object
+                    String towerInfo = freezList.get(freezList.size()-1).getClass().getSimpleName().toString() + String.valueOf(xCoord) + String.valueOf(yCoord);
+                    Log.addLogMessage(towerInfo, "tower bought");
                 
                 }
                 else
@@ -261,15 +265,16 @@ public class TileGrid
             { 
                 boolean flag = towerCannon.buy();
                 if(flag == true)
-                {
+                {	
                     System.out.println("You buy cannon tower");
                     System.out.println("Cannon Tower placed");
                     map[xCoord][yCoord].setType(tile);
                     map[xCoord][yCoord].setTexture(quickTexture(tile.textureName));
                     cannonList.add( (TowerCannon) TowerFactory.getTower("cannon", map[xCoord][yCoord].getTexture(), map[xCoord][yCoord] ));
                     System.out.println("Your current money is " + Controller.money);
-                    //Logging
-                    System.out.println("save cannon tower in log");
+                    //Logging the last created object
+                    String towerInfo = cannonList.get(cannonList.size()-1).getClass().getSimpleName().toString() + String.valueOf(xCoord) + String.valueOf(yCoord);
+                    Log.addLogMessage(towerInfo, "tower bought");
                 
                 }
                 else
