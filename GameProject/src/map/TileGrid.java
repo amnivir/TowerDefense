@@ -379,10 +379,13 @@ public class TileGrid
 		
 		for ( Tower temp : GameScreenManager.readSavedGame.towerList ) 
         {
+			String towerInfo = temp.getClass().getSimpleName().toString() + temp.getX()/32 + temp.getY()/32;
+            Log.addLogMessage(towerInfo, "tower Loaded");
+        
+			
 		    if(temp instanceof TowerCannon)
 			{
-		        System.out.println(temp.getClass());
-				TowerCannon ref=(TowerCannon) TowerFactory.getTower("cannon", quickTexture("cannonBase"), new Tile(temp.getX(), temp.getY(), 32, 32, TileType.TowerCannon));
+		        TowerCannon ref=(TowerCannon) TowerFactory.getTower("cannon", quickTexture("cannonBase"), new Tile(temp.getX(), temp.getY(), 32, 32, TileType.TowerCannon));
 				ref.setDamage(temp.getDamage());
 				ref.setRange(temp.getRange());
 				TileGrid.cannonList.add(ref);
@@ -391,8 +394,8 @@ public class TileGrid
 		
 		    else if(temp instanceof TowerBomb)
         
-			{    System.out.println(temp.getClass());
-				TowerBomb ref=(TowerBomb) TowerFactory.getTower("bomb", quickTexture("cannonBase"), new Tile(temp.getX(), temp.getY(), 32, 32, TileType.TowerBomb));
+			{   
+		    	TowerBomb ref=(TowerBomb) TowerFactory.getTower("bomb", quickTexture("cannonBase"), new Tile(temp.getX(), temp.getY(), 32, 32, TileType.TowerBomb));
 				ref.setDamage(temp.getDamage());
 				ref.setRange(temp.getRange());
 				TileGrid.bombList.add(ref);
@@ -400,8 +403,8 @@ public class TileGrid
         
 		 
 		    else if(temp instanceof TowerFreez)
-			{    System.out.println(temp.getClass());
-				TowerFreez ref=(TowerFreez) TowerFactory.getTower("freez", quickTexture("cannonBase"), new Tile(temp.getX(), temp.getY(), 32, 32, TileType.TowerFreez));
+			{   
+		    	TowerFreez ref=(TowerFreez) TowerFactory.getTower("freez", quickTexture("cannonBase"), new Tile(temp.getX(), temp.getY(), 32, 32, TileType.TowerFreez));
 				ref.setDamage(temp.getDamage());
 				ref.setRange(temp.getRange());
 				TileGrid.freezList.add(ref);

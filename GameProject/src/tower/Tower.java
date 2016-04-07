@@ -24,6 +24,7 @@ import map.TileGrid;
 import map.TileType;
 import utility.Clock;
 import utility.CoordinateConverter;
+import utility.Log;
 import utility.Wave;
 /**
  * This is abstract Tower class 
@@ -98,7 +99,8 @@ public abstract class Tower
 	{
 		System.out.println("-----Discription of "+this.name+"-----");
 		System.out.println("Tower's damage power " + this.damage);
-		System.out.println("Tower range " + (this.range-1));
+		System.out.println("Tower range " + (this.range-1)+" tiles");
+		System.out.println("Tower strategy " +this.strategyTile);
 		System.out.println("Price of tower $" + this.price);
 		System.out.println();
 	}
@@ -152,7 +154,7 @@ public abstract class Tower
 		{
 			Controller.money = Controller.money - 10;
 			this.range +=1;
-			System.out.println("Upgraded Range "+(this.range-1));
+			System.out.println("Upgraded Range "+(this.range-1)+" tiles");
 			System.out.println("Your Current Money: &" + Controller.money);
 			return true;
 		}
@@ -488,7 +490,10 @@ public abstract class Tower
                 {
                 	temp.strategyTile=strategy;
                 	System.out.println("Shooting strategy changed: "+strategy+" of "+temp.name+" at "+temp.getX()/32+" "+temp.getY()/32);
-                    break;
+                	String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                    Log.addLogMessage(towerInfo, "strategy changed -> "+temp.strategyTile.toString());
+                    
+                	break;
                 }
             }
         }
@@ -501,6 +506,8 @@ public abstract class Tower
                 {
                 	temp.strategyTile=strategy;
                 	System.out.println("Shooting strategy changed: "+strategy+" of "+temp.name+" at "+temp.getX()/32+" "+temp.getY()/32);
+                	String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                    Log.addLogMessage(towerInfo, "strategy changed -> "+temp.strategyTile.toString());
                     break;
                 }
             }
@@ -511,6 +518,8 @@ public abstract class Tower
             {	
             	temp.strategyTile=strategy;
             	System.out.println("Shooting strategy changed: "+strategy+" of "+temp.name+" at "+temp.getX()/32+" "+temp.getY()/32);
+            	String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                Log.addLogMessage(towerInfo, "strategy changed -> "+temp.strategyTile.toString());
                 break;
             }
         }

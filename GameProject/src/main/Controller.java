@@ -137,23 +137,30 @@ public class Controller extends Observable
                     {
                         currentTile = TileType.TowerCannon;
                         TileGrid.towerCannon.description();
-                        System.out.println("Log for all Cannon towers");
-                        
-                        Log.printLogs(TileGrid.towerCannon.getClass().getSimpleName().toString());
+                        tower="cannon";
+                        System.out.println("press 'L' to see all Cannon Towers Log");
+
+                        System.out.println("press 'T' to see all Towers Log");
                     }
 
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 1)
                     {
                         currentTile = TileType.TowerBomb;
                         TileGrid.towerBomb.description();
-                        Log.printLogs(TileGrid.towerBomb.getClass().getSimpleName().toString());
+                        tower="bomb";
+                        System.out.println("press 'L' to see all Cannon Towers Log");
+                        
+                        System.out.println("press 'T' to see all Towers Log");
                     }
 
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 2)
                     {
                         currentTile = TileType.TowerFreez;
-                        TileGrid.towerFreez.description(); 
-                        Log.printLogs(TileGrid.towerFreez.getClass().getSimpleName().toString());
+                        TileGrid.towerFreez.description();
+                        tower="freez";
+                        System.out.println("press 'L' to see all Cannon Towers Log");
+                        
+                        System.out.println("press 'T' to see all Towers Log");
                     }
                 }
 
@@ -217,8 +224,6 @@ public class Controller extends Observable
                 }
             }
         }
-
-        //Map save by pressing 's' key and load map by pressing l
         while (Keyboard.next()) 
         {
             if (Keyboard.getEventKeyState())
@@ -227,13 +232,24 @@ public class Controller extends Observable
                 {
                     View.gameScreen.saveMap(grid.getTileMatrix(), View.gameScreen);
                 }
-//                if (Keyboard.getEventKey() == Keyboard.KEY_L) 
-//                {
-//                    System.out.println("Loading the map");
-//                }
-                if (Keyboard.getEventKey() == Keyboard.KEY_G)
+                if (Keyboard.getEventKey() == Keyboard.KEY_L) 
                 {
-                    System.out.println("log for all towers");
+                	if(tower.equals("bomb"))
+                	{
+                        	Log.printLogs(TileGrid.towerBomb.getClass().getSimpleName());
+                    }
+                    if(tower.equals("freez"))
+                    {
+                    	Log.printLogs(TileGrid.towerFreez.getClass().getSimpleName());
+                    }
+                    if(tower.equals("cannon"))
+                    {
+                    	Log.printLogs(TileGrid.towerCannon.getClass().getSimpleName());
+                    }
+                }
+                if (Keyboard.getEventKey() == Keyboard.KEY_T)
+                {
+                	Log.printLogs("Tower");
                 }
 
                 if(tower.equals("cannon tower") || tower.equals("bomb tower") || tower.equals("freez tower")) // all operation will perform on third click
@@ -249,6 +265,8 @@ public class Controller extends Observable
                                     currentTile = TileType.Grass;
                                     grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT - Mouse.getY() - 1) / blockSize), currentTile);					
                                     temp.sell();
+                                    String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                                    Log.addLogMessage(towerInfo, "Tower sold");
                                     TileGrid.cannonList.remove(temp);
                                     break;
                                 }
@@ -264,6 +282,8 @@ public class Controller extends Observable
                                     currentTile = TileType.Grass;
                                     grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT - Mouse.getY() - 1) / blockSize), currentTile);					
                                     temp.sell();
+                                    String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                                    Log.addLogMessage(towerInfo, "Tower sold");
                                     TileGrid.bombList.remove(temp);
                                     break;
                                 }
@@ -278,6 +298,8 @@ public class Controller extends Observable
                                     currentTile = TileType.Grass;
                                     grid.setTile((int)Math.floor(Mouse.getX() / blockSize),(int)Math.floor((HEIGHT - Mouse.getY() - 1) / blockSize), currentTile);					
                                     temp.sell();
+                                    String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                                    Log.addLogMessage(towerInfo, "Tower sold");
                                     TileGrid.freezList.remove(temp);
                                     break;
                                 }
@@ -295,6 +317,8 @@ public class Controller extends Observable
                                 if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
                                 {
                                     temp.upgrade();
+                                    String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                                    Log.addLogMessage(towerInfo, "damage updated -> "+temp.getDamage());
                                     break;
                                 }
                             }
@@ -307,6 +331,8 @@ public class Controller extends Observable
                                 if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
                                 {
                                     temp.upgrade();
+                                    String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                                    Log.addLogMessage(towerInfo, "damage updated -> "+temp.getDamage());
                                     break;
                                 }
                             }
@@ -319,6 +345,8 @@ public class Controller extends Observable
                                 if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
                                 {
                                     temp.upgrade();
+                                    String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                                    Log.addLogMessage(towerInfo, "damage updated -> "+temp.getDamage());
                                     break;
                                 }
                             }
@@ -335,6 +363,8 @@ public class Controller extends Observable
                                 if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
                                 {
                                     temp.upgradeRange();
+                                    String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                                    Log.addLogMessage(towerInfo, "range updated -> "+temp.getRange());
                                     break;
                                 }
                             }
@@ -347,6 +377,8 @@ public class Controller extends Observable
                                 if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
                                 {
                                 	temp.upgradeRange();
+                                	String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                                    Log.addLogMessage(towerInfo, "range updated -> "+temp.getRange());
                                     break;
                                 }
                             }
@@ -359,6 +391,8 @@ public class Controller extends Observable
                                 if(x == (temp.getX() / blockSize) && y == (temp.getY() / blockSize))
                                 {
                                 	temp.upgradeRange();
+                                	String towerInfo = temp.getClass().getSimpleName().toString() + x + y;
+                                    Log.addLogMessage(towerInfo, "range updated -> "+temp.getRange());
                                     break;
                                 }
                             }
