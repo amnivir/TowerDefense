@@ -12,6 +12,7 @@ import tower.Tower;
 import tower.TowerBomb;
 import tower.TowerCannon;
 import tower.TowerFreez;
+import utility.Log;
 import utility.Wave;
 import static graphics.Designer.*;
 
@@ -137,20 +138,22 @@ public class Controller extends Observable
                         currentTile = TileType.TowerCannon;
                         TileGrid.towerCannon.description();
                         System.out.println("Log for all Cannon towers");
+                        
+                        Log.printLogs(TileGrid.towerCannon.getClass().getSimpleName().toString());
                     }
 
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 1)
                     {
                         currentTile = TileType.TowerBomb;
                         TileGrid.towerBomb.description();
-                        System.out.println("Log for all Bomb towers");
+                        Log.printLogs(TileGrid.towerBomb.getClass().getSimpleName().toString());
                     }
 
                     else if((int)Math.floor(Mouse.getX() / blockSize) == View.getNoColumns() + 2)
                     {
                         currentTile = TileType.TowerFreez;
-                        TileGrid.towerFreez.description();
-                        System.out.println("Log for all Freez towers");
+                        TileGrid.towerFreez.description(); 
+                        Log.printLogs(TileGrid.towerFreez.getClass().getSimpleName().toString());
                     }
                 }
 
@@ -392,11 +395,17 @@ public class Controller extends Observable
                     }
                     if (Keyboard.getEventKey() == Keyboard.KEY_L) 
                     {
+                    	String key=null;
+                    	if(tower.equals("bomb tower"))
+                    	
                         {
-                            for(TowerBomb cannonBomb : TileGrid.bombList )
+                            for(TowerBomb bombTower : TileGrid.bombList )
                             {
-                                if(x==cannonBomb.getX()/ blockSize && y== cannonBomb.getY()/ blockSize)
-                                    System.out.println("Log of perticular tower");
+                                if(x==bombTower.getX()/ blockSize && y== bombTower.getY()/ blockSize)
+                                {
+                                	key=bombTower.getClass().getSimpleName().toString() + x + y;
+                                	Log.printLogs(key);
+                                }
                             }
 
                         }
@@ -405,16 +414,24 @@ public class Controller extends Observable
                             for(TowerFreez freezTower : TileGrid.freezList )
                             {
                                 if(x==freezTower.getX()/ blockSize && y== freezTower.getY()/ blockSize)
-                                	System.out.println("Log of perticular tower");
+                                {
+                                	key=freezTower.getClass().getSimpleName().toString() + x + y;
+                                	Log.printLogs(key);
+                                }
                             }
 
                         }
                         if(tower.equals("cannon tower"))
                         {
+                        	
                             for(TowerCannon cannonTower : TileGrid.cannonList )
                             {
                                 if(x==cannonTower.getX()/ blockSize && y== cannonTower.getY()/ blockSize)
-                                	System.out.println("Log of perticular tower");
+                                {
+                                	key=cannonTower.getClass().getSimpleName().toString() + x + y;
+                                	Log.printLogs(key);
+                                }
+                                	
                             }
                         }
                     }
