@@ -228,6 +228,10 @@ public class Controller extends Observable
         {
             if (Keyboard.getEventKeyState())
             {
+            	if (Keyboard.getEventKey() == Keyboard.KEY_W)
+                {
+            		Log.printLogs("wave");
+                }
                 if (Keyboard.getEventKey() == Keyboard.KEY_S)
                 {
                     View.gameScreen.saveMap(grid.getTileMatrix(), View.gameScreen);
