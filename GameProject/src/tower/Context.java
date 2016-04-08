@@ -9,7 +9,7 @@ import ai.Strategy;
 
 /**
  * @author s_niga
- *
+ * This class has the object of strategy
  */
 public class Context {
 

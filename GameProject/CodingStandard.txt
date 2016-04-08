@@ -18,3 +18,26 @@ Places where a blank line is often a good idea:
 between method declarations in a class declaration;
 between variable declarations in a class declaration;
 between major sections of a long and complicated function.
+
+Example
+public class Dog
+{
+   String breed;
+   int ageC
+   String color;
+
+   void barkingDog()
+   {
+   
+   }
+   
+   void hungryDog()
+   {
+   
+   }
+   
+   void sleepingDog()
+   {
+   
+   }
+}

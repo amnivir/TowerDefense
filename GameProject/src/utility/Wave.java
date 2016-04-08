@@ -91,6 +91,7 @@ public class Wave extends Observable
                         GameStateManager.setGameState("IDLE");
                         System.out.println("Game state changed to IDLE");
                         numOfCrittersCreated = 0;
+                        numofCrittersInWave++;
                         numWavesCompleted++;
                         
                     }

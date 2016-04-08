@@ -37,7 +37,7 @@ public class Controller extends Observable
     private TileGrid grid;
     int  blockSize = 32;
     public TileType currentTile = TileType.Grass;
-    public static int money = 50000;//TODO  original 500 to end game sooner
+    public static int money = 1000;//TODO  original 500 to end game sooner
     
     String tower = "";		//for checking which tower it is in run time
     int x, y;//to get the current x coordinate and y coordinate of map
@@ -228,6 +228,10 @@ public class Controller extends Observable
         {
             if (Keyboard.getEventKeyState())
             {
+            	if (Keyboard.getEventKey() == Keyboard.KEY_G)
+                {
+            		Log.printLogs("");
+                }
             	if (Keyboard.getEventKey() == Keyboard.KEY_W)
                 {
             		Log.printLogs("wave");

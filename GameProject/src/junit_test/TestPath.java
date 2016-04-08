@@ -24,13 +24,15 @@ public class TestPath extends TestCase
 		View.setNoRows(5);
 		View.setNoColumns(5);
 	}
-
+	
 	@After
 	public void tearDown() throws Exception 
 	{
 		TileGrid.pathCordinate.clear();
 	}
-
+	/**
+	 * THis method tests copying of path
+	 */
 	@Test
 	public void testCopyArray() 
 	{
@@ -41,7 +43,9 @@ public class TestPath extends TestCase
 		arr2 = Path.copyArray(arr1);
 		assertEquals(arr2, arr1);
 	}
-
+	/**
+	 * THis method tests valid path
+	 */
 	@Test
 	public void testIsPathValid_PathOK()
 	{
@@ -50,13 +54,17 @@ public class TestPath extends TestCase
 		TileGrid.pathCordinate.addAll(Arrays.asList(pathList));
 		assertEquals("Path is not OK",PathValidationCode.PATH_OK, Path.isPathValid());
 	}
-	
+	/**
+	 * THis method tests valid path
+	 */
 	@Test
 	public void testIsPathValid_PathNoExitEntry() 
 	{
 		assertEquals(PathValidationCode.PATH_NO_EXIT_ENTRY, Path.isPathValid());
 	}
-	
+	/**
+	 * THis method tests valid path
+	 */
 	@Test
 	public void testIsPathValid_PathManyExitEntry() 
 	{
@@ -64,6 +72,9 @@ public class TestPath extends TestCase
 		TileGrid.pathCordinate.addAll(Arrays.asList(pathList));
 		assertEquals(PathValidationCode.PATH_MANY_EXIT_ENTRY, Path.isPathValid());
 	}
+	/**
+	 * THis method tests valid path
+	 */
 	@Test
 	public void testIsPathValid_PathManyRoutesFound()
 	{

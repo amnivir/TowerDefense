@@ -41,7 +41,9 @@ public class TestStrategy extends TestCase
 		 
 		
 	}
-	
+	/**
+	 * THis method tests strategy of shooting Closest Critter
+	 */
 	@Test
 	public void testExecuteShootClosestCritter()
 	{	
@@ -49,6 +51,9 @@ public class TestStrategy extends TestCase
 		assertEquals(0,context.executeStrategy(0,0,30,0,EffectType.bomb,ShootStrategyEnum.closestCritter, null));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests strategy of shooting Weakest Critter
+	 */
 	@Test
 	public void testExecuteShootWeakestCritter()
 	{	
@@ -56,6 +61,9 @@ public class TestStrategy extends TestCase
 		assertEquals(0,context.executeStrategy(0,0,30,0,EffectType.bomb,ShootStrategyEnum.weakestCritter, null));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests strategy of shooting strongest Critter
+	 */
 	@Test
 	public void testExecuteShootStrongestCritter()
 	{	
@@ -63,6 +71,9 @@ public class TestStrategy extends TestCase
 		assertEquals(0,context.executeStrategy(0,0,30,0,EffectType.bomb,ShootStrategyEnum.strongestCritter, null));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests strategy of shooting Nearest to end point Critter
+	 */
 	@Test
 	public void testExecuteShootNearestEndPointCritter()
 	{	

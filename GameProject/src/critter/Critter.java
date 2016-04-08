@@ -49,7 +49,9 @@ public abstract class Critter
 				CoordinateConverter.getXCordinate(Path.continousPath.get(Path.continousPath.size()-1)));
 		this.isCriterAlive=true;
 	}
-	
+	/**
+	 * THis method reduces the health corresponding to tower's damage
+	 */
 	public void reduceHealth(int damage)
 	{
 		this.health-=damage;
@@ -128,7 +130,9 @@ public abstract class Critter
 	}
 
 	public abstract void draw();
-
+	/**
+	 * THis method changes the x and y coordinates of critter to move
+	 */
 	public final void update() 
 	{
 		boolean critterMovedOneTile=false;
@@ -254,7 +258,9 @@ public abstract class Critter
 			}
 		}
 	}
-	
+	/**
+	 * THis method freez timer to freez the critter
+	 */
 	public void setFreezeTimer(int damage)
 	{
 		reduceHealth(damage);
@@ -262,13 +268,17 @@ public abstract class Critter
 		stopCounter = 30;
 		isStopped = true;
 	}
-	
+	/**
+	 * THis method burn timer to burn the critter
+	 */
 	public void burn(int damage)
 	{
 		burnCounter = 30;	
 		reduceHealth(damage);
 	}
-	
+	/**
+	 * THis method draws the critter
+	 */
 	public void drawTex()
 	{
 		if(this.health < 50 && this.health > 25)

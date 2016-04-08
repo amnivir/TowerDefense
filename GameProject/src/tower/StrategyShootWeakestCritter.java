@@ -9,7 +9,7 @@ import ai.Strategy;
 
 /**
  * @author s_niga
- *
+ *This class add new bullets in the list targeting weakest critter
  */
 public class StrategyShootWeakestCritter extends Tower implements Strategy {
 

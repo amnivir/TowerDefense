@@ -64,91 +64,117 @@ public class TestTower extends TestCase
 		t3=TowerFactory.getTower("cannon", Designer.quickTexture("cannonBase"),new Tile(0, 0, 32, 32, TileType.TowerCannon));
 		Controller.money=100;
 	}
-
+	/**
+	 * THis method tests instance of Freez Tower
+	 */
 	@Test
 	public void testFreezFactory() 
 	{
 		assertTrue(t1 instanceof TowerFreez);
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests instance of Bomb Tower
+	 */
 	@Test
 	public void testBombFactory()
 	{
 		assertTrue(t2 instanceof TowerBomb);
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests instance of Cannon Tower
+	 */
 	@Test
 	public void testCannonFactory() 
 	{
 		assertTrue(t3 instanceof TowerCannon);
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests buying of Cannon Tower
+	 */
 	@Test
 	public void testCannonBuy()
 	{
 		assertTrue(t3.buy());
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests buying of Bomb Tower
+	 */
 	@Test
 	public void testBombBuy()
 	{
 		assertTrue(t2.buy());
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests buying of Freez Tower
+	 */
 	@Test
 	public void testFreezBuy() 
 	{
 		assertTrue(t1.buy());
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests damage of Freez Tower
+	 */
 	@Test
 	public void testFreezDamage() 
 	{
 		assertEquals(t1.getDamage(),30);
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests Range of Freez Tower
+	 */
 	@Test
 	public void testFreezRange()
 	{
 		assertEquals(t1.getRange(),5);
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests Damage of Bomb Tower
+	 */
 	@Test
 	public void testBombDamage() 
 	{
 		assertEquals(t2.getDamage(),20);
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests Range of Bomb Tower
+	 */
 	@Test
 	public void testBombRange() 
 	{
 		assertEquals(t2.getRange(),4);
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests Damage of Cannon Tower
+	 */
 	@Test
 	public void testCannonDamage() 
 	{
 		assertEquals(t3.getDamage(),10);
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests Range of Cannon Tower
+	 */
 	@Test
 	public void testCannonRange() 
 	{
 		assertEquals(t3.getRange(),3);
 		Display.destroy();
 	}
-	
+	/**
+	 * THis method tests Selling of Freez Tower
+	 */
 	@Test
 	public void testFreezSell() 
 	{
@@ -161,6 +187,9 @@ public class TestTower extends TestCase
 		assertEquals(expectedValue, actualValue);
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Selling of Cannon Tower
+	 */
 	@Test
 	public void testCannonSell() 
 	{
@@ -173,6 +202,9 @@ public class TestTower extends TestCase
 		assertEquals(expectedValue, actualValue);
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Selling of Bomb Tower
+	 */
 	@Test
 	public void testBombSell() 
 	{
@@ -185,72 +217,108 @@ public class TestTower extends TestCase
 		assertEquals(expectedValue, actualValue);
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Strategy of Bomb Tower
+	 */
 	@Test
 	public void testBombSetStrategy() 
 	{
 		assertEquals("bomb tower",Tower.setStrategy("bomb tower", 0, 0, ShootStrategyEnum.closestCritter));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Strategy of Freez Tower
+	 */
 	@Test
 	public void testFreezSetStrategy() 
 	{
 		assertEquals("freez tower",Tower.setStrategy("freez tower", 0, 0, ShootStrategyEnum.closestCritter));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Strategy of Cannon Tower
+	 */
 	@Test
 	public void testCannonSetStrategy() 
 	{
 		assertEquals("cannon tower",Tower.setStrategy("cannon tower", 0, 0, ShootStrategyEnum.closestCritter));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Effect of Cannon Tower
+	 */
 	@Test
 	public void testCannonEffect() 
 	{
 		assertEquals(EffectType.cannon,t3.getTowerEffectType());
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Effect of Bomb Tower
+	 */
 	@Test
 	public void testBombEffect() 
 	{
 		assertEquals(EffectType.bomb,t2.getTowerEffectType());
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Effect of Freez Tower
+	 */
 	@Test
 	public void testFreezEffect() 
 	{
 		assertEquals(EffectType.freeze,t1.getTowerEffectType());
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Damage update of Freez Tower
+	 */
 	@Test
 	public void testFreezUpgrade() 
 	{
 		assertEquals(true,t1.upgrade());
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Damage update of Cannon Tower
+	 */
 	@Test
 	public void testCannonUpgrade() 
 	{
 		assertEquals(true,t3.upgrade());
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Damage update of Bomb Tower
+	 */
 	@Test
 	public void testBombUpgrade() 
 	{
 		assertEquals(true,t2.upgrade());
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Range update of Freez Tower
+	 */
 	@Test
 	public void testFreezUpgradeRange() 
 	{
 		assertEquals(true,t1.upgradeRange());
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Range update of Cannon Tower
+	 */
 	@Test
 	public void testCannonUpgradeRange() 
 	{
 		assertEquals(true,t3.upgradeRange());
 		Display.destroy();
 	}
+	/**
+	 * THis method tests Range update of Bomb Tower
+	 */
 	@Test
 	public void testBombUpgradeRange() 
 	{

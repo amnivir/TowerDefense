@@ -83,7 +83,9 @@ public class ShootTile extends Tower
 			yVelocity *= -1;
 		}
 	}
-	
+	/**
+	 * THis method update the x and y coordinates of the bullet
+	 */
 	public void update()
 	{
 		if(alive && Clock.delta() < 1 && Clock.delta() > 0)
@@ -182,7 +184,9 @@ public class ShootTile extends Tower
 			}
 		}
 	}
-	
+	/**
+	 * THis method returns the array list of the critter
+	 */
 	public ArrayList<Critter> getTargetCritterOnTargetTile()
 	{
 		ArrayList<Critter> targetCritters = new ArrayList<Critter>();
@@ -196,7 +200,9 @@ public class ShootTile extends Tower
 		
 		return targetCritters;
 	}
-	
+	/**
+	 * THis method sets the freez timer for the critter
+	 */
 	public void setFreezeTimer(Critter critter)
 	{
 		critter.setFreezeTimer(this.damage);

@@ -9,7 +9,7 @@ import ai.Strategy;
 
 /**
  * @author s_niga
- *
+ *This class add new bullets in the list targeting nearest to the end point critter
  */
 public class StrategyShootNearestEndPointCritter extends Tower implements Strategy{
 

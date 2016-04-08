@@ -29,49 +29,72 @@ public class TestLog extends TestCase
         Log.addLogMessage(t2.getClass().getSimpleName().toString() + t2.getX()/32 + t2.getY()/32, "tower bought");
         Log.addLogMessage(t1.getClass().getSimpleName().toString() + t1.getX()/32 + t1.getY()/32, "tower bought");
 	}
-	
+	/**
+	 * THis method tests log of all towers
+	 */
 	@Test
 	public void testAllTowersLog() 
 	{
 		assertEquals(true, Log.printLogs(""));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests log of all towers
+	 */
 	@Test
 	public void testAllTowersLogFalse() 
 	{
 		assertEquals(false, Log.printLogs(null));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests log of all cannon towers
+	 */
 	@Test
 	public void testCannonTowersLog() 
 	{
 		assertEquals(true, Log.printLogs(t3.getClass().getSimpleName().toString()));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests log of all bomb towers
+	 */
 	@Test
 	public void testBombTowersLog() 
 	{
 		assertEquals(true, Log.printLogs(t2.getClass().getSimpleName().toString()));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests log of all freez towers
+	 */
 	@Test
 	public void testFreezTowersLog() 
 	{
 		assertEquals(true, Log.printLogs(t2.getClass().getSimpleName().toString()));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests log of one cannon towers
+	 */
 	@Test
 	public void testPerticularCannonTowerLog() 
 	{
 		assertEquals(true, Log.printLogs(t3.getClass().getSimpleName().toString()+t3.getX()/32+t3.getY()/32));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests log of one bomb towers
+	 */
 	@Test
 	public void testPerticularBombTowerLog() 
 	{
 		assertEquals(true, Log.printLogs(t2.getClass().getSimpleName().toString()+t2.getX()/32+t2.getY()/32));
 		Display.destroy();
 	}
+	/**
+	 * THis method tests log of one freez towers
+	 */
 	@Test
 	public void testPerticularFreezTowerLog() 
 	{

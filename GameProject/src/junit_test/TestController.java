@@ -6,7 +6,9 @@ import main.Controller;
 import org.junit.Test;
 
 public class TestController {
-
+	/**
+	 * THis method tests the instance of controller
+	 */
 	@Test
 	public void testGetInstance()
 	{

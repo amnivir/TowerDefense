@@ -10,7 +10,7 @@ import ai.Strategy;
 
 /**
  * @author s_niga
- *
+ *This class add new bullets in the list targeting closest critter
  */
 public class StrategyShootClosestCritter extends Tower implements Strategy {
 

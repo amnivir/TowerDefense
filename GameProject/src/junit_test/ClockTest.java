@@ -12,7 +12,9 @@ public class ClockTest extends TestCase
 {
 	long currentTime ;
 	public static long lastFrame;
-	
+	/**
+	 * THis method tests the getting of time
+	 */
 	@Test
 	public void testGetTime()
 	{
@@ -20,7 +22,9 @@ public class ClockTest extends TestCase
 		long expectedValue = Sys.getTime() * 1000/Sys.getTimerResolution();
 		assertEquals(expectedValue, currentTime);
 	}
-	
+	/**
+	 * THis method tests delta function
+	 */
 	@Test
 	public void testGetDelta_NotZero()
 	{
@@ -38,7 +42,9 @@ public class ClockTest extends TestCase
 			e.printStackTrace();
 		}
 	}	
-	
+	/**
+	 * THis method tests delta function
+	 */
 	@Test
 	public void testGetDelta()
 	{
